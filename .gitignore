@@ -1,0 +1,5 @@
+.playwright-mcp/
+.wrangler/
+coverage/
+dist/
+node_modules/

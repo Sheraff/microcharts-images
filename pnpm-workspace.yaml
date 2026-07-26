@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+  workerd: true
+minimumReleaseAgeExclude:
+  - '@cloudflare/workers-types@5.20260726.1'
+  - '@microcharts/react@0.10.0'

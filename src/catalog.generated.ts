@@ -1,0 +1,16760 @@
+import type { ChartDefinition } from "./types";
+
+export const LIBRARY_VERSION = "0.10.0";
+export const CHARTS = [
+  {
+    "name": "Sparkline",
+    "slug": "sparkline",
+    "dataShape": "number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "curve",
+        "type": "\"linear\" | \"smooth\" | \"step\"",
+        "required": false
+      },
+      {
+        "name": "fill",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "band",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "dots",
+        "type": "\"auto\" | \"minmax\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"last\" | \"minmax\"",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "maxPoints",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        3,
+        5,
+        4,
+        8,
+        6,
+        9
+      ],
+      "title": "Weekly revenue"
+    }
+  },
+  {
+    "name": "SparkBar",
+    "slug": "sparkbar",
+    "dataShape": "number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"bar\" | \"winloss\"",
+        "required": false
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"last\"",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        4,
+        6,
+        2,
+        8,
+        5,
+        9
+      ],
+      "title": "Deploys per day"
+    }
+  },
+  {
+    "name": "Delta",
+    "slug": "delta",
+    "dataShape": "number (+ optional from)",
+    "svg": false,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "from",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | fn",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 0.124,
+      "title": "Revenue vs last week"
+    }
+  },
+  {
+    "name": "Bullet",
+    "slug": "bullet",
+    "dataShape": "value + target + bands",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "target",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "bands",
+        "type": "number[]",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"value\" | \"target\" | \"both\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 72,
+      "target": 80,
+      "bands": [
+        50,
+        90
+      ],
+      "title": "Quota"
+    }
+  },
+  {
+    "name": "ActivityGrid",
+    "slug": "activity-grid",
+    "dataShape": "number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "layout",
+        "type": "\"grid\" | \"strip\"",
+        "required": false
+      },
+      {
+        "name": "shape",
+        "type": "\"square\" | \"round\" | \"dot\"",
+        "required": false
+      },
+      {
+        "name": "anchor",
+        "type": "string | Date",
+        "required": false
+      },
+      {
+        "name": "weekStart",
+        "type": "0 | 1",
+        "required": false
+      },
+      {
+        "name": "cell",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "steps",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        0,
+        1,
+        2,
+        1,
+        3,
+        4,
+        2,
+        0,
+        1,
+        3,
+        2,
+        4,
+        3,
+        1,
+        0,
+        2,
+        4,
+        3,
+        2,
+        1,
+        3,
+        0,
+        2,
+        3,
+        4,
+        1,
+        2,
+        0,
+        1,
+        2,
+        3,
+        4,
+        2,
+        1,
+        0
+      ],
+      "title": "Commits"
+    }
+  },
+  {
+    "name": "TrendArrow",
+    "slug": "trend-arrow",
+    "dataShape": "number (signed change)",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "flatBand",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "glyph",
+        "type": "\"arrow\" | \"triangle\" | \"chevron\"",
+        "required": false
+      },
+      {
+        "name": "showValue",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": -0.08,
+      "positive": "down",
+      "title": "Latency vs last week"
+    }
+  },
+  {
+    "name": "StatusDot",
+    "slug": "status-dot",
+    "dataShape": "\"ok\" | \"warn\" | \"error\" | \"off\" | \"busy\" (extensible)",
+    "svg": true,
+    "props": [
+      {
+        "name": "status",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "pulse",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "states",
+        "type": "Record<string, { glyph; token; label }>",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "status": "ok",
+      "title": "API"
+    }
+  },
+  {
+    "name": "HeatCell",
+    "slug": "heat-cell",
+    "dataShape": "number (+ shared domain)",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "steps",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "shape",
+        "type": "\"square\" | \"round\" | \"dot\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"value\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 42,
+      "domain": [
+        0,
+        100
+      ],
+      "title": "Load"
+    }
+  },
+  {
+    "name": "Progress",
+    "slug": "progress",
+    "dataShape": "number of max (optionally segmented)",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "segments",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"percent\" | \"value\" | \"fraction\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 0.68,
+      "title": "Onboarding"
+    }
+  },
+  {
+    "name": "RugStrip",
+    "slug": "rug-strip",
+    "dataShape": "number[] (raw observations)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "markValue",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        42,
+        48,
+        51,
+        53,
+        55,
+        58,
+        61,
+        63,
+        66,
+        71,
+        55,
+        52,
+        49,
+        58,
+        62,
+        75,
+        83,
+        58,
+        54,
+        60
+      ],
+      "markValue": 62,
+      "title": "Pay band"
+    }
+  },
+  {
+    "name": "MiniBar",
+    "slug": "mini-bar",
+    "dataShape": "{ label, value }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; value }[]",
+        "required": true
+      },
+      {
+        "name": "order",
+        "type": "\"data\" | \"desc\" | \"asc\"",
+        "required": false
+      },
+      {
+        "name": "highlight",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"max\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "East",
+          "value": 940
+        },
+        {
+          "label": "West",
+          "value": 410
+        },
+        {
+          "label": "South",
+          "value": 620
+        },
+        {
+          "label": "North",
+          "value": 120
+        }
+      ],
+      "title": "Sales by region"
+    }
+  },
+  {
+    "name": "PictogramRow",
+    "slug": "pictogram-row",
+    "dataShape": "value of total (units)",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "shape",
+        "type": "\"dot\" | \"square\"",
+        "required": false
+      },
+      {
+        "name": "fractional",
+        "type": "\"clip\" | \"round\"",
+        "required": false
+      },
+      {
+        "name": "renderPoint",
+        "type": "(unit) => ReactNode",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 5,
+      "total": 8,
+      "title": "Committee seats held"
+    }
+  },
+  {
+    "name": "Seismogram",
+    "slug": "seismogram",
+    "dataShape": "(number | null)[] (per-slot intensity; 0 = quiet)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"intensity\" | \"barcode\"",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "anomaly",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        1,
+        2,
+        1,
+        3,
+        2,
+        6,
+        2,
+        1,
+        0,
+        2,
+        1,
+        4,
+        9,
+        3,
+        1,
+        2,
+        0,
+        1,
+        3,
+        2,
+        7,
+        2,
+        1,
+        0,
+        2,
+        1,
+        5,
+        11,
+        3,
+        1,
+        2,
+        1
+      ],
+      "title": "Error bursts"
+    }
+  },
+  {
+    "name": "HeatStrip",
+    "slug": "heat-strip",
+    "dataShape": "(number | null)[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "steps",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "shape",
+        "type": "\"square\" | \"round\" | \"dot\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        12,
+        25,
+        38,
+        52,
+        66,
+        79,
+        88,
+        90,
+        84,
+        71,
+        55,
+        40,
+        28,
+        45,
+        62,
+        78,
+        85,
+        74,
+        58,
+        35
+      ],
+      "domain": [
+        0,
+        100
+      ],
+      "title": "Load per hour"
+    }
+  },
+  {
+    "name": "DotPlot",
+    "slug": "dot-plot",
+    "dataShape": "{ label, value }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; value }[]",
+        "required": true
+      },
+      {
+        "name": "stem",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "highlight",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"value\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Ada",
+          "value": 96
+        },
+        {
+          "label": "Kim",
+          "value": 41
+        },
+        {
+          "label": "Sam",
+          "value": 88
+        },
+        {
+          "label": "Noor",
+          "value": 73
+        },
+        {
+          "label": "Lee",
+          "value": 60
+        }
+      ],
+      "title": "Review scores"
+    }
+  },
+  {
+    "name": "Dumbbell",
+    "slug": "dumbbell",
+    "dataShape": "{ label?, from, to }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label?; from; to }[]",
+        "required": true
+      },
+      {
+        "name": "highlight",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"value\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "from": 62000,
+          "to": 84000
+        }
+      ],
+      "title": "Band move"
+    }
+  },
+  {
+    "name": "PairedBars",
+    "slug": "paired-bars",
+    "dataShape": "{ label, value, ref }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; value; ref }[]",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"grouped\" | \"overlay\"",
+        "required": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "East",
+          "value": 940,
+          "ref": 1200
+        },
+        {
+          "label": "West",
+          "value": 410,
+          "ref": 400
+        },
+        {
+          "label": "South",
+          "value": 620,
+          "ref": 600
+        },
+        {
+          "label": "North",
+          "value": 120,
+          "ref": 300
+        }
+      ],
+      "title": "Actual vs plan"
+    }
+  },
+  {
+    "name": "Slope",
+    "slug": "slope",
+    "dataShape": "{ label, from, to }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; from; to }[]",
+        "required": true
+      },
+      {
+        "name": "highlight",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"value\" | \"label\" | \"both\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "East",
+          "from": 40,
+          "to": 47
+        },
+        {
+          "label": "West",
+          "from": 55,
+          "to": 41
+        },
+        {
+          "label": "South",
+          "from": 30,
+          "to": 33
+        },
+        {
+          "label": "North",
+          "from": 50,
+          "to": 44
+        },
+        {
+          "label": "Mid",
+          "from": 20,
+          "to": 35
+        }
+      ],
+      "title": "Before vs after"
+    }
+  },
+  {
+    "name": "MicroScatter",
+    "slug": "micro-scatter",
+    "dataShape": "{ x, y }[] (unordered pairs)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ x; y }[]",
+        "required": true
+      },
+      {
+        "name": "trend",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "focal",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "xDomain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "r",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 1,
+          "y": 15
+        },
+        {
+          "x": 2,
+          "y": 30
+        },
+        {
+          "x": 3,
+          "y": 15
+        },
+        {
+          "x": 4,
+          "y": 30
+        },
+        {
+          "x": 5,
+          "y": 15
+        },
+        {
+          "x": 6,
+          "y": 30
+        },
+        {
+          "x": 7,
+          "y": 45
+        },
+        {
+          "x": 8,
+          "y": 30
+        },
+        {
+          "x": 9,
+          "y": 45
+        },
+        {
+          "x": 10,
+          "y": 30
+        },
+        {
+          "x": 11,
+          "y": 45
+        },
+        {
+          "x": 12,
+          "y": 60
+        },
+        {
+          "x": 13,
+          "y": 45
+        },
+        {
+          "x": 14,
+          "y": 60
+        },
+        {
+          "x": 15,
+          "y": 45
+        },
+        {
+          "x": 16,
+          "y": 60
+        },
+        {
+          "x": 17,
+          "y": 75
+        },
+        {
+          "x": 18,
+          "y": 60
+        },
+        {
+          "x": 19,
+          "y": 75
+        },
+        {
+          "x": 20,
+          "y": 60
+        },
+        {
+          "x": 21,
+          "y": 75
+        },
+        {
+          "x": 22,
+          "y": 90
+        },
+        {
+          "x": 23,
+          "y": 75
+        }
+      ],
+      "title": "Latency vs error rate"
+    }
+  },
+  {
+    "name": "SegmentedBar",
+    "slug": "segmented-bar",
+    "dataShape": "{ label, value }[] (parts of a whole)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; value }[]",
+        "required": true
+      },
+      {
+        "name": "maxSegments",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "order",
+        "type": "\"data\" | \"desc\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"percent\" | \"value\"",
+        "required": false
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Chrome",
+          "value": 620
+        },
+        {
+          "label": "Safari",
+          "value": 240
+        },
+        {
+          "label": "Firefox",
+          "value": 90
+        },
+        {
+          "label": "Edge",
+          "value": 30
+        },
+        {
+          "label": "Arc",
+          "value": 20
+        }
+      ],
+      "title": "Browser share"
+    }
+  },
+  {
+    "name": "HistogramStrip",
+    "slug": "histogram-strip",
+    "dataShape": "number[] (raw observations, binned internally)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "bins",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "markValue",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | fn",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        40,
+        27,
+        34,
+        43,
+        48,
+        55,
+        46,
+        69,
+        76,
+        49,
+        30,
+        37,
+        42,
+        51,
+        58,
+        45,
+        72,
+        79,
+        48,
+        33,
+        40,
+        41,
+        54,
+        61,
+        44,
+        75,
+        22,
+        47,
+        36,
+        43,
+        40,
+        57,
+        64,
+        43,
+        78,
+        25,
+        46,
+        39,
+        46,
+        49,
+        60,
+        67,
+        42,
+        21,
+        28,
+        45,
+        42,
+        49,
+        48,
+        63,
+        70,
+        41,
+        24,
+        31,
+        44,
+        45,
+        52,
+        47,
+        66,
+        73,
+        40,
+        27,
+        34,
+        43,
+        48,
+        55,
+        46,
+        69,
+        76,
+        49,
+        30,
+        37,
+        42,
+        51,
+        58,
+        45,
+        72,
+        79,
+        48,
+        33,
+        40,
+        41,
+        54,
+        61,
+        44,
+        75,
+        22,
+        47,
+        36,
+        43,
+        40,
+        57,
+        64,
+        43,
+        78,
+        25,
+        46,
+        39,
+        46,
+        49,
+        60,
+        67,
+        42,
+        21,
+        28,
+        45,
+        42,
+        49,
+        48,
+        63,
+        70,
+        41,
+        24,
+        31,
+        44,
+        45,
+        52,
+        47,
+        66,
+        73
+      ],
+      "title": "Response times"
+    }
+  },
+  {
+    "name": "MicroBox",
+    "slug": "micro-box",
+    "dataShape": "number[] OR { min, q1, median, q3, max }",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": false
+      },
+      {
+        "name": "stats",
+        "type": "{ min; q1; median; q3; max }",
+        "required": false
+      },
+      {
+        "name": "whiskers",
+        "type": "\"minmax\" | \"tukey\"",
+        "required": false
+      },
+      {
+        "name": "outliers",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "stats": {
+        "min": 12,
+        "q1": 35,
+        "median": 42,
+        "q3": 51,
+        "max": 96
+      },
+      "title": "p95 latency"
+    }
+  },
+  {
+    "name": "ProgressRing",
+    "slug": "progress-ring",
+    "dataShape": "value of max",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      },
+      {
+        "name": "sweep",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "weight",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"percent\"",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 0.68,
+      "title": "Backup"
+    }
+  },
+  {
+    "name": "MicroDonut",
+    "slug": "micro-donut",
+    "dataShape": "{ label, value }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; value }[]",
+        "required": true
+      },
+      {
+        "name": "maxWedges",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "decorative",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "weight",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"total\"",
+        "required": false
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Chrome",
+          "value": 620
+        },
+        {
+          "label": "Safari",
+          "value": 240
+        },
+        {
+          "label": "Firefox",
+          "value": 90
+        },
+        {
+          "label": "Edge",
+          "value": 30
+        },
+        {
+          "label": "Arc",
+          "value": 20
+        }
+      ],
+      "title": "Traffic mix"
+    }
+  },
+  {
+    "name": "Funnel",
+    "slug": "funnel",
+    "dataShape": "{ label, value }[] (ordered stages)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; value }[]",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"absolute\" | \"rate\"",
+        "required": false
+      },
+      {
+        "name": "connectors",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"percent\" | \"value\"",
+        "required": false
+      },
+      {
+        "name": "highlight",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Visitors",
+          "value": 12400
+        },
+        {
+          "label": "Signups",
+          "value": 5704
+        },
+        {
+          "label": "Activated",
+          "value": 2730
+        },
+        {
+          "label": "Paid",
+          "value": 1116
+        }
+      ],
+      "title": "Signup funnel"
+    }
+  },
+  {
+    "name": "LikertStrip",
+    "slug": "likert-strip",
+    "dataShape": "{ label, value }[] ordered most-negative → most-positive (2–7 levels)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; value }[]",
+        "required": true
+      },
+      {
+        "name": "neutral",
+        "type": "\"split\" | \"omit\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"ends\" | \"net\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Strongly disagree",
+          "value": 10
+        },
+        {
+          "label": "Disagree",
+          "value": 14
+        },
+        {
+          "label": "Neutral",
+          "value": 14
+        },
+        {
+          "label": "Agree",
+          "value": 34
+        },
+        {
+          "label": "Strongly agree",
+          "value": 28
+        }
+      ],
+      "title": "Q1 satisfaction"
+    }
+  },
+  {
+    "name": "Waterfall",
+    "slug": "waterfall",
+    "dataShape": "{ label, value }[] of signed deltas, in order",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; value }[]",
+        "required": true
+      },
+      {
+        "name": "open",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "totalBar",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"delta\"",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Product",
+          "value": 42
+        },
+        {
+          "label": "Services",
+          "value": 18
+        },
+        {
+          "label": "Refunds",
+          "value": -12
+        },
+        {
+          "label": "Opex",
+          "value": -26
+        },
+        {
+          "label": "FX",
+          "value": 5
+        }
+      ],
+      "open": 60,
+      "title": "Net income bridge"
+    }
+  },
+  {
+    "name": "BumpStrip",
+    "slug": "bump-strip",
+    "dataShape": "(number | null)[] of 1-based ranks per period (null = unranked)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "maxRank",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "dots",
+        "type": "\"changes\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"ends\" | \"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        5,
+        5,
+        4,
+        4,
+        4,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        1
+      ],
+      "title": "Category rank"
+    }
+  },
+  {
+    "name": "DualSparkline",
+    "slug": "dual-sparkline",
+    "dataShape": "data: (number | null)[] + compare: (number | null)[], exactly two series",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "compare",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "curve",
+        "type": "\"linear\" | \"smooth\" | \"step\"",
+        "required": false
+      },
+      {
+        "name": "band",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "dots",
+        "type": "\"auto\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "seriesStrings",
+        "type": "SeriesStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        12,
+        13,
+        12.4,
+        14,
+        15.2,
+        14.8,
+        16,
+        17.5,
+        17,
+        18.4,
+        19,
+        21
+      ],
+      "compare": [
+        12,
+        12.4,
+        12.8,
+        13.1,
+        13.6,
+        14,
+        14.2,
+        14.8,
+        15,
+        15.4,
+        15.8,
+        16
+      ],
+      "title": "Conversion vs market"
+    }
+  },
+  {
+    "name": "StackedArea",
+    "slug": "stacked-area",
+    "dataShape": "{ label, values }[], at most 3 series, stacked to 100%",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; values }[]",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"stacked\" | \"ridge\"",
+        "required": false
+      },
+      {
+        "name": "order",
+        "type": "\"data\" | \"asc\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "labelAt",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "required": false
+      },
+      {
+        "name": "curve",
+        "type": "\"linear\" | \"smooth\" | \"step\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Mobile",
+          "values": [
+            30,
+            34,
+            36,
+            40,
+            44,
+            47,
+            52,
+            56,
+            58,
+            60,
+            63,
+            66
+          ]
+        },
+        {
+          "label": "Web",
+          "values": [
+            50,
+            48,
+            47,
+            45,
+            42,
+            41,
+            38,
+            36,
+            35,
+            33,
+            32,
+            30
+          ]
+        },
+        {
+          "label": "API",
+          "values": [
+            20,
+            18,
+            17,
+            15,
+            14,
+            12,
+            10,
+            8,
+            7,
+            7,
+            5,
+            4
+          ]
+        }
+      ],
+      "title": "Traffic mix"
+    }
+  },
+  {
+    "name": "Ohlc",
+    "slug": "ohlc",
+    "dataShape": "{ open, high, low, close }[] per period, oldest first",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ open; high; low; close }[]",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"candle\" | \"bars\"",
+        "required": false
+      },
+      {
+        "name": "maxPeriods",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "open": 140,
+          "high": 143,
+          "low": 137,
+          "close": 142
+        },
+        {
+          "open": 143.2,
+          "high": 147.2,
+          "low": 139.2,
+          "close": 141.7
+        },
+        {
+          "open": 146.1,
+          "high": 151.1,
+          "low": 143.1,
+          "close": 148.1
+        },
+        {
+          "open": 148.5,
+          "high": 151.5,
+          "low": 144.5,
+          "close": 147
+        },
+        {
+          "open": 150.2,
+          "high": 154.2,
+          "low": 147.2,
+          "close": 152.2
+        },
+        {
+          "open": 151,
+          "high": 156,
+          "low": 147,
+          "close": 149.5
+        },
+        {
+          "open": 150.9,
+          "high": 153.9,
+          "low": 147.9,
+          "close": 152.9
+        },
+        {
+          "open": 150,
+          "high": 154,
+          "low": 146,
+          "close": 148.5
+        },
+        {
+          "open": 148.5,
+          "high": 153.5,
+          "low": 145.5,
+          "close": 150.5
+        },
+        {
+          "open": 146.5,
+          "high": 149.5,
+          "low": 142.5,
+          "close": 145
+        },
+        {
+          "open": 144.5,
+          "high": 148.5,
+          "low": 141.5,
+          "close": 146.5
+        },
+        {
+          "open": 142.6,
+          "high": 147.6,
+          "low": 138.6,
+          "close": 141.1
+        },
+        {
+          "open": 141.1,
+          "high": 144.1,
+          "low": 138.1,
+          "close": 143.1
+        },
+        {
+          "open": 140.4,
+          "high": 144.4,
+          "low": 136.4,
+          "close": 138.9
+        },
+        {
+          "open": 140.4,
+          "high": 145.4,
+          "low": 137.4,
+          "close": 142.4
+        },
+        {
+          "open": 141.3,
+          "high": 144.3,
+          "low": 137.3,
+          "close": 139.8
+        },
+        {
+          "open": 143.1,
+          "high": 147.1,
+          "low": 140.1,
+          "close": 145.1
+        },
+        {
+          "open": 145.6,
+          "high": 150.6,
+          "low": 141.6,
+          "close": 144.1
+        },
+        {
+          "open": 148.6,
+          "high": 151.6,
+          "low": 145.6,
+          "close": 150.6
+        },
+        {
+          "open": 151.8,
+          "high": 155.8,
+          "low": 147.8,
+          "close": 150.3
+        }
+      ],
+      "title": "ACME sessions"
+    }
+  },
+  {
+    "name": "Horizon",
+    "slug": "horizon",
+    "dataShape": "(number | null)[] over time",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "folds",
+        "type": "2 | 3",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"mirror\" | \"offset\"",
+        "required": false
+      },
+      {
+        "name": "baseline",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        2,
+        5,
+        9,
+        14,
+        22,
+        31,
+        26,
+        18,
+        12,
+        24,
+        38,
+        45,
+        41,
+        30,
+        19,
+        11,
+        6,
+        3,
+        8,
+        16,
+        27,
+        35,
+        29,
+        20
+      ],
+      "title": "Cluster load"
+    }
+  },
+  {
+    "name": "CalendarStrip",
+    "slug": "calendar-strip",
+    "dataShape": "{ date: ISO string | Date, value }[], date-indexed, not slot-indexed",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ date; value }[]",
+        "required": true
+      },
+      {
+        "name": "weeks",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "end",
+        "type": "string | Date",
+        "required": true
+      },
+      {
+        "name": "weekStart",
+        "type": "0 | 1",
+        "required": false
+      },
+      {
+        "name": "steps",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "shape",
+        "type": "\"square\" | \"round\" | \"dot\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "cell",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "date": "2026-06-04",
+          "value": 1
+        },
+        {
+          "date": "2026-06-05",
+          "value": 2
+        },
+        {
+          "date": "2026-06-06",
+          "value": 3
+        },
+        {
+          "date": "2026-06-07",
+          "value": 0
+        },
+        {
+          "date": "2026-06-08",
+          "value": 5
+        },
+        {
+          "date": "2026-06-09",
+          "value": 6
+        },
+        {
+          "date": "2026-06-10",
+          "value": 7
+        },
+        {
+          "date": "2026-06-11",
+          "value": 0
+        },
+        {
+          "date": "2026-06-12",
+          "value": 2
+        },
+        {
+          "date": "2026-06-13",
+          "value": 3
+        },
+        {
+          "date": "2026-06-14",
+          "value": 4
+        },
+        {
+          "date": "2026-06-15",
+          "value": 0
+        },
+        {
+          "date": "2026-06-16",
+          "value": 6
+        },
+        {
+          "date": "2026-06-17",
+          "value": 7
+        },
+        {
+          "date": "2026-06-18",
+          "value": 1
+        },
+        {
+          "date": "2026-06-19",
+          "value": 0
+        },
+        {
+          "date": "2026-06-20",
+          "value": 3
+        },
+        {
+          "date": "2026-06-21",
+          "value": 4
+        }
+      ],
+      "end": "2026-07-01",
+      "title": "Deploy cadence"
+    }
+  },
+  {
+    "name": "EventTimeline",
+    "slug": "event-timeline",
+    "dataShape": "{ start, end?, label?, kind? }[], end present = span, absent = point event",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ start; end?; label?; kind? }[]",
+        "required": true
+      },
+      {
+        "name": "domain",
+        "type": "[start, end]",
+        "required": false
+      },
+      {
+        "name": "now",
+        "type": "number | Date",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"spans\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "start": 1780448400000,
+          "end": 1780462800000,
+          "label": "Freeze",
+          "kind": "accent"
+        },
+        {
+          "start": 1780466400000,
+          "end": 1780498800000,
+          "label": "Healthy",
+          "kind": "positive"
+        },
+        {
+          "start": 1780484400000,
+          "label": "Incident",
+          "kind": "negative"
+        },
+        {
+          "start": 1780502400000,
+          "end": 1780509600000,
+          "kind": "negative"
+        },
+        {
+          "start": 1780516800000,
+          "label": "Release"
+        }
+      ],
+      "domain": [
+        1780444800000,
+        1780531200000
+      ],
+      "title": "API uptime"
+    }
+  },
+  {
+    "name": "CoverageStrip",
+    "slug": "coverage-strip",
+    "dataShape": "(number | null)[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "expected",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"binary\" | \"intensity\"",
+        "required": false
+      },
+      {
+        "name": "steps",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "shape",
+        "type": "\"square\" | \"round\" | \"dot\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"percent\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        3,
+        4,
+        null,
+        5,
+        0,
+        null,
+        null,
+        6,
+        8,
+        7,
+        null,
+        9,
+        11,
+        10
+      ],
+      "expected": 18,
+      "label": "percent",
+      "title": "Sensor uptime"
+    }
+  },
+  {
+    "name": "BenchmarkStrip",
+    "slug": "benchmark-strip",
+    "dataShape": "number[] + value",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "range",
+        "type": "\"p5p95\" | \"minmax\"",
+        "required": false
+      },
+      {
+        "name": "median",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"value\" | \"percentile\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        180,
+        201,
+        237,
+        286,
+        341,
+        396,
+        443,
+        394,
+        412,
+        413,
+        398,
+        372,
+        340,
+        310,
+        205,
+        196,
+        205,
+        230,
+        271,
+        322,
+        378,
+        347,
+        391,
+        421,
+        434,
+        430,
+        412,
+        383,
+        268,
+        239,
+        221,
+        218,
+        231,
+        261,
+        306,
+        275,
+        331,
+        382,
+        422,
+        447,
+        455,
+        447
+      ],
+      "value": 312,
+      "format": {
+        "style": "unit",
+        "unit": "millisecond"
+      },
+      "title": "Latency vs peers"
+    }
+  },
+  {
+    "name": "PercentileLadder",
+    "slug": "percentile-ladder",
+    "dataShape": "number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "ps",
+        "type": "number[]",
+        "required": false
+      },
+      {
+        "name": "scale",
+        "type": "\"linear\" | \"log\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"ps\" | \"values\" | \"both\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "marks",
+        "type": "\"tick\" | \"dot\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        420,
+        427,
+        434,
+        441,
+        448,
+        455,
+        462,
+        469,
+        156,
+        163,
+        170,
+        177,
+        184,
+        191,
+        198,
+        205,
+        212,
+        219,
+        226,
+        233,
+        240,
+        247,
+        254,
+        261,
+        268,
+        275,
+        282,
+        289,
+        296,
+        303,
+        310,
+        317,
+        324,
+        331,
+        338,
+        345,
+        352,
+        359,
+        366,
+        373,
+        380,
+        387,
+        394,
+        401,
+        408,
+        415,
+        422,
+        429,
+        436,
+        443,
+        660,
+        671,
+        682,
+        693,
+        704,
+        715,
+        726,
+        737,
+        748,
+        759,
+        770,
+        781,
+        792,
+        803,
+        814,
+        825,
+        1648,
+        1661,
+        1674,
+        1687
+      ],
+      "format": {
+        "style": "unit",
+        "unit": "millisecond"
+      },
+      "title": "Request latency"
+    }
+  },
+  {
+    "name": "GradedBand",
+    "slug": "graded-band",
+    "dataShape": "number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "levels",
+        "type": "number[]",
+        "required": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "softEdge",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"median\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        21,
+        33,
+        23,
+        26,
+        16,
+        7,
+        24,
+        25,
+        27,
+        30,
+        11,
+        13,
+        20,
+        19,
+        34,
+        27,
+        14,
+        18,
+        11,
+        21,
+        35,
+        23,
+        23,
+        16,
+        7,
+        25,
+        27,
+        26,
+        29,
+        11,
+        11,
+        22,
+        20,
+        33,
+        28,
+        12,
+        17,
+        14,
+        20,
+        36,
+        23,
+        20,
+        17,
+        8,
+        25,
+        30,
+        24,
+        28,
+        12,
+        10,
+        24,
+        22,
+        31,
+        28,
+        10,
+        16,
+        16,
+        20,
+        36,
+        23,
+        17,
+        18,
+        9,
+        25,
+        32,
+        23,
+        26,
+        12,
+        9,
+        26,
+        24,
+        29,
+        28,
+        9,
+        15,
+        19,
+        21,
+        36,
+        24,
+        14,
+        18,
+        10,
+        24,
+        34,
+        22,
+        23,
+        13,
+        9,
+        27,
+        26,
+        27,
+        28,
+        9,
+        14,
+        22,
+        21,
+        35,
+        24,
+        12,
+        18,
+        13,
+        24,
+        35,
+        21,
+        21,
+        15,
+        9,
+        28,
+        28,
+        25,
+        27,
+        9,
+        13,
+        25,
+        22,
+        33,
+        25,
+        10,
+        18,
+        15,
+        24,
+        36,
+        20,
+        18,
+        16,
+        9,
+        28,
+        30,
+        23,
+        25,
+        9,
+        12,
+        27,
+        23,
+        31,
+        25,
+        8,
+        17,
+        18,
+        23,
+        36,
+        20,
+        15,
+        17,
+        11,
+        28,
+        32,
+        21,
+        23,
+        11,
+        11,
+        29,
+        25,
+        29,
+        25,
+        7,
+        17,
+        21,
+        23,
+        35
+      ],
+      "label": "median",
+      "title": "Forecast estimate"
+    }
+  },
+  {
+    "name": "IconArray",
+    "slug": "icon-array",
+    "dataShape": "value (0–1)",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "total",
+        "type": "10 | 20 | 100",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"ratio\" | \"percent\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "shape",
+        "type": "\"square\" | \"round\" | \"dot\"",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 0.15,
+      "total": 20,
+      "title": "Adverse events"
+    }
+  },
+  {
+    "name": "RateVolume",
+    "slug": "rate-volume",
+    "dataShape": "{ rate, volume }[] per period, oldest first",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ rate; volume }[]",
+        "required": true
+      },
+      {
+        "name": "minVolume",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "volumeFormat",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "curve",
+        "type": "\"linear\" | \"step\"",
+        "required": false
+      },
+      {
+        "name": "dots",
+        "type": "per chart",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "volumeDomain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "rate": 0.023,
+          "volume": 220
+        },
+        {
+          "rate": 0.025,
+          "volume": 190
+        },
+        {
+          "rate": 0.028,
+          "volume": 160
+        },
+        {
+          "rate": 0.029,
+          "volume": 130
+        },
+        {
+          "rate": 0.031,
+          "volume": 110
+        },
+        {
+          "rate": 0.034,
+          "volume": 90
+        },
+        {
+          "rate": 0.036,
+          "volume": 66
+        },
+        {
+          "rate": 0.041,
+          "volume": 38
+        }
+      ],
+      "minVolume": 50,
+      "title": "Conversion rate"
+    }
+  },
+  {
+    "name": "NetFlow",
+    "slug": "net-flow",
+    "dataShape": "{ in, out }[] per period, oldest first",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ in; out }[]",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"area\" | \"bars\"",
+        "required": false
+      },
+      {
+        "name": "net",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "in": 42,
+          "out": 31
+        },
+        {
+          "in": 38,
+          "out": 35
+        },
+        {
+          "in": 45,
+          "out": 29
+        },
+        {
+          "in": 40,
+          "out": 44
+        },
+        {
+          "in": 52,
+          "out": 38
+        },
+        {
+          "in": 48,
+          "out": 41
+        },
+        {
+          "in": 55,
+          "out": 36
+        },
+        {
+          "in": 50,
+          "out": 47
+        },
+        {
+          "in": 58,
+          "out": 39
+        },
+        {
+          "in": 44,
+          "out": 52
+        },
+        {
+          "in": 60,
+          "out": 41
+        },
+        {
+          "in": 57,
+          "out": 43
+        }
+      ],
+      "title": "Monthly cash flow"
+    }
+  },
+  {
+    "name": "RetentionCurve",
+    "slug": "retention-curve",
+    "dataShape": "number[], fraction retained per period (period 0 ≈ 1.0)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "compare",
+        "type": "number[]",
+        "required": false
+      },
+      {
+        "name": "benchmark",
+        "type": "number[]",
+        "required": false
+      },
+      {
+        "name": "plateau",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "curve",
+        "type": "\"step\" | \"smooth\"",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        1,
+        0.72,
+        0.55,
+        0.47,
+        0.42,
+        0.4,
+        0.39,
+        0.385,
+        0.382,
+        0.38,
+        0.379,
+        0.378
+      ],
+      "unit": "week",
+      "title": "W12 cohort"
+    }
+  },
+  {
+    "name": "BurnChart",
+    "slug": "burn-chart",
+    "dataShape": "{ plan: number[]; actual: number[] }, remaining work per period",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ plan: number[]; actual: number[] }",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"down\" | \"up\"",
+        "required": false
+      },
+      {
+        "name": "projection",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "work",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"gap\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": {
+        "plan": [
+          40,
+          36,
+          32,
+          28,
+          24,
+          20,
+          16,
+          12,
+          8,
+          4,
+          0
+        ],
+        "actual": [
+          40,
+          35,
+          31,
+          27,
+          24,
+          21
+        ]
+      },
+      "title": "Sprint 12"
+    }
+  },
+  {
+    "name": "ErrorBudget",
+    "slug": "error-budget",
+    "dataShape": "number[], budget remaining (0–1) per elapsed step; index 0 = 1.0",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "window",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "rates",
+        "type": "number[]",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"remaining\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        1,
+        0.96,
+        0.93,
+        0.9,
+        0.86,
+        0.83,
+        0.79,
+        0.75,
+        0.71,
+        0.67,
+        0.64,
+        0.62
+      ],
+      "window": 30,
+      "title": "Checkout SLO"
+    }
+  },
+  {
+    "name": "ControlStrip",
+    "slug": "control-strip",
+    "dataShape": "number[], sequential process measurements",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "limits",
+        "type": "\"sigma\" | \"percentile\"",
+        "required": false
+      },
+      {
+        "name": "baseline",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "rules",
+        "type": "\"none\" | \"we\"",
+        "required": false
+      },
+      {
+        "name": "dots",
+        "type": "\"out\" | \"all\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        74,
+        73,
+        75,
+        74,
+        76,
+        73,
+        74,
+        75,
+        74,
+        73,
+        82,
+        74,
+        75,
+        73,
+        74,
+        76,
+        74,
+        73,
+        75,
+        74,
+        66,
+        74,
+        75,
+        74,
+        73,
+        76,
+        74,
+        75,
+        74,
+        73
+      ],
+      "title": "Line 3 fill weight"
+    }
+  },
+  {
+    "name": "ForecastCone",
+    "slug": "forecast-cone",
+    "dataShape": "number[] history + { mid, p80, p50? } forecast",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "forecast",
+        "type": "{ mid: number[]; p80: [lo,hi][]; p50?: [lo,hi][] }",
+        "required": true
+      },
+      {
+        "name": "target",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"landing\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        30,
+        32,
+        31,
+        34,
+        36,
+        35,
+        38
+      ],
+      "forecast": {
+        "mid": [
+          39,
+          40,
+          41,
+          42
+        ],
+        "p80": [
+          [
+            36,
+            42
+          ],
+          [
+            35,
+            45
+          ],
+          [
+            34,
+            50
+          ],
+          [
+            33,
+            55
+          ]
+        ],
+        "p50": [
+          [
+            37,
+            41
+          ],
+          [
+            37,
+            43
+          ],
+          [
+            36,
+            46
+          ],
+          [
+            35,
+            49
+          ]
+        ]
+      },
+      "target": 45,
+      "title": "Q4 revenue"
+    }
+  },
+  {
+    "name": "QuantileDots",
+    "slug": "quantile-dots",
+    "dataShape": "number[], raw sample or posterior draws",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "threshold",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "side",
+        "type": "\"above\" | \"below\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "per chart",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        24,
+        12,
+        6,
+        14,
+        8,
+        16,
+        9,
+        17,
+        11,
+        19,
+        13,
+        21,
+        15,
+        9,
+        17,
+        10,
+        18,
+        12,
+        20,
+        14,
+        22,
+        16,
+        24,
+        18,
+        26,
+        19,
+        13,
+        21,
+        15,
+        23,
+        6,
+        14,
+        8,
+        16,
+        10,
+        18,
+        12,
+        20,
+        13,
+        7,
+        15,
+        9,
+        17,
+        11,
+        19,
+        13,
+        21,
+        14,
+        22,
+        16,
+        44,
+        18,
+        12,
+        20,
+        13,
+        22,
+        15,
+        23,
+        17,
+        25,
+        8,
+        16,
+        10,
+        18,
+        12,
+        6,
+        14,
+        8,
+        16,
+        9,
+        17,
+        11,
+        19,
+        13,
+        21,
+        15,
+        23,
+        17,
+        10,
+        18,
+        12,
+        20,
+        14,
+        22,
+        16,
+        24,
+        18,
+        26,
+        19,
+        27,
+        11,
+        4,
+        12,
+        6,
+        14,
+        8,
+        16,
+        10,
+        18,
+        12,
+        40,
+        13,
+        21,
+        15,
+        9,
+        17,
+        11,
+        19,
+        13,
+        21,
+        14,
+        22,
+        16,
+        24,
+        18,
+        26,
+        20,
+        13,
+        22,
+        15,
+        13,
+        7,
+        15,
+        8,
+        16,
+        10,
+        18,
+        12,
+        20,
+        14,
+        8,
+        16,
+        9,
+        17,
+        11,
+        19,
+        13,
+        21,
+        15,
+        23,
+        17,
+        25,
+        18,
+        12,
+        20,
+        14,
+        22,
+        16,
+        24,
+        17,
+        35,
+        9,
+        17,
+        11,
+        19,
+        12,
+        6,
+        14,
+        8,
+        16,
+        10,
+        18,
+        12,
+        20,
+        13,
+        21,
+        15,
+        23,
+        17,
+        11,
+        19,
+        12,
+        21,
+        14,
+        22,
+        16,
+        24,
+        18,
+        26,
+        20,
+        17,
+        11,
+        5,
+        13,
+        7,
+        15,
+        8,
+        16,
+        10,
+        18,
+        12,
+        20,
+        14,
+        22,
+        16,
+        9,
+        17,
+        11,
+        19,
+        13
+      ],
+      "threshold": 15,
+      "title": "Bus wait"
+    }
+  },
+  {
+    "name": "ABStrips",
+    "slug": "ab-strips",
+    "dataShape": "{ a: number[]; b: number[] }, the two arms",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ a: number[]; b: number[] }",
+        "required": true
+      },
+      {
+        "name": "seriesLabels",
+        "type": "[string, string]",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"delta\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": {
+        "a": [
+          108,
+          121,
+          134,
+          147,
+          116,
+          129,
+          142,
+          111,
+          124,
+          137,
+          150,
+          119,
+          132,
+          145,
+          114,
+          127,
+          140,
+          109,
+          122,
+          135,
+          148,
+          117,
+          130,
+          143,
+          112,
+          125,
+          138,
+          151,
+          120,
+          133,
+          146,
+          115,
+          128,
+          141,
+          110,
+          123,
+          136,
+          149,
+          118,
+          131,
+          144,
+          113,
+          126,
+          139,
+          108,
+          121,
+          134,
+          147,
+          116,
+          129,
+          142,
+          111,
+          124,
+          137,
+          150,
+          119,
+          132,
+          145,
+          114,
+          127,
+          140,
+          109,
+          122,
+          135,
+          148,
+          117,
+          130,
+          143,
+          112,
+          125,
+          138,
+          151,
+          120,
+          133,
+          146,
+          115,
+          128,
+          141,
+          110,
+          123
+        ],
+        "b": [
+          94,
+          107,
+          120,
+          133,
+          102,
+          115,
+          128,
+          97,
+          110,
+          123,
+          136,
+          105,
+          118,
+          131,
+          100,
+          113,
+          126,
+          95,
+          108,
+          121,
+          134,
+          103,
+          116,
+          129,
+          98,
+          111,
+          124,
+          137,
+          106,
+          119,
+          132,
+          101,
+          114,
+          127,
+          96,
+          109,
+          122,
+          135,
+          104,
+          117,
+          130,
+          99,
+          112,
+          125,
+          94,
+          107,
+          120,
+          133,
+          102,
+          115,
+          128,
+          97,
+          110,
+          123,
+          136,
+          105,
+          118,
+          131,
+          100,
+          113,
+          126,
+          95,
+          108,
+          121,
+          134,
+          103,
+          116,
+          129,
+          98,
+          111,
+          124,
+          137,
+          106,
+          119,
+          132,
+          101,
+          114,
+          127,
+          96,
+          109
+        ]
+      },
+      "positive": "down",
+      "title": "Latency A/B"
+    }
+  },
+  {
+    "name": "ShiftHistogram",
+    "slug": "shift-histogram",
+    "dataShape": "{ before: number[]; after: number[] }",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ before: number[]; after: number[] }",
+        "required": true
+      },
+      {
+        "name": "bins",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"mirror\" | \"overlay\"",
+        "required": false
+      },
+      {
+        "name": "seriesLabels",
+        "type": "[string, string]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"shift\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": {
+        "before": [
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119
+        ],
+        "after": [
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95
+        ]
+      },
+      "title": "The fix"
+    }
+  },
+  {
+    "name": "ParetoStrip",
+    "slug": "pareto-strip",
+    "dataShape": "{ label: string; value: number }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label; value }[]",
+        "required": true
+      },
+      {
+        "name": "threshold",
+        "type": "number | false",
+        "required": false
+      },
+      {
+        "name": "maxItems",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "metric",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"count\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Timeouts",
+          "value": 38
+        },
+        {
+          "label": "OOM",
+          "value": 24
+        },
+        {
+          "label": "Deploy",
+          "value": 15
+        },
+        {
+          "label": "Config",
+          "value": 9
+        },
+        {
+          "label": "Network",
+          "value": 7
+        },
+        {
+          "label": "Auth",
+          "value": 4
+        },
+        {
+          "label": "Disk",
+          "value": 3
+        },
+        {
+          "label": "DNS",
+          "value": 3
+        },
+        {
+          "label": "Other bug",
+          "value": 2
+        }
+      ],
+      "unit": "causes",
+      "metric": "incidents",
+      "title": "Incident causes"
+    }
+  },
+  {
+    "name": "DataDiff",
+    "slug": "data-diff",
+    "dataShape": "{ key: string; added: number; removed: number }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ key; added; removed }[]",
+        "required": true
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "net",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "order",
+        "type": "\"data\" | \"net\" | \"magnitude\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"totals\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "maxItems",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "key": "users",
+          "added": 340,
+          "removed": 120
+        },
+        {
+          "key": "orders",
+          "added": 88,
+          "removed": 30
+        },
+        {
+          "key": "items",
+          "added": 40,
+          "removed": 20
+        },
+        {
+          "key": "tags",
+          "added": 24,
+          "removed": 8
+        },
+        {
+          "key": "notes",
+          "added": 12,
+          "removed": 6
+        },
+        {
+          "key": "flags",
+          "added": 8,
+          "removed": 3
+        }
+      ],
+      "title": "Schema diff"
+    }
+  },
+  {
+    "name": "QuadrantDot",
+    "slug": "quadrant-dot",
+    "dataShape": "{ x: number; y: number } + field?: { x; y }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ x; y }",
+        "required": true
+      },
+      {
+        "name": "field",
+        "type": "{ x; y }[]",
+        "required": false
+      },
+      {
+        "name": "xDomain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "split",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "quadrants",
+        "type": "[TL, TR, BL, BR]",
+        "required": false
+      },
+      {
+        "name": "xLabel",
+        "type": "unknown",
+        "required": false
+      },
+      {
+        "name": "yLabel",
+        "type": "unknown",
+        "required": false
+      },
+      {
+        "name": "region",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": {
+        "x": 3,
+        "y": 9
+      },
+      "field": [
+        {
+          "x": 2,
+          "y": 8
+        },
+        {
+          "x": 8,
+          "y": 9
+        },
+        {
+          "x": 3,
+          "y": 7
+        },
+        {
+          "x": 9,
+          "y": 2
+        },
+        {
+          "x": 7,
+          "y": 3
+        },
+        {
+          "x": 1,
+          "y": 1
+        },
+        {
+          "x": 5,
+          "y": 6
+        },
+        {
+          "x": 6,
+          "y": 8
+        },
+        {
+          "x": 4,
+          "y": 3
+        },
+        {
+          "x": 8,
+          "y": 5
+        },
+        {
+          "x": 2,
+          "y": 4
+        },
+        {
+          "x": 7,
+          "y": 7
+        },
+        {
+          "x": 3,
+          "y": 2
+        },
+        {
+          "x": 6,
+          "y": 1
+        }
+      ],
+      "xLabel": "effort",
+      "yLabel": "impact",
+      "title": "Effort vs impact"
+    }
+  },
+  {
+    "name": "CyclePlot",
+    "slug": "cycle-plot",
+    "dataShape": "number[] + period: number",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "period",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "slots",
+        "type": "string[]",
+        "required": false
+      },
+      {
+        "name": "center",
+        "type": "\"mean\" | \"median\"",
+        "required": false
+      },
+      {
+        "name": "trend",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "spine",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "cycleUnit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        38,
+        40,
+        45,
+        48,
+        52,
+        61,
+        44,
+        38,
+        42,
+        45,
+        48,
+        52,
+        61,
+        44,
+        38,
+        44,
+        45,
+        48,
+        52,
+        61,
+        44,
+        38,
+        46,
+        45,
+        48,
+        52,
+        61,
+        44,
+        38,
+        48,
+        45,
+        48,
+        52,
+        61,
+        44,
+        38,
+        50,
+        45,
+        48,
+        52,
+        61,
+        44
+      ],
+      "period": 7,
+      "slots": [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+      ],
+      "cycleUnit": "weeks",
+      "title": "Weekly shape"
+    }
+  },
+  {
+    "name": "ChangePoint",
+    "slug": "change-point",
+    "dataShape": "number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "breaks",
+        "type": "\"auto\" | number[]",
+        "required": false
+      },
+      {
+        "name": "maxItems",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "means",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"delta\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        28,
+        30,
+        32,
+        29,
+        31,
+        28,
+        30,
+        32,
+        29,
+        31,
+        28,
+        30,
+        32,
+        29,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46,
+        46
+      ],
+      "label": "delta",
+      "title": "Error rate"
+    }
+  },
+  {
+    "name": "EnsembleGhosts",
+    "slug": "ensemble-ghosts",
+    "dataShape": "number[][] (2–50 members)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[][]",
+        "required": true
+      },
+      {
+        "name": "ghosts",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "emphasis",
+        "type": "\"nearest-median\" | \"median\" | number",
+        "required": false
+      },
+      {
+        "name": "endpoints",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"end\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        [
+          40,
+          40,
+          38,
+          34,
+          29,
+          26,
+          26,
+          27,
+          26,
+          22
+        ],
+        [
+          43,
+          41,
+          37,
+          32,
+          29,
+          30,
+          30,
+          30,
+          26,
+          21
+        ],
+        [
+          43,
+          39,
+          34,
+          32,
+          32,
+          33,
+          33,
+          29,
+          25,
+          22
+        ],
+        [
+          40,
+          36,
+          34,
+          35,
+          36,
+          36,
+          32,
+          28,
+          25,
+          25
+        ],
+        [
+          38,
+          36,
+          37,
+          38,
+          38,
+          35,
+          31,
+          28,
+          28,
+          30
+        ],
+        [
+          37,
+          38,
+          40,
+          40,
+          37,
+          33,
+          31,
+          31,
+          33,
+          34
+        ],
+        [
+          39,
+          41,
+          41,
+          39,
+          35,
+          33,
+          33,
+          36,
+          36,
+          35
+        ],
+        [
+          42,
+          42,
+          40,
+          37,
+          35,
+          35,
+          38,
+          39,
+          37,
+          34
+        ],
+        [
+          43,
+          41,
+          38,
+          36,
+          37,
+          39,
+          41,
+          39,
+          36,
+          34
+        ],
+        [
+          41,
+          38,
+          37,
+          38,
+          41,
+          42,
+          41,
+          38,
+          36,
+          36
+        ],
+        [
+          38,
+          37,
+          39,
+          41,
+          43,
+          42,
+          39,
+          38,
+          38,
+          41
+        ],
+        [
+          37,
+          39,
+          42,
+          44,
+          43,
+          41,
+          39,
+          40,
+          43,
+          45
+        ],
+        [
+          38,
+          42,
+          44,
+          43,
+          41,
+          40,
+          41,
+          44,
+          47,
+          47
+        ],
+        [
+          41,
+          44,
+          43,
+          41,
+          40,
+          41,
+          45,
+          48,
+          48,
+          46
+        ],
+        [
+          43,
+          43,
+          41,
+          40,
+          42,
+          45,
+          48,
+          49,
+          47,
+          46
+        ],
+        [
+          42,
+          40,
+          39,
+          41,
+          45,
+          49,
+          49,
+          48,
+          47,
+          48
+        ],
+        [
+          39,
+          38,
+          41,
+          45,
+          48,
+          49,
+          48,
+          47,
+          48,
+          52
+        ],
+        [
+          37,
+          39,
+          44,
+          48,
+          49,
+          48,
+          47,
+          48,
+          52,
+          57
+        ],
+        [
+          38,
+          42,
+          46,
+          48,
+          47,
+          47,
+          48,
+          52,
+          57,
+          59
+        ],
+        [
+          40,
+          45,
+          47,
+          46,
+          46,
+          47,
+          52,
+          57,
+          59,
+          59
+        ],
+        [
+          43,
+          45,
+          44,
+          44,
+          46,
+          51,
+          56,
+          59,
+          59,
+          58
+        ],
+        [
+          43,
+          42,
+          42,
+          45,
+          50,
+          55,
+          58,
+          58,
+          58,
+          59
+        ],
+        [
+          40,
+          40,
+          43,
+          48,
+          53,
+          56,
+          57,
+          57,
+          59,
+          63
+        ],
+        [
+          37,
+          40,
+          45,
+          51,
+          55,
+          55,
+          56,
+          57,
+          62,
+          68
+        ]
+      ],
+      "title": "Simulated futures"
+    }
+  },
+  {
+    "name": "TallyMarks",
+    "slug": "tally-marks",
+    "dataShape": "{ value: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "overflow",
+        "type": "\"numeral\" | \"clamp\"",
+        "required": false
+      },
+      {
+        "name": "pen",
+        "type": "\"ruled\" | \"drawn\"",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 23,
+      "title": "Signatures"
+    }
+  },
+  {
+    "name": "DicePips",
+    "slug": "dice-pips",
+    "dataShape": "{ value: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "face",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 4,
+      "title": "Severity"
+    }
+  },
+  {
+    "name": "FillWord",
+    "slug": "fill-word",
+    "dataShape": "{ word: string; value: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "word",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"fill\" | \"drain\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"value\"",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "word": "uploading",
+      "value": 0.62
+    }
+  },
+  {
+    "name": "FatDigits",
+    "slug": "fat-digits",
+    "dataShape": "{ value: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "domain",
+        "type": "readonly [number, number]",
+        "required": false
+      },
+      {
+        "name": "encode",
+        "type": "\"value\" | \"digit\"",
+        "required": false
+      },
+      {
+        "name": "tiers",
+        "type": "3 | 5",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 1204,
+      "domain": [
+        0,
+        2100
+      ],
+      "title": "Revenue"
+    }
+  },
+  {
+    "name": "Thermometer",
+    "slug": "thermometer",
+    "dataShape": "{ value: number; target?: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "target",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "ticks",
+        "type": "number | number[]",
+        "required": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"vertical\" | \"horizontal\"",
+        "required": false
+      },
+      {
+        "name": "bulb",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "per chart",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 72,
+      "target": 80,
+      "title": "Fundraiser"
+    }
+  },
+  {
+    "name": "MoonPhase",
+    "slug": "moon-phase",
+    "dataShape": "{ value: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"progress\" | \"cycle\"",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 0.68,
+      "title": "Sprint"
+    }
+  },
+  {
+    "name": "Hourglass",
+    "slug": "hourglass",
+    "dataShape": "{ value: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "stream",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"remaining\" | \"elapsed\"",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 0.75,
+      "title": "Session"
+    }
+  },
+  {
+    "name": "BalanceBeam",
+    "slug": "balance-beam",
+    "dataShape": "[{ label, value }, { label, value }]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "[{label,value},{label,value}]",
+        "required": true
+      },
+      {
+        "name": "maxTilt",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "shape",
+        "type": "\"square\" | \"round\"",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"ratio\" | \"difference\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "per chart",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Inflow",
+          "value": 620
+        },
+        {
+          "label": "Outflow",
+          "value": 480
+        }
+      ]
+    }
+  },
+  {
+    "name": "SproutRow",
+    "slug": "sprout-row",
+    "dataShape": "{ label: string; value: 0 | 1 | 2 | 3 }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label, value }[]",
+        "required": true
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"value\"",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Acme",
+          "value": 3
+        },
+        {
+          "label": "Beta",
+          "value": 2
+        },
+        {
+          "label": "Gamma",
+          "value": 3
+        },
+        {
+          "label": "Delta",
+          "value": 1
+        },
+        {
+          "label": "Echo",
+          "value": 0
+        },
+        {
+          "label": "Foxx",
+          "value": 2
+        }
+      ],
+      "title": "Account health"
+    }
+  },
+  {
+    "name": "GardenGrid",
+    "slug": "garden-grid",
+    "dataShape": "(number | null)[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "steps",
+        "type": "3 | 5",
+        "required": false
+      },
+      {
+        "name": "empty",
+        "type": "\"outline\" | \"blank\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "cell",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        12,
+        20,
+        8,
+        0,
+        15,
+        28,
+        34,
+        5,
+        0,
+        22,
+        18,
+        9,
+        3,
+        0,
+        24,
+        30,
+        11,
+        6,
+        19,
+        0,
+        26
+      ],
+      "title": "Activity",
+      "unit": "weeks"
+    }
+  },
+  {
+    "name": "BubbleRow",
+    "slug": "bubble-row",
+    "dataShape": "{ label: string; value: number }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label, value }[]",
+        "required": true
+      },
+      {
+        "name": "align",
+        "type": "\"center\" | \"baseline\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"value\" | \"both\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "EMEA",
+          "value": 1240
+        },
+        {
+          "label": "AMER",
+          "value": 890
+        },
+        {
+          "label": "APAC",
+          "value": 560
+        },
+        {
+          "label": "LATAM",
+          "value": 210
+        }
+      ],
+      "title": "Market size"
+    }
+  },
+  {
+    "name": "MusicStaff",
+    "slug": "music-staff",
+    "dataShape": "(number | null)[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"staff\" | \"ledger\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"last\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        3,
+        5,
+        4,
+        8,
+        6,
+        9,
+        7,
+        11
+      ],
+      "title": "Sprint melody"
+    }
+  },
+  {
+    "name": "TreeRings",
+    "slug": "tree-rings",
+    "dataShape": "number[] (oldest first)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "highlight",
+        "type": "\"last\" | \"none\" | number",
+        "required": false
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "rings",
+        "type": "\"stroke\" | \"fill\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "per chart",
+        "required": false
+      },
+      {
+        "name": "periodWord",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        8,
+        12,
+        10,
+        18,
+        22,
+        15,
+        20,
+        14
+      ],
+      "unit": "years",
+      "periodWord": "year",
+      "title": "Account age"
+    }
+  },
+  {
+    "name": "CitySkyline",
+    "slug": "city-skyline",
+    "dataShape": "{ label: string; value: number; lit?: number }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label, value, lit? }[]",
+        "required": true
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "ground",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"value\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "bw",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Platform",
+          "value": 46,
+          "lit": 0.7
+        },
+        {
+          "label": "Core",
+          "value": 32,
+          "lit": 0.5
+        },
+        {
+          "label": "Web",
+          "value": 28,
+          "lit": 0.9
+        },
+        {
+          "label": "API",
+          "value": 40,
+          "lit": 0.3
+        },
+        {
+          "label": "Data",
+          "value": 18,
+          "lit": 0.6
+        }
+      ],
+      "unit": "teams",
+      "title": "Team sizes"
+    }
+  },
+  {
+    "name": "Honeycomb",
+    "slug": "honeycomb",
+    "dataShape": "{ value: number; total: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "rows",
+        "type": "number | \"auto\"",
+        "required": false
+      },
+      {
+        "name": "empty",
+        "type": "\"outline\" | \"blank\"",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"none\" | \"count\" | \"percent\"",
+        "required": false
+      },
+      {
+        "name": "cell",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 34,
+      "total": 40,
+      "unit": "seats",
+      "title": "Occupancy"
+    }
+  },
+  {
+    "name": "Constellation",
+    "slug": "constellation",
+    "dataShape": "{ x: number; y?: number; m?: number }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ x: number; y?: number; m?: number }[]",
+        "required": true
+      },
+      {
+        "name": "connect",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"max\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "xDomain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "xFormat",
+        "type": "(x: number) => string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "rBase",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "x": 0,
+          "y": 40,
+          "m": 2
+        },
+        {
+          "x": 2,
+          "y": 90,
+          "m": 7
+        },
+        {
+          "x": 5,
+          "y": 30,
+          "m": 3
+        },
+        {
+          "x": 8,
+          "y": 65,
+          "m": 5
+        }
+      ],
+      "title": "Incidents"
+    }
+  },
+  {
+    "name": "PolarClock",
+    "slug": "polar-clock",
+    "dataShape": "(number | null)[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "now",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "inner",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "origin",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"length\" | \"opacity\"",
+        "required": false
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "per chart",
+        "required": false
+      },
+      {
+        "name": "segmentFormat",
+        "type": "(index, n) => string",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        80,
+        81,
+        82,
+        83,
+        20,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        312,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103
+      ],
+      "now": 14,
+      "title": "Traffic by hour"
+    }
+  },
+  {
+    "name": "SpiralYear",
+    "slug": "spiral-year",
+    "dataShape": "(number | null)[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(number | null)[]",
+        "required": true
+      },
+      {
+        "name": "cadence",
+        "type": "\"day\" | \"week\"",
+        "required": false
+      },
+      {
+        "name": "startDate",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "steps",
+        "type": "3 | 5",
+        "required": false
+      },
+      {
+        "name": "monthTicks",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "mark",
+        "type": "\"dot\" | \"arc\"",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        85,
+        95,
+        107,
+        120,
+        135,
+        150,
+        166,
+        183,
+        200,
+        217,
+        234,
+        250,
+        265,
+        280,
+        293,
+        305,
+        315,
+        324,
+        331,
+        336,
+        339,
+        340,
+        339,
+        336,
+        331,
+        324,
+        315,
+        305,
+        293,
+        480,
+        265,
+        250,
+        234,
+        217,
+        200,
+        183,
+        166,
+        150,
+        135,
+        120,
+        107,
+        95,
+        85,
+        76,
+        69,
+        64,
+        61,
+        60,
+        61,
+        64,
+        69,
+        76
+      ],
+      "title": "Seasonality"
+    }
+  },
+  {
+    "name": "BreathingDot",
+    "slug": "breathing-dot",
+    "dataShape": "{ value: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "thresholds",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"value\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 0.42,
+      "title": "Load"
+    }
+  },
+  {
+    "name": "HeartbeatBlip",
+    "slug": "heartbeat-blip",
+    "dataShape": "number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "events",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "window",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "now",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"count\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "events": [
+        97000,
+        92000,
+        85000,
+        70000,
+        55000,
+        48000
+      ],
+      "now": 100000,
+      "title": "Requests"
+    }
+  },
+  {
+    "name": "CometTrail",
+    "slug": "comet-trail",
+    "dataShape": "number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "trail",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        72,
+        75,
+        78,
+        80,
+        84,
+        87
+      ],
+      "title": "Latency"
+    }
+  },
+  {
+    "name": "OrbitStatus",
+    "slug": "orbit-status",
+    "dataShape": "{ latency: number; rate: number }",
+    "svg": true,
+    "props": [
+      {
+        "name": "latency",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "rate",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "latencyDomain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "rateDomain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "threshold",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "per chart",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "fontSize",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "latency": 240,
+      "rate": 12,
+      "latencyDomain": [
+        0,
+        500
+      ],
+      "rateDomain": [
+        0,
+        20
+      ],
+      "title": "Payments API"
+    }
+  },
+  {
+    "name": "TimeInRange",
+    "slug": "time-in-range",
+    "dataShape": "{ severeBelow?, below, in, above, severeAbove? } (counts or fractions)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "TimeInRangeDatum",
+        "required": true
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"in\" | \"all\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": {
+        "below": 9,
+        "in": 72,
+        "above": 19
+      },
+      "title": "Time in range"
+    }
+  },
+  {
+    "name": "Hypnogram",
+    "slug": "hypnogram",
+    "dataShape": "{ t, state }[] (state holds until the next entry)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ t, state }[]",
+        "required": true
+      },
+      {
+        "name": "states",
+        "type": "string[]",
+        "required": false
+      },
+      {
+        "name": "emphasis",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "connectors",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"steps\" | \"lanes\"",
+        "required": false
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "t": 0,
+          "state": "Awake"
+        },
+        {
+          "t": 8,
+          "state": "Light"
+        },
+        {
+          "t": 22,
+          "state": "Deep"
+        },
+        {
+          "t": 38,
+          "state": "Light"
+        },
+        {
+          "t": 50,
+          "state": "REM"
+        },
+        {
+          "t": 62,
+          "state": "Light"
+        },
+        {
+          "t": 74,
+          "state": "Deep"
+        },
+        {
+          "t": 86,
+          "state": "Light"
+        },
+        {
+          "t": 98,
+          "state": "REM"
+        },
+        {
+          "t": 110,
+          "state": "Awake"
+        }
+      ],
+      "states": [
+        "Awake",
+        "REM",
+        "Light",
+        "Deep"
+      ],
+      "title": "Sleep stages"
+    }
+  },
+  {
+    "name": "EtaBar",
+    "slug": "eta-bar",
+    "dataShape": "{ progress, elapsed, rate? }",
+    "svg": true,
+    "props": [
+      {
+        "name": "progress",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "elapsed",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "rate",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"eta\" | \"percent\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "etaFormat",
+        "type": "(t: number) => string",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "progress": 0.64,
+      "elapsed": 3.6,
+      "rate": 0.18,
+      "title": "Export"
+    }
+  },
+  {
+    "name": "Waveform",
+    "slug": "waveform",
+    "dataShape": "number[] (amplitude samples, may be long)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "progress",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"bars\" | \"envelope\"",
+        "required": false
+      },
+      {
+        "name": "mirror",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        0,
+        0.050067,
+        0.097226,
+        0.138234,
+        0.170482,
+        0.192276,
+        0.203016,
+        0.203264,
+        0.194675,
+        0.179812,
+        0.161857,
+        0.144247,
+        0.130287,
+        0.122765,
+        0.123623,
+        0.133726,
+        0.15274,
+        0.17915,
+        0.210407,
+        0.243194,
+        0.273785,
+        0.298449,
+        0.313865,
+        0.3175,
+        0.3079,
+        0.284867,
+        0.249506,
+        0.204123,
+        0.151995,
+        0.097024,
+        0.043331,
+        -0.005188,
+        -0.045279,
+        -0.074681,
+        -0.092369,
+        -0.09866,
+        -0.095174,
+        -0.084648,
+        -0.070621,
+        -0.057033,
+        -0.047768,
+        -0.046204,
+        -0.054817,
+        -0.074872,
+        -0.106254,
+        -0.147453,
+        -0.195694,
+        -0.247222,
+        -0.297692,
+        -0.342631,
+        -0.377921,
+        -0.40025,
+        -0.407479,
+        -0.398882,
+        -0.37524,
+        -0.33876,
+        -0.29285,
+        -0.241753,
+        -0.190085,
+        -0.142341,
+        -0.102395,
+        -0.073084,
+        -0.055889,
+        -0.050778,
+        -0.056207,
+        -0.069298,
+        -0.086161,
+        -0.102337,
+        -0.11331,
+        -0.115023,
+        -0.104358,
+        -0.079513,
+        -0.040235,
+        0.012113,
+        0.074668,
+        0.143341,
+        0.213243,
+        0.279189,
+        0.336252,
+        0.38029,
+        0.408387,
+        0.419169,
+        0.412955,
+        0.391713,
+        0.35885,
+        0.318829,
+        0.276678,
+        0.237427,
+        0.20555,
+        0.184456,
+        0.17611,
+        0.1808,
+        0.197098,
+        0.222008,
+        0.251297,
+        0.279961,
+        0.302791,
+        0.314954,
+        0.312556,
+        0.293097,
+        0.255775,
+        0.200071,
+        0.131357,
+        0.054102,
+        -0.026345,
+        -0.104316,
+        -0.174428,
+        -0.232141,
+        -0.274228,
+        -0.299094,
+        -0.306914,
+        -0.299578,
+        -0.280452,
+        -0.253973,
+        -0.225141,
+        -0.19895,
+        -0.179822,
+        -0.17112,
+        -0.174779,
+        -0.191094,
+        -0.2187,
+        -0.254732,
+        -0.295153,
+        -0.33521,
+        -0.369962,
+        -0.394836,
+        0.738,
+        -0.40143,
+        -0.379866,
+        -0.342218,
+        -0.290829,
+        -0.229353,
+        -0.162358,
+        -0.094844,
+        -0.031703,
+        0.022786,
+        0.065408,
+        0.094326,
+        0.109248,
+        0.111426,
+        0.103478,
+        0.089067,
+        0.072468,
+        0.058073,
+        0.049885,
+        0.051063,
+        0.063568,
+        0.08794,
+        0.123235,
+        0.167133,
+        0.216189,
+        0.266215,
+        0.312736,
+        0.351478,
+        0.378832,
+        0.392238,
+        0.39046,
+        0.373706,
+        0.343595,
+        0.302976,
+        0.255602,
+        0.205724,
+        0.157631,
+        0.115185,
+        0.081419,
+        0.058228,
+        0.046186,
+        0.044516,
+        0.051202,
+        0.063247,
+        0.077029,
+        0.088723,
+        0.094742,
+        0.092152,
+        0.079002,
+        0.054548,
+        0.019342,
+        -0.024824,
+        -0.075112,
+        -0.127944,
+        -0.179387,
+        -0.225571,
+        -0.263106,
+        -0.289429,
+        -0.303072,
+        -0.303799,
+        -0.29261,
+        -0.271615,
+        -0.243782,
+        -0.212601,
+        -0.181694,
+        -0.154417,
+        -0.133497,
+        -0.120745,
+        -0.116874,
+        -0.121439,
+        -0.132909,
+        -0.148858,
+        -0.166254,
+        -0.181809
+      ],
+      "title": "Voice memo"
+    }
+  },
+  {
+    "name": "EventRaster",
+    "slug": "event-raster",
+    "dataShape": "{ label, events: number[] }[] (one lane per source)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label, events }[]",
+        "required": true
+      },
+      {
+        "name": "emphasis",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "overflow",
+        "type": "\"bin\" | \"clip\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "api",
+          "events": [
+            2,
+            5,
+            6,
+            14,
+            20,
+            21,
+            33,
+            40,
+            41,
+            48,
+            55
+          ]
+        },
+        {
+          "label": "db",
+          "events": [
+            3,
+            6,
+            15,
+            21,
+            34,
+            41,
+            55
+          ]
+        },
+        {
+          "label": "cache",
+          "events": [
+            6,
+            21,
+            41,
+            55
+          ]
+        },
+        {
+          "label": "queue",
+          "events": [
+            10,
+            30,
+            50
+          ]
+        }
+      ],
+      "title": "Service events"
+    }
+  },
+  {
+    "name": "RubricStrip",
+    "slug": "rubric-strip",
+    "dataShape": "{ label, score, weight? }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label, score, weight? }[]",
+        "required": true
+      },
+      {
+        "name": "target",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Correctness",
+          "score": 0.92,
+          "weight": 3
+        },
+        {
+          "label": "Coverage",
+          "score": 0.78,
+          "weight": 2
+        },
+        {
+          "label": "Clarity",
+          "score": 0.65,
+          "weight": 1
+        },
+        {
+          "label": "Style",
+          "score": 0.41,
+          "weight": 1
+        }
+      ],
+      "title": "Model eval"
+    }
+  },
+  {
+    "name": "TokenConfidence",
+    "slug": "token-confidence",
+    "dataShape": "{ token, confidence }[] (confidence 0–1)",
+    "svg": false,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ token, confidence }[]",
+        "required": true
+      },
+      {
+        "name": "tiers",
+        "type": "readonly [number, number]",
+        "required": false
+      },
+      {
+        "name": "show",
+        "type": "\"flagged\" | \"all\"",
+        "required": false
+      },
+      {
+        "name": "legend",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "token": "The",
+          "confidence": 0.98
+        },
+        {
+          "token": " Treaty",
+          "confidence": 0.93
+        },
+        {
+          "token": " of",
+          "confidence": 0.99
+        },
+        {
+          "token": " Westphalia",
+          "confidence": 0.71
+        },
+        {
+          "token": " was",
+          "confidence": 0.96
+        },
+        {
+          "token": " signed",
+          "confidence": 0.9
+        },
+        {
+          "token": " in",
+          "confidence": 0.97
+        },
+        {
+          "token": " 1648",
+          "confidence": 0.44
+        }
+      ],
+      "title": "Model answer"
+    }
+  },
+  {
+    "name": "WindBarb",
+    "slug": "wind-barb",
+    "dataShape": "{ direction, magnitude }",
+    "svg": true,
+    "props": [
+      {
+        "name": "direction",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "magnitude",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"value\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"barb\" | \"arrow\"",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "direction": 225,
+      "magnitude": 32,
+      "step": 10,
+      "title": "Wind"
+    }
+  },
+  {
+    "name": "StarSpoke",
+    "slug": "star-spoke",
+    "dataShape": "{ label, value }[] (3–8 metrics)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label, value }[]",
+        "required": true
+      },
+      {
+        "name": "dots",
+        "type": "\"tips\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "guides",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "compare",
+        "type": "number[]",
+        "required": false
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Speed",
+          "value": 0.9
+        },
+        {
+          "label": "Power",
+          "value": 0.6
+        },
+        {
+          "label": "Range",
+          "value": 0.5
+        },
+        {
+          "label": "Cost",
+          "value": 0.3
+        },
+        {
+          "label": "Ease",
+          "value": 0.7
+        }
+      ],
+      "title": "Product profile"
+    }
+  },
+  {
+    "name": "MinimapStrip",
+    "slug": "minimap-strip",
+    "dataShape": "{ content, window, marks?, known? }",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ content, window, marks?, known? }",
+        "required": true
+      },
+      {
+        "name": "mode",
+        "type": "\"bars\" | \"heat\"",
+        "required": false
+      },
+      {
+        "name": "markLane",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": {
+        "content": [
+          0,
+          0.028997,
+          0.057979,
+          0.086929,
+          0.115832,
+          0.144671,
+          0.173432,
+          0.202098,
+          0.230654,
+          0.259085,
+          0.287374,
+          0.315508,
+          0.343469,
+          0.371244,
+          0.398817,
+          0.426173,
+          0.453297,
+          0.480175,
+          0.506793,
+          0.533135,
+          0.559189,
+          0.584939,
+          0.610372,
+          0.635475,
+          0.660233,
+          0.684635,
+          0.708666,
+          0.732315,
+          0.755568,
+          0.778414,
+          0.80084,
+          0.822835,
+          0.844387,
+          0.865486,
+          0.886119,
+          0.906277,
+          0.925948,
+          0.945124,
+          0.963795,
+          0.98195,
+          0.999581,
+          1.01668,
+          1.033237,
+          1.049244,
+          1.064694,
+          1.07958,
+          1.093893,
+          1.107629,
+          1.120779,
+          1.133338,
+          1.145301,
+          1.156663,
+          1.167417,
+          1.17756,
+          1.187088,
+          1.195996,
+          1.204282,
+          1.211943,
+          1.218975,
+          1.225377,
+          1.231146,
+          1.236282,
+          1.240782,
+          1.244647,
+          1.247877,
+          1.25047,
+          1.252429,
+          1.253753,
+          1.254444,
+          1.254503,
+          1.253933,
+          1.252736,
+          1.250915,
+          1.248473,
+          1.245414,
+          1.241741,
+          1.237459,
+          1.232573,
+          1.227088,
+          1.221009,
+          1.214341,
+          1.207092,
+          1.199268,
+          1.190875,
+          1.181921,
+          1.172413,
+          1.16236,
+          1.151769,
+          1.140649,
+          1.129009,
+          1.116859,
+          1.104207,
+          1.091063,
+          1.077438,
+          1.063342,
+          1.048786,
+          1.03378,
+          1.018337,
+          1.002467,
+          0.986182,
+          0.969494,
+          0.952416,
+          0.93496,
+          0.917138,
+          0.898964,
+          0.880451,
+          0.861612,
+          0.842461,
+          0.823011,
+          0.803276,
+          0.783271,
+          0.763009,
+          0.742506,
+          0.721775,
+          0.700831,
+          0.679689,
+          0.658364,
+          0.636871,
+          0.615225,
+          0.59344,
+          0.571534,
+          0.54952,
+          0.527414,
+          0.505231,
+          0.482987,
+          0.460698,
+          0.455193,
+          0.482847,
+          0.51046,
+          0.538016,
+          0.5655,
+          0.592896,
+          0.620189,
+          0.647362,
+          0.674401,
+          0.70129,
+          0.728013,
+          0.754556,
+          0.780902,
+          0.807038,
+          0.832948,
+          0.858617,
+          0.884031,
+          0.909175,
+          0.934035,
+          0.958597,
+          0.982846,
+          1.006769,
+          1.030352,
+          1.053581,
+          1.076444,
+          1.098927,
+          1.121018,
+          1.142704,
+          1.163972,
+          1.184811,
+          1.205209,
+          1.225154,
+          1.244634,
+          1.26364,
+          1.28216,
+          1.300183,
+          1.3177,
+          1.334701,
+          1.351175,
+          1.367115,
+          1.382511,
+          1.397354,
+          1.411636,
+          1.42535,
+          1.438487,
+          1.451041,
+          1.463004,
+          1.474371,
+          1.485134,
+          1.495289,
+          1.50483,
+          1.513751,
+          1.522048,
+          1.529717,
+          1.536754,
+          1.543154,
+          1.548916,
+          1.554037,
+          1.558513,
+          1.562343,
+          1.565525,
+          1.568058,
+          1.569942,
+          1.571175,
+          1.571758,
+          1.57169,
+          1.570974,
+          1.56961,
+          1.567599,
+          1.564943,
+          1.561645,
+          1.557707,
+          1.553132,
+          1.547924,
+          1.542087,
+          1.535625,
+          1.528541,
+          1.520843,
+          1.512533,
+          1.50362,
+          1.494107,
+          1.484002,
+          1.473312,
+          1.462044,
+          1.450204,
+          1.437802,
+          1.424844,
+          1.411341,
+          1.397299,
+          1.382729,
+          1.367639,
+          1.352041,
+          1.335943,
+          1.319356,
+          1.30229,
+          1.284758,
+          1.266768,
+          1.248334,
+          1.229467,
+          1.210179,
+          1.190482,
+          1.170389,
+          1.149912,
+          1.129064,
+          1.107858,
+          1.086308,
+          1.064428,
+          1.04223,
+          1.019729,
+          0.996939,
+          0.973875,
+          0.95055,
+          0.926979,
+          0.903178,
+          0.87916,
+          0.85494,
+          0.830535,
+          0.805959,
+          0.781226,
+          0.756354,
+          0.731356,
+          0.706248,
+          0.681047,
+          0.655767,
+          0.630424,
+          0.605034,
+          0.61324,
+          0.637779,
+          0.662266,
+          0.686685,
+          0.711019,
+          0.735255,
+          0.759376,
+          0.783367,
+          0.807212,
+          0.830896,
+          0.854405,
+          0.877722,
+          0.900834,
+          0.923725,
+          0.946379,
+          0.968784,
+          0.990924,
+          1.012785,
+          1.034353,
+          1.055613,
+          1.076552,
+          1.097157,
+          1.117414,
+          1.137309,
+          1.15683,
+          1.175963,
+          1.194697,
+          1.213018,
+          1.230916,
+          1.248377,
+          1.265391,
+          1.281945,
+          1.29803,
+          1.313633,
+          1.328745,
+          1.343356,
+          1.357455,
+          1.371033,
+          1.384081,
+          1.396589,
+          1.40855,
+          1.419954,
+          1.430794,
+          1.441062,
+          1.45075,
+          1.459853,
+          1.468362,
+          1.476273,
+          1.483578,
+          1.490274,
+          1.496353,
+          1.501812,
+          1.506647,
+          1.510852,
+          1.514425,
+          1.517362,
+          1.519661,
+          1.521318,
+          1.522332,
+          1.522701,
+          1.522423,
+          1.521498,
+          1.519926,
+          1.517705,
+          1.514836,
+          1.51132,
+          1.507158,
+          1.502351,
+          1.496901,
+          1.49081,
+          1.484081,
+          1.476716,
+          1.46872,
+          1.460095,
+          1.450846,
+          1.440977,
+          1.430493,
+          1.4194,
+          1.407702,
+          1.395406,
+          1.382519,
+          1.369046,
+          1.354995,
+          1.340373,
+          1.325188,
+          1.309449,
+          1.293162,
+          1.276338,
+          1.258985,
+          1.241112,
+          1.22273,
+          1.203847,
+          1.184475,
+          1.164625,
+          1.144306,
+          1.12353,
+          1.102308,
+          1.080653,
+          1.058575,
+          1.036089,
+          1.013204,
+          0.989935,
+          0.966295,
+          0.942296,
+          0.917952,
+          0.893276,
+          0.868282,
+          0.842984,
+          0.817396,
+          0.791533,
+          0.765409,
+          0.739038,
+          0.712435,
+          0.685616,
+          0.658594,
+          0.631386,
+          0.604006,
+          0.57647,
+          0.548793,
+          0.520991,
+          0.493079,
+          0.465073,
+          0.436988,
+          0.408841,
+          0.380646,
+          0.352864,
+          0.374618,
+          0.39634,
+          0.418015,
+          0.439628,
+          0.461164,
+          0.482606,
+          0.50394,
+          0.525151,
+          0.546222,
+          0.56714,
+          0.587889,
+          0.608454,
+          0.62882,
+          0.648973,
+          0.668898,
+          0.68858,
+          0.708005,
+          0.72716,
+          0.746029,
+          0.7646,
+          0.782859,
+          0.800791,
+          0.818385,
+          0.835626,
+          0.852502,
+          0.869001,
+          0.885109,
+          0.900815,
+          0.916108,
+          0.930974,
+          0.945403,
+          0.959384,
+          0.972906,
+          0.985958,
+          0.99853,
+          1.010612,
+          1.022194,
+          1.033267,
+          1.043822,
+          1.05385,
+          1.063342,
+          1.072291,
+          1.080689,
+          1.088528,
+          1.095801,
+          1.102501,
+          1.108623,
+          1.11416,
+          1.119106,
+          1.123456,
+          1.127205,
+          1.130349,
+          1.132883,
+          1.134804,
+          1.136108,
+          1.136792,
+          1.136853,
+          1.136289,
+          1.135099,
+          1.13328,
+          1.130832,
+          1.127753,
+          1.124044,
+          1.119705,
+          1.114736,
+          1.109137,
+          1.10291,
+          1.096057,
+          1.08858,
+          1.080481,
+          1.071762,
+          1.062427,
+          1.05248,
+          1.041924,
+          1.030764,
+          1.019004,
+          1.00665,
+          0.993706,
+          0.980179,
+          0.966075,
+          0.9514,
+          0.936161,
+          0.920366,
+          0.904021,
+          0.887135,
+          0.869716,
+          0.851773,
+          0.833314,
+          0.814349,
+          0.794887,
+          0.774938,
+          0.754513,
+          0.733621,
+          0.712273,
+          0.696569,
+          0.682344,
+          0.667696,
+          0.652636,
+          0.637178,
+          0.621333,
+          0.605113,
+          0.58853,
+          0.571597,
+          0.554328,
+          0.536735,
+          0.518831,
+          0.50063,
+          0.482146,
+          0.463393,
+          0.444384,
+          0.425134,
+          0.405657,
+          0.385968,
+          0.366081,
+          0.346011,
+          0.325773,
+          0.305382,
+          0.284852,
+          0.264199,
+          0.243439,
+          0.222586,
+          0.201655,
+          0.180663,
+          0.159624,
+          0.138554,
+          0.134726,
+          0.163628,
+          0.192503,
+          0.221335,
+          0.250109,
+          0.278809,
+          0.307419,
+          0.335924,
+          0.364308,
+          0.392555,
+          0.420651,
+          0.448579,
+          0.476325,
+          0.503873,
+          0.531209,
+          0.558318,
+          0.585185,
+          0.611794,
+          0.638133,
+          0.664186,
+          0.68994,
+          0.715381,
+          0.740494,
+          0.765267,
+          0.789686,
+          0.813738,
+          0.83741,
+          0.86069,
+          0.883564,
+          0.906022,
+          0.92805,
+          0.949638,
+          0.970774,
+          0.991447,
+          1.011646,
+          1.031361,
+          1.050581,
+          1.069297,
+          1.087498,
+          1.105176,
+          1.122322,
+          1.138926,
+          1.154981,
+          1.170479,
+          1.185412,
+          1.199772,
+          1.213553,
+          1.226749,
+          1.239352,
+          1.251357,
+          1.262759,
+          1.273552,
+          1.283732,
+          1.293294,
+          1.302235,
+          1.31055,
+          1.318236,
+          1.325291,
+          1.331712,
+          1.337497,
+          1.342644,
+          1.347152,
+          1.35102,
+          1.354248,
+          1.356835,
+          1.358781,
+          1.360088,
+          1.360756,
+          1.360786,
+          1.360182,
+          1.358943,
+          1.357075,
+          1.354578,
+          1.351457,
+          1.347715,
+          1.343357,
+          1.338387,
+          1.33281,
+          1.32663,
+          1.319854,
+          1.312488,
+          1.304538,
+          1.29601,
+          1.286912,
+          1.277251,
+          1.267035,
+          1.256271,
+          1.244968,
+          1.233135,
+          1.220781,
+          1.207915,
+          1.194547,
+          1.180687,
+          1.166344,
+          1.15153,
+          1.136256,
+          1.120532,
+          1.104369,
+          1.08778,
+          1.070777,
+          1.05337,
+          1.035574,
+          1.0174,
+          0.998861,
+          0.97997,
+          0.960741,
+          0.941187,
+          0.921321,
+          0.901158,
+          0.880711,
+          0.859995,
+          0.839023,
+          0.817811,
+          0.796373,
+          0.774723,
+          0.752877,
+          0.73085,
+          0.708655,
+          0.68631,
+          0.663828,
+          0.641226,
+          0.618518,
+          0.59572,
+          0.572847,
+          0.549915,
+          0.52694,
+          0.538009,
+          0.56497,
+          0.591881,
+          0.618728,
+          0.645493,
+          0.672162,
+          0.698719,
+          0.725149,
+          0.751435,
+          0.777563,
+          0.803518,
+          0.829283,
+          0.854844,
+          0.880187,
+          0.905296,
+          0.930156,
+          0.954753,
+          0.979072,
+          1.003099,
+          1.026821,
+          1.050223,
+          1.073291,
+          1.096011,
+          1.118372,
+          1.140358,
+          1.161958,
+          1.183159,
+          1.203948,
+          1.224313,
+          1.244242,
+          1.263724,
+          1.282747,
+          1.301299,
+          1.31937,
+          1.33695,
+          1.354027,
+          1.370593,
+          1.386636,
+          1.402149,
+          1.417121,
+          1.431545,
+          1.445411,
+          1.458711,
+          1.471438,
+          1.483585,
+          1.495144,
+          1.506109,
+          1.516472,
+          1.526229,
+          1.535374,
+          1.543901,
+          1.551805,
+          1.559082,
+          1.565728,
+          1.571739,
+          1.577112,
+          1.581843,
+          1.58593,
+          1.589371,
+          1.592164,
+          1.594308,
+          1.595801,
+          1.596643,
+          1.596833,
+          1.596372,
+          1.59526,
+          1.593499,
+          1.591088,
+          1.588031,
+          1.584328,
+          1.579983,
+          1.574999,
+          1.569378,
+          1.563125,
+          1.556242,
+          1.548736,
+          1.540609,
+          1.531868,
+          1.522518,
+          1.512565,
+          1.502015,
+          1.490874,
+          1.47915,
+          1.46685,
+          1.453981,
+          1.440551,
+          1.426569,
+          1.412043,
+          1.396983,
+          1.381396,
+          1.365294,
+          1.348686,
+          1.331582,
+          1.313992,
+          1.295928,
+          1.2774,
+          1.25842,
+          1.238999,
+          1.21915,
+          1.198883,
+          1.178212,
+          1.15715,
+          1.135708,
+          1.1139,
+          1.09174,
+          1.06924,
+          1.046415,
+          1.023278,
+          0.999843,
+          0.976125,
+          0.952137,
+          0.927895,
+          0.903413,
+          0.878705,
+          0.853787,
+          0.828674,
+          0.803381,
+          0.777922,
+          0.752314,
+          0.726572,
+          0.700711,
+          0.674746,
+          0.648694,
+          0.62257,
+          0.596389,
+          0.571056,
+          0.594804,
+          0.618511,
+          0.642161,
+          0.665739,
+          0.689229,
+          0.712616,
+          0.735884,
+          0.759018,
+          0.782002,
+          0.804823,
+          0.827463,
+          0.849909,
+          0.872145,
+          0.894157,
+          0.91593,
+          0.937449,
+          0.958701,
+          0.97967,
+          1.000343,
+          1.020705,
+          1.040744,
+          1.060445,
+          1.079796,
+          1.098783,
+          1.117392,
+          1.135613,
+          1.153431,
+          1.170835,
+          1.187813,
+          1.204353,
+          1.220443,
+          1.236073,
+          1.251231,
+          1.265907,
+          1.280091,
+          1.293771,
+          1.30694,
+          1.319586,
+          1.331702,
+          1.343278,
+          1.354305,
+          1.364776,
+          1.374683,
+          1.384017,
+          1.392773,
+          1.400943,
+          1.408521,
+          1.4155,
+          1.421875,
+          1.427641,
+          1.432792,
+          1.437325,
+          1.441234,
+          1.444515,
+          1.447166,
+          1.449184,
+          1.450565,
+          1.451306,
+          1.451408,
+          1.450866,
+          1.449681,
+          1.447852,
+          1.445378,
+          1.442259,
+          1.438496,
+          1.43409,
+          1.42904,
+          1.42335,
+          1.417022,
+          1.410056,
+          1.402457,
+          1.394227,
+          1.385369,
+          1.375889,
+          1.365789,
+          1.355075,
+          1.343751,
+          1.331823,
+          1.319297,
+          1.306178,
+          1.292474,
+          1.27819,
+          1.263335,
+          1.247916,
+          1.23194,
+          1.215416,
+          1.198352,
+          1.180757,
+          1.162641,
+          1.144012,
+          1.124881,
+          1.105258,
+          1.085153,
+          1.064576,
+          1.04354,
+          1.022055,
+          1.000132,
+          0.977784,
+          0.955022,
+          0.931859,
+          0.908308,
+          0.88438,
+          0.86009,
+          0.83545,
+          0.810474,
+          0.785176,
+          0.759568,
+          0.733666,
+          0.707484,
+          0.681036,
+          0.654336,
+          0.627399,
+          0.600239,
+          0.572873,
+          0.545315,
+          0.517579,
+          0.489682,
+          0.461639,
+          0.433465,
+          0.405176,
+          0.376787,
+          0.348314,
+          0.319773,
+          0.291179,
+          0.262548,
+          0.251599,
+          0.272929,
+          0.294228,
+          0.315479,
+          0.336667,
+          0.357778,
+          0.378795,
+          0.399704,
+          0.420489,
+          0.441134,
+          0.461626,
+          0.481948,
+          0.502086,
+          0.522026,
+          0.541752,
+          0.56125,
+          0.580506,
+          0.599506,
+          0.618234,
+          0.636678,
+          0.654824,
+          0.672658,
+          0.690166,
+          0.707336,
+          0.724154,
+          0.740609,
+          0.756686,
+          0.772375,
+          0.787662,
+          0.802537,
+          0.816987,
+          0.831001,
+          0.844569,
+          0.857679,
+          0.870321,
+          0.882485,
+          0.89416,
+          0.905338,
+          0.91601,
+          0.926165,
+          0.935795,
+          0.944893,
+          0.95345,
+          0.961459,
+          0.968912,
+          0.975802,
+          0.982123,
+          0.987868,
+          0.993031,
+          0.997608,
+          1.001592,
+          1.004979,
+          1.007765,
+          1.009946,
+          1.011517,
+          1.012475,
+          1.012819,
+          1.012544,
+          1.011649,
+          1.010133,
+          1.007993,
+          1.005229,
+          1.00184,
+          1.002004,
+          1.005365,
+          1.008101,
+          1.010213,
+          1.011702,
+          1.012569,
+          1.012817,
+          1.012446,
+          1.01146,
+          1.009862,
+          1.007654,
+          1.004842,
+          1.001428,
+          0.997417,
+          0.992814,
+          0.987625,
+          0.981854,
+          0.975508,
+          0.968593,
+          0.961115,
+          0.953082,
+          0.944501,
+          0.935379,
+          0.925725,
+          0.915547,
+          0.904853,
+          0.893652,
+          0.881955,
+          0.869769,
+          0.857106,
+          0.843976,
+          0.830388,
+          0.816354,
+          0.801885,
+          0.786992,
+          0.771687,
+          0.755981,
+          0.739886,
+          0.723415,
+          0.706581,
+          0.689396,
+          0.671872,
+          0.654025,
+          0.635865,
+          0.617408,
+          0.598667,
+          0.579657,
+          0.56039,
+          0.540881,
+          0.521145,
+          0.501196,
+          0.481049,
+          0.460719,
+          0.440221,
+          0.419568,
+          0.398778,
+          0.377864,
+          0.356842,
+          0.335728,
+          0.314536,
+          0.293283,
+          0.271982,
+          0.250651,
+          0.26382,
+          0.292449,
+          0.321041,
+          0.34958,
+          0.37805,
+          0.406434,
+          0.434719,
+          0.462887,
+          0.490925,
+          0.518815,
+          0.546542,
+          0.574093,
+          0.60145,
+          0.6286,
+          0.655526,
+          0.682216,
+          0.708653,
+          0.734823,
+          0.760712,
+          0.786306,
+          0.81159,
+          0.836552,
+          0.861176,
+          0.885451,
+          0.909362,
+          0.932896,
+          0.956041,
+          0.978785,
+          1.001115,
+          1.023018,
+          1.044484,
+          1.0655,
+          1.086055,
+          1.106139,
+          1.125741,
+          1.14485,
+          1.163456,
+          1.181549,
+          1.199121,
+          1.216161,
+          1.232661,
+          1.248612,
+          1.264007,
+          1.278837,
+          1.293095,
+          1.306773,
+          1.319866,
+          1.332365,
+          1.344267,
+          1.355563,
+          1.366251,
+          1.376323,
+          1.385776,
+          1.394606,
+          1.402808,
+          1.410379,
+          1.417316,
+          1.423617,
+          1.429278,
+          1.434299,
+          1.438677,
+          1.442412,
+          1.445502,
+          1.447947,
+          1.449748,
+          1.450904,
+          1.451417,
+          1.451287,
+          1.450517,
+          1.449108,
+          1.447062,
+          1.444383,
+          1.441073,
+          1.437137,
+          1.432577,
+          1.427398,
+          1.421605,
+          1.415203,
+          1.408197,
+          1.400593,
+          1.392397,
+          1.383615,
+          1.374255,
+          1.364323,
+          1.353827,
+          1.342775,
+          1.331175,
+          1.319036,
+          1.306366,
+          1.293175,
+          1.279471,
+          1.265266,
+          1.250568,
+          1.235389,
+          1.219738,
+          1.203628,
+          1.187068,
+          1.170071,
+          1.152648,
+          1.134812,
+          1.116574,
+          1.097947,
+          1.078944,
+          1.059578,
+          1.039861,
+          1.019808,
+          0.999431,
+          0.978745,
+          0.957763,
+          0.936499,
+          0.914968,
+          0.893185,
+          0.871162,
+          0.848917,
+          0.826462,
+          0.803813,
+          0.780985,
+          0.757993,
+          0.734853,
+          0.711579,
+          0.688188,
+          0.664694,
+          0.641112,
+          0.617459,
+          0.59375,
+          0.571333,
+          0.597553,
+          0.623731,
+          0.649853,
+          0.675901,
+          0.701861,
+          0.727717,
+          0.753454,
+          0.779056,
+          0.804507,
+          0.829793,
+          0.854898,
+          0.879807,
+          0.904505,
+          0.928977,
+          0.953208,
+          0.977184,
+          1.00089,
+          1.024312,
+          1.047435,
+          1.070246,
+          1.092731,
+          1.114876,
+          1.136668,
+          1.158093,
+          1.179139,
+          1.199792,
+          1.22004,
+          1.239871,
+          1.259272,
+          1.278233,
+          1.29674,
+          1.314784,
+          1.332352,
+          1.349434,
+          1.36602,
+          1.3821,
+          1.397663,
+          1.4127,
+          1.427202,
+          1.441159,
+          1.454564,
+          1.467408,
+          1.479683,
+          1.491381,
+          1.502496,
+          1.51302,
+          1.522946,
+          1.532269,
+          1.540983,
+          1.549082,
+          1.556561,
+          1.563416,
+          1.569641,
+          1.575234,
+          1.58019,
+          1.584506,
+          1.58818,
+          1.591209,
+          1.593591,
+          1.595324,
+          1.596406,
+          1.596839,
+          1.596619,
+          1.595749,
+          1.594227,
+          1.592054,
+          1.589232,
+          1.585763
+        ],
+        "window": [
+          520,
+          660
+        ],
+        "marks": [
+          100,
+          600,
+          1100
+        ],
+        "known": [
+          [
+            0,
+            1104
+          ]
+        ]
+      },
+      "title": "Document position"
+    }
+  },
+  {
+    "name": "DualWindowMeter",
+    "slug": "dual-window-meter",
+    "dataShape": "number[] raw series + target",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "target",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "windows",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "band",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "per chart",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        -22,
+        -20.509653,
+        -19.164885,
+        -18.095398,
+        -17.400898,
+        -17.14026,
+        -17.325197,
+        -17.919107,
+        -18.84124,
+        -19.975712,
+        -21.184381,
+        -22.322166,
+        -23.253116,
+        -23.865464,
+        -24.084009,
+        -23.878459,
+        -23.266817,
+        -22.313435,
+        -21.12196,
+        -19.823927,
+        -18.564283,
+        -17.48541,
+        -16.711418,
+        -16.334443,
+        -16.404443,
+        -16.92363,
+        -17.846145,
+        -19.083012,
+        -20.511829,
+        -21.990131,
+        -23.370949,
+        -24.51886,
+        -25.324758,
+        -25.717721,
+        -25.672675,
+        -25.213001,
+        -24.40781,
+        -23.364182,
+        -22.215227,
+        -21.105277,
+        -20.173854,
+        -21.540166,
+        -21.289845,
+        -21.46539,
+        -22.061366,
+        -23.024884,
+        -24.261324,
+        -25.644652,
+        -27.031213,
+        -28.275474,
+        -29.245987,
+        -29.839813,
+        -29.993823,
+        -29.691629,
+        -28.965382,
+        -27.892243,
+        -26.585911,
+        -25.184144,
+        -23.833645,
+        -22.67397
+      ],
+      "target": -23,
+      "format": {
+        "maximumFractionDigits": 1
+      },
+      "title": "Loudness"
+    }
+  },
+  {
+    "name": "DepthWedge",
+    "slug": "depth-wedge",
+    "dataShape": "{ demand: { level, amount }[], supply: { level, amount }[] }",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ demand, supply }",
+        "required": true
+      },
+      {
+        "name": "levels",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"spread\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "normalize",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": {
+        "demand": [
+          {
+            "level": 99.75,
+            "amount": 420
+          },
+          {
+            "level": 99.5,
+            "amount": 360
+          },
+          {
+            "level": 99.25,
+            "amount": 280
+          },
+          {
+            "level": 99,
+            "amount": 200
+          },
+          {
+            "level": 98.5,
+            "amount": 120
+          }
+        ],
+        "supply": [
+          {
+            "level": 100.25,
+            "amount": 300
+          },
+          {
+            "level": 100.5,
+            "amount": 240
+          },
+          {
+            "level": 100.75,
+            "amount": 160
+          },
+          {
+            "level": 101,
+            "amount": 90
+          }
+        ]
+      },
+      "title": "Order book"
+    }
+  },
+  {
+    "name": "PartitionStrip",
+    "slug": "partition-strip",
+    "dataShape": "{ label, value?, children? }[] (two levels)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label, value?, children? }[]",
+        "required": true
+      },
+      {
+        "name": "emphasis",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "JS",
+          "children": [
+            {
+              "label": "react",
+              "value": 28
+            },
+            {
+              "label": "vendor",
+              "value": 12
+            },
+            {
+              "label": "app",
+              "value": 8
+            }
+          ]
+        },
+        {
+          "label": "CSS",
+          "children": [
+            {
+              "label": "tailwind",
+              "value": 16
+            },
+            {
+              "label": "custom",
+              "value": 8
+            }
+          ]
+        },
+        {
+          "label": "img",
+          "value": 18
+        },
+        {
+          "label": "font",
+          "value": 10
+        }
+      ],
+      "title": "Bundle composition"
+    }
+  },
+  {
+    "name": "CalibrationStrip",
+    "slug": "calibration-strip",
+    "dataShape": "{ p, outcome }[] raw, or { predicted, observed, count }[] pre-binned",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "RawPair[] | BinnedRow[]",
+        "required": true
+      },
+      {
+        "name": "bins",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "minSupport",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "mode",
+        "type": "\"dots\" | \"bars\"",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "predicted": 0.05,
+          "observed": 0.05,
+          "count": 100
+        },
+        {
+          "predicted": 0.15,
+          "observed": 0.16,
+          "count": 90
+        },
+        {
+          "predicted": 0.25,
+          "observed": 0.24,
+          "count": 80
+        },
+        {
+          "predicted": 0.35,
+          "observed": 0.36,
+          "count": 70
+        },
+        {
+          "predicted": 0.45,
+          "observed": 0.44,
+          "count": 60
+        },
+        {
+          "predicted": 0.55,
+          "observed": 0.56,
+          "count": 50
+        },
+        {
+          "predicted": 0.65,
+          "observed": 0.63,
+          "count": 40
+        },
+        {
+          "predicted": 0.7,
+          "observed": 0.52,
+          "count": 30
+        },
+        {
+          "predicted": 0.85,
+          "observed": 0.83,
+          "count": 8
+        },
+        {
+          "predicted": 0.95,
+          "observed": 0.9,
+          "count": 5
+        }
+      ],
+      "title": "Model calibration"
+    }
+  },
+  {
+    "name": "ConfusionGrid",
+    "slug": "confusion-grid",
+    "dataShape": "{ labels: string[], counts: number[][] } (k×k, k ∈ [2,4])",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ labels, counts }",
+        "required": true
+      },
+      {
+        "name": "normalize",
+        "type": "\"row\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "accent",
+        "type": "\"diagonal\" | \"errors\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"accuracy\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "shape",
+        "type": "\"square\" | \"round\"",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": {
+        "labels": [
+          "cat",
+          "dog"
+        ],
+        "counts": [
+          [
+            88,
+            12
+          ],
+          [
+            10,
+            59
+          ]
+        ]
+      },
+      "title": "Classifier"
+    }
+  },
+  {
+    "name": "FoldedDayBand",
+    "slug": "folded-day-band",
+    "dataShape": "{ t, value }[] (raw observations folded by t mod period)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ t, value }[]",
+        "required": true
+      },
+      {
+        "name": "period",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "today",
+        "type": "{ t, value }[]",
+        "required": false
+      },
+      {
+        "name": "percentiles",
+        "type": "[number, number][]",
+        "required": false
+      },
+      {
+        "name": "bins",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "t": 0,
+          "value": 40
+        },
+        {
+          "t": 1,
+          "value": 47
+        },
+        {
+          "t": 2,
+          "value": 47
+        },
+        {
+          "t": 3,
+          "value": 41
+        },
+        {
+          "t": 4,
+          "value": 34
+        },
+        {
+          "t": 5,
+          "value": 37
+        },
+        {
+          "t": 6,
+          "value": 46
+        },
+        {
+          "t": 7,
+          "value": 58
+        },
+        {
+          "t": 8,
+          "value": 65
+        },
+        {
+          "t": 9,
+          "value": 64
+        },
+        {
+          "t": 10,
+          "value": 61
+        },
+        {
+          "t": 11,
+          "value": 61
+        },
+        {
+          "t": 12,
+          "value": 69
+        },
+        {
+          "t": 13,
+          "value": 81
+        },
+        {
+          "t": 14,
+          "value": 90
+        },
+        {
+          "t": 15,
+          "value": 83
+        },
+        {
+          "t": 16,
+          "value": 71
+        },
+        {
+          "t": 17,
+          "value": 62
+        },
+        {
+          "t": 18,
+          "value": 59
+        },
+        {
+          "t": 19,
+          "value": 62
+        },
+        {
+          "t": 20,
+          "value": 64
+        },
+        {
+          "t": 21,
+          "value": 59
+        },
+        {
+          "t": 22,
+          "value": 48
+        },
+        {
+          "t": 23,
+          "value": 37
+        },
+        {
+          "t": 24,
+          "value": 47
+        },
+        {
+          "t": 25,
+          "value": 47
+        },
+        {
+          "t": 26,
+          "value": 41
+        },
+        {
+          "t": 27,
+          "value": 34
+        },
+        {
+          "t": 28,
+          "value": 32
+        },
+        {
+          "t": 29,
+          "value": 42
+        },
+        {
+          "t": 30,
+          "value": 54
+        },
+        {
+          "t": 31,
+          "value": 61
+        },
+        {
+          "t": 32,
+          "value": 60
+        },
+        {
+          "t": 33,
+          "value": 57
+        },
+        {
+          "t": 34,
+          "value": 57
+        },
+        {
+          "t": 35,
+          "value": 65
+        },
+        {
+          "t": 36,
+          "value": 77
+        },
+        {
+          "t": 37,
+          "value": 86
+        },
+        {
+          "t": 38,
+          "value": 87
+        },
+        {
+          "t": 39,
+          "value": 75
+        },
+        {
+          "t": 40,
+          "value": 66
+        },
+        {
+          "t": 41,
+          "value": 63
+        },
+        {
+          "t": 42,
+          "value": 66
+        },
+        {
+          "t": 43,
+          "value": 68
+        },
+        {
+          "t": 44,
+          "value": 63
+        },
+        {
+          "t": 45,
+          "value": 53
+        },
+        {
+          "t": 46,
+          "value": 42
+        },
+        {
+          "t": 47,
+          "value": 37
+        },
+        {
+          "t": 48,
+          "value": 47
+        },
+        {
+          "t": 49,
+          "value": 41
+        },
+        {
+          "t": 50,
+          "value": 34
+        },
+        {
+          "t": 51,
+          "value": 32
+        },
+        {
+          "t": 52,
+          "value": 38
+        },
+        {
+          "t": 53,
+          "value": 49
+        },
+        {
+          "t": 54,
+          "value": 56
+        },
+        {
+          "t": 55,
+          "value": 56
+        },
+        {
+          "t": 56,
+          "value": 52
+        },
+        {
+          "t": 57,
+          "value": 53
+        },
+        {
+          "t": 58,
+          "value": 61
+        },
+        {
+          "t": 59,
+          "value": 73
+        },
+        {
+          "t": 60,
+          "value": 82
+        },
+        {
+          "t": 61,
+          "value": 83
+        },
+        {
+          "t": 62,
+          "value": 80
+        },
+        {
+          "t": 63,
+          "value": 70
+        },
+        {
+          "t": 64,
+          "value": 68
+        },
+        {
+          "t": 65,
+          "value": 71
+        },
+        {
+          "t": 66,
+          "value": 73
+        },
+        {
+          "t": 67,
+          "value": 68
+        },
+        {
+          "t": 68,
+          "value": 57
+        },
+        {
+          "t": 69,
+          "value": 46
+        },
+        {
+          "t": 70,
+          "value": 41
+        },
+        {
+          "t": 71,
+          "value": 43
+        },
+        {
+          "t": 72,
+          "value": 41
+        },
+        {
+          "t": 73,
+          "value": 34
+        },
+        {
+          "t": 74,
+          "value": 32
+        },
+        {
+          "t": 75,
+          "value": 38
+        },
+        {
+          "t": 76,
+          "value": 45
+        },
+        {
+          "t": 77,
+          "value": 52
+        },
+        {
+          "t": 78,
+          "value": 52
+        },
+        {
+          "t": 79,
+          "value": 48
+        },
+        {
+          "t": 80,
+          "value": 49
+        },
+        {
+          "t": 81,
+          "value": 57
+        },
+        {
+          "t": 82,
+          "value": 69
+        },
+        {
+          "t": 83,
+          "value": 77
+        },
+        {
+          "t": 84,
+          "value": 79
+        },
+        {
+          "t": 85,
+          "value": 75
+        },
+        {
+          "t": 86,
+          "value": 74
+        },
+        {
+          "t": 87,
+          "value": 72
+        },
+        {
+          "t": 88,
+          "value": 75
+        },
+        {
+          "t": 89,
+          "value": 77
+        },
+        {
+          "t": 90,
+          "value": 72
+        },
+        {
+          "t": 91,
+          "value": 61
+        },
+        {
+          "t": 92,
+          "value": 50
+        },
+        {
+          "t": 93,
+          "value": 45
+        },
+        {
+          "t": 94,
+          "value": 47
+        },
+        {
+          "t": 95,
+          "value": 50
+        },
+        {
+          "t": 96,
+          "value": 34
+        },
+        {
+          "t": 97,
+          "value": 32
+        },
+        {
+          "t": 98,
+          "value": 38
+        },
+        {
+          "t": 99,
+          "value": 45
+        },
+        {
+          "t": 100,
+          "value": 48
+        },
+        {
+          "t": 101,
+          "value": 47
+        },
+        {
+          "t": 102,
+          "value": 44
+        },
+        {
+          "t": 103,
+          "value": 45
+        },
+        {
+          "t": 104,
+          "value": 53
+        },
+        {
+          "t": 105,
+          "value": 64
+        },
+        {
+          "t": 106,
+          "value": 73
+        },
+        {
+          "t": 107,
+          "value": 75
+        },
+        {
+          "t": 108,
+          "value": 71
+        },
+        {
+          "t": 109,
+          "value": 70
+        },
+        {
+          "t": 110,
+          "value": 76
+        },
+        {
+          "t": 111,
+          "value": 79
+        },
+        {
+          "t": 112,
+          "value": 81
+        },
+        {
+          "t": 113,
+          "value": 76
+        },
+        {
+          "t": 114,
+          "value": 65
+        },
+        {
+          "t": 115,
+          "value": 54
+        },
+        {
+          "t": 116,
+          "value": 50
+        },
+        {
+          "t": 117,
+          "value": 52
+        },
+        {
+          "t": 118,
+          "value": 55
+        },
+        {
+          "t": 119,
+          "value": 52
+        },
+        {
+          "t": 120,
+          "value": 32
+        },
+        {
+          "t": 121,
+          "value": 38
+        },
+        {
+          "t": 122,
+          "value": 45
+        },
+        {
+          "t": 123,
+          "value": 48
+        },
+        {
+          "t": 124,
+          "value": 43
+        },
+        {
+          "t": 125,
+          "value": 40
+        },
+        {
+          "t": 126,
+          "value": 40
+        },
+        {
+          "t": 127,
+          "value": 48
+        },
+        {
+          "t": 128,
+          "value": 60
+        },
+        {
+          "t": 129,
+          "value": 69
+        },
+        {
+          "t": 130,
+          "value": 70
+        },
+        {
+          "t": 131,
+          "value": 67
+        },
+        {
+          "t": 132,
+          "value": 66
+        },
+        {
+          "t": 133,
+          "value": 72
+        },
+        {
+          "t": 134,
+          "value": 83
+        },
+        {
+          "t": 135,
+          "value": 85
+        },
+        {
+          "t": 136,
+          "value": 80
+        },
+        {
+          "t": 137,
+          "value": 69
+        },
+        {
+          "t": 138,
+          "value": 58
+        },
+        {
+          "t": 139,
+          "value": 54
+        },
+        {
+          "t": 140,
+          "value": 56
+        },
+        {
+          "t": 141,
+          "value": 59
+        },
+        {
+          "t": 142,
+          "value": 56
+        },
+        {
+          "t": 143,
+          "value": 46
+        },
+        {
+          "t": 144,
+          "value": 38
+        },
+        {
+          "t": 145,
+          "value": 45
+        },
+        {
+          "t": 146,
+          "value": 48
+        },
+        {
+          "t": 147,
+          "value": 43
+        },
+        {
+          "t": 148,
+          "value": 36
+        },
+        {
+          "t": 149,
+          "value": 36
+        },
+        {
+          "t": 150,
+          "value": 44
+        },
+        {
+          "t": 151,
+          "value": 56
+        },
+        {
+          "t": 152,
+          "value": 65
+        },
+        {
+          "t": 153,
+          "value": 66
+        },
+        {
+          "t": 154,
+          "value": 63
+        },
+        {
+          "t": 155,
+          "value": 62
+        },
+        {
+          "t": 156,
+          "value": 68
+        },
+        {
+          "t": 157,
+          "value": 79
+        },
+        {
+          "t": 158,
+          "value": 89
+        },
+        {
+          "t": 159,
+          "value": 84
+        },
+        {
+          "t": 160,
+          "value": 74
+        },
+        {
+          "t": 161,
+          "value": 63
+        },
+        {
+          "t": 162,
+          "value": 58
+        },
+        {
+          "t": 163,
+          "value": 60
+        },
+        {
+          "t": 164,
+          "value": 63
+        },
+        {
+          "t": 165,
+          "value": 60
+        },
+        {
+          "t": 166,
+          "value": 51
+        },
+        {
+          "t": 167,
+          "value": 39
+        },
+        {
+          "t": 168,
+          "value": 45
+        },
+        {
+          "t": 169,
+          "value": 48
+        },
+        {
+          "t": 170,
+          "value": 43
+        },
+        {
+          "t": 171,
+          "value": 36
+        },
+        {
+          "t": 172,
+          "value": 32
+        },
+        {
+          "t": 173,
+          "value": 40
+        },
+        {
+          "t": 174,
+          "value": 52
+        },
+        {
+          "t": 175,
+          "value": 61
+        },
+        {
+          "t": 176,
+          "value": 62
+        },
+        {
+          "t": 177,
+          "value": 59
+        },
+        {
+          "t": 178,
+          "value": 58
+        },
+        {
+          "t": 179,
+          "value": 63
+        },
+        {
+          "t": 180,
+          "value": 75
+        },
+        {
+          "t": 181,
+          "value": 85
+        },
+        {
+          "t": 182,
+          "value": 89
+        },
+        {
+          "t": 183,
+          "value": 78
+        },
+        {
+          "t": 184,
+          "value": 67
+        },
+        {
+          "t": 185,
+          "value": 62
+        },
+        {
+          "t": 186,
+          "value": 64
+        },
+        {
+          "t": 187,
+          "value": 67
+        },
+        {
+          "t": 188,
+          "value": 64
+        },
+        {
+          "t": 189,
+          "value": 55
+        },
+        {
+          "t": 190,
+          "value": 43
+        },
+        {
+          "t": 191,
+          "value": 36
+        },
+        {
+          "t": 192,
+          "value": 48
+        },
+        {
+          "t": 193,
+          "value": 43
+        },
+        {
+          "t": 194,
+          "value": 36
+        },
+        {
+          "t": 195,
+          "value": 32
+        },
+        {
+          "t": 196,
+          "value": 36
+        },
+        {
+          "t": 197,
+          "value": 48
+        },
+        {
+          "t": 198,
+          "value": 56
+        },
+        {
+          "t": 199,
+          "value": 58
+        },
+        {
+          "t": 200,
+          "value": 54
+        },
+        {
+          "t": 201,
+          "value": 53
+        },
+        {
+          "t": 202,
+          "value": 59
+        },
+        {
+          "t": 203,
+          "value": 71
+        },
+        {
+          "t": 204,
+          "value": 81
+        },
+        {
+          "t": 205,
+          "value": 84
+        },
+        {
+          "t": 206,
+          "value": 82
+        },
+        {
+          "t": 207,
+          "value": 71
+        },
+        {
+          "t": 208,
+          "value": 66
+        },
+        {
+          "t": 209,
+          "value": 68
+        },
+        {
+          "t": 210,
+          "value": 71
+        },
+        {
+          "t": 211,
+          "value": 69
+        },
+        {
+          "t": 212,
+          "value": 59
+        },
+        {
+          "t": 213,
+          "value": 47
+        },
+        {
+          "t": 214,
+          "value": 40
+        },
+        {
+          "t": 215,
+          "value": 41
+        },
+        {
+          "t": 216,
+          "value": 43
+        },
+        {
+          "t": 217,
+          "value": 36
+        },
+        {
+          "t": 218,
+          "value": 32
+        },
+        {
+          "t": 219,
+          "value": 36
+        },
+        {
+          "t": 220,
+          "value": 43
+        },
+        {
+          "t": 221,
+          "value": 52
+        },
+        {
+          "t": 222,
+          "value": 54
+        },
+        {
+          "t": 223,
+          "value": 50
+        },
+        {
+          "t": 224,
+          "value": 49
+        },
+        {
+          "t": 225,
+          "value": 55
+        },
+        {
+          "t": 226,
+          "value": 66
+        },
+        {
+          "t": 227,
+          "value": 77
+        },
+        {
+          "t": 228,
+          "value": 80
+        },
+        {
+          "t": 229,
+          "value": 78
+        },
+        {
+          "t": 230,
+          "value": 75
+        },
+        {
+          "t": 231,
+          "value": 71
+        },
+        {
+          "t": 232,
+          "value": 73
+        },
+        {
+          "t": 233,
+          "value": 76
+        },
+        {
+          "t": 234,
+          "value": 73
+        },
+        {
+          "t": 235,
+          "value": 63
+        },
+        {
+          "t": 236,
+          "value": 51
+        },
+        {
+          "t": 237,
+          "value": 45
+        },
+        {
+          "t": 238,
+          "value": 45
+        },
+        {
+          "t": 239,
+          "value": 49
+        },
+        {
+          "t": 240,
+          "value": 36
+        },
+        {
+          "t": 241,
+          "value": 32
+        },
+        {
+          "t": 242,
+          "value": 36
+        },
+        {
+          "t": 243,
+          "value": 43
+        },
+        {
+          "t": 244,
+          "value": 48
+        },
+        {
+          "t": 245,
+          "value": 49
+        },
+        {
+          "t": 246,
+          "value": 46
+        },
+        {
+          "t": 247,
+          "value": 45
+        },
+        {
+          "t": 248,
+          "value": 51
+        },
+        {
+          "t": 249,
+          "value": 62
+        },
+        {
+          "t": 250,
+          "value": 73
+        },
+        {
+          "t": 251,
+          "value": 76
+        },
+        {
+          "t": 252,
+          "value": 74
+        },
+        {
+          "t": 253,
+          "value": 71
+        },
+        {
+          "t": 254,
+          "value": 75
+        },
+        {
+          "t": 255,
+          "value": 77
+        },
+        {
+          "t": 256,
+          "value": 80
+        },
+        {
+          "t": 257,
+          "value": 77
+        },
+        {
+          "t": 258,
+          "value": 67
+        },
+        {
+          "t": 259,
+          "value": 56
+        },
+        {
+          "t": 260,
+          "value": 49
+        },
+        {
+          "t": 261,
+          "value": 49
+        },
+        {
+          "t": 262,
+          "value": 53
+        },
+        {
+          "t": 263,
+          "value": 52
+        },
+        {
+          "t": 264,
+          "value": 32
+        },
+        {
+          "t": 265,
+          "value": 36
+        },
+        {
+          "t": 266,
+          "value": 43
+        },
+        {
+          "t": 267,
+          "value": 48
+        },
+        {
+          "t": 268,
+          "value": 45
+        },
+        {
+          "t": 269,
+          "value": 42
+        },
+        {
+          "t": 270,
+          "value": 41
+        },
+        {
+          "t": 271,
+          "value": 47
+        },
+        {
+          "t": 272,
+          "value": 58
+        },
+        {
+          "t": 273,
+          "value": 68
+        },
+        {
+          "t": 274,
+          "value": 72
+        },
+        {
+          "t": 275,
+          "value": 69
+        },
+        {
+          "t": 276,
+          "value": 67
+        },
+        {
+          "t": 277,
+          "value": 71
+        },
+        {
+          "t": 278,
+          "value": 81
+        },
+        {
+          "t": 279,
+          "value": 84
+        },
+        {
+          "t": 280,
+          "value": 81
+        },
+        {
+          "t": 281,
+          "value": 72
+        },
+        {
+          "t": 282,
+          "value": 60
+        },
+        {
+          "t": 283,
+          "value": 53
+        },
+        {
+          "t": 284,
+          "value": 54
+        },
+        {
+          "t": 285,
+          "value": 57
+        },
+        {
+          "t": 286,
+          "value": 56
+        },
+        {
+          "t": 287,
+          "value": 48
+        },
+        {
+          "t": 288,
+          "value": 36
+        },
+        {
+          "t": 289,
+          "value": 43
+        },
+        {
+          "t": 290,
+          "value": 48
+        },
+        {
+          "t": 291,
+          "value": 45
+        },
+        {
+          "t": 292,
+          "value": 38
+        },
+        {
+          "t": 293,
+          "value": 37
+        },
+        {
+          "t": 294,
+          "value": 42
+        },
+        {
+          "t": 295,
+          "value": 54
+        },
+        {
+          "t": 296,
+          "value": 64
+        },
+        {
+          "t": 297,
+          "value": 68
+        },
+        {
+          "t": 298,
+          "value": 65
+        },
+        {
+          "t": 299,
+          "value": 63
+        },
+        {
+          "t": 300,
+          "value": 66
+        },
+        {
+          "t": 301,
+          "value": 77
+        },
+        {
+          "t": 302,
+          "value": 88
+        },
+        {
+          "t": 303,
+          "value": 85
+        },
+        {
+          "t": 304,
+          "value": 76
+        },
+        {
+          "t": 305,
+          "value": 64
+        },
+        {
+          "t": 306,
+          "value": 57
+        },
+        {
+          "t": 307,
+          "value": 58
+        },
+        {
+          "t": 308,
+          "value": 61
+        },
+        {
+          "t": 309,
+          "value": 61
+        },
+        {
+          "t": 310,
+          "value": 53
+        },
+        {
+          "t": 311,
+          "value": 41
+        },
+        {
+          "t": 312,
+          "value": 43
+        },
+        {
+          "t": 313,
+          "value": 48
+        },
+        {
+          "t": 314,
+          "value": 45
+        },
+        {
+          "t": 315,
+          "value": 38
+        },
+        {
+          "t": 316,
+          "value": 32
+        },
+        {
+          "t": 317,
+          "value": 38
+        },
+        {
+          "t": 318,
+          "value": 50
+        },
+        {
+          "t": 319,
+          "value": 60
+        },
+        {
+          "t": 320,
+          "value": 63
+        },
+        {
+          "t": 321,
+          "value": 61
+        },
+        {
+          "t": 322,
+          "value": 58
+        },
+        {
+          "t": 323,
+          "value": 62
+        },
+        {
+          "t": 324,
+          "value": 73
+        },
+        {
+          "t": 325,
+          "value": 84
+        },
+        {
+          "t": 326,
+          "value": 90
+        },
+        {
+          "t": 327,
+          "value": 80
+        },
+        {
+          "t": 328,
+          "value": 68
+        },
+        {
+          "t": 329,
+          "value": 61
+        },
+        {
+          "t": 330,
+          "value": 62
+        },
+        {
+          "t": 331,
+          "value": 65
+        },
+        {
+          "t": 332,
+          "value": 65
+        },
+        {
+          "t": 333,
+          "value": 57
+        },
+        {
+          "t": 334,
+          "value": 45
+        },
+        {
+          "t": 335,
+          "value": 36
+        }
+      ],
+      "today": [
+        {
+          "t": 0,
+          "value": 54
+        },
+        {
+          "t": 1,
+          "value": 54
+        },
+        {
+          "t": 2,
+          "value": 54
+        },
+        {
+          "t": 3,
+          "value": 54
+        },
+        {
+          "t": 4,
+          "value": 54
+        },
+        {
+          "t": 5,
+          "value": 58
+        },
+        {
+          "t": 6,
+          "value": 62
+        },
+        {
+          "t": 7,
+          "value": 67
+        },
+        {
+          "t": 8,
+          "value": 71
+        },
+        {
+          "t": 9,
+          "value": 75
+        },
+        {
+          "t": 10,
+          "value": 79
+        },
+        {
+          "t": 11,
+          "value": 83
+        },
+        {
+          "t": 12,
+          "value": 88
+        },
+        {
+          "t": 13,
+          "value": 92
+        },
+        {
+          "t": 14,
+          "value": 96
+        },
+        {
+          "t": 15,
+          "value": 92
+        },
+        {
+          "t": 16,
+          "value": 88
+        },
+        {
+          "t": 17,
+          "value": 83
+        },
+        {
+          "t": 18,
+          "value": 79
+        },
+        {
+          "t": 19,
+          "value": 75
+        },
+        {
+          "t": 20,
+          "value": 71
+        },
+        {
+          "t": 21,
+          "value": 67
+        },
+        {
+          "t": 22,
+          "value": 62
+        },
+        {
+          "t": 23,
+          "value": 58
+        }
+      ],
+      "title": "Typical day"
+    }
+  },
+  {
+    "name": "VolumeProfile",
+    "slug": "volume-profile",
+    "dataShape": "{ level, weight }[] or raw levels: number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ level, weight }[] | number[]",
+        "required": true
+      },
+      {
+        "name": "valueArea",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "align",
+        "type": "\"left\" | \"right\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"poc\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "bins",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "level": 134,
+          "weight": 3
+        },
+        {
+          "level": 136,
+          "weight": 6
+        },
+        {
+          "level": 138,
+          "weight": 11
+        },
+        {
+          "level": 140,
+          "weight": 18
+        },
+        {
+          "level": 142,
+          "weight": 26
+        },
+        {
+          "level": 144,
+          "weight": 20
+        },
+        {
+          "level": 146,
+          "weight": 12
+        },
+        {
+          "level": 148,
+          "weight": 7
+        },
+        {
+          "level": 150,
+          "weight": 4
+        }
+      ],
+      "title": "Volume by price"
+    }
+  },
+  {
+    "name": "PhaseTrace",
+    "slug": "phase-trace",
+    "dataShape": "{ x, y }[] (two synchronized signals as one trajectory)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ x, y }[]",
+        "required": true
+      },
+      {
+        "name": "xLabel",
+        "type": "unknown",
+        "required": false
+      },
+      {
+        "name": "yLabel",
+        "type": "unknown",
+        "required": false
+      },
+      {
+        "name": "xDomain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "tail",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "startDot",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "grid",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "x": 77,
+          "y": 78.666924
+        },
+        {
+          "x": 76.729143,
+          "y": 82.942335
+        },
+        {
+          "x": 75.923243,
+          "y": 87.883995
+        },
+        {
+          "x": 74.602144,
+          "y": 93.370225
+        },
+        {
+          "x": 72.798374,
+          "y": 99.265936
+        },
+        {
+          "x": 70.556349,
+          "y": 105.425954
+        },
+        {
+          "x": 67.931276,
+          "y": 111.698601
+        },
+        {
+          "x": 64.987791,
+          "y": 117.929422
+        },
+        {
+          "x": 61.798374,
+          "y": 123.964995
+        },
+        {
+          "x": 58.441558,
+          "y": 129.656704
+        },
+        {
+          "x": 55,
+          "y": 134.864399
+        },
+        {
+          "x": 51.558442,
+          "y": 139.45985
+        },
+        {
+          "x": 48.201626,
+          "y": 143.329902
+        },
+        {
+          "x": 45.012209,
+          "y": 146.37926
+        },
+        {
+          "x": 42.068724,
+          "y": 148.532841
+        },
+        {
+          "x": 39.443651,
+          "y": 149.737616
+        },
+        {
+          "x": 37.201626,
+          "y": 149.963918
+        },
+        {
+          "x": 35.397856,
+          "y": 149.206176
+        },
+        {
+          "x": 34.076757,
+          "y": 147.483048
+        },
+        {
+          "x": 33.270857,
+          "y": 144.836963
+        },
+        {
+          "x": 33,
+          "y": 141.333076
+        },
+        {
+          "x": 33.270857,
+          "y": 137.057665
+        },
+        {
+          "x": 34.076757,
+          "y": 132.116005
+        },
+        {
+          "x": 35.397856,
+          "y": 126.629775
+        },
+        {
+          "x": 37.201626,
+          "y": 120.734064
+        },
+        {
+          "x": 39.443651,
+          "y": 114.574046
+        },
+        {
+          "x": 42.068724,
+          "y": 108.301399
+        },
+        {
+          "x": 45.012209,
+          "y": 102.070578
+        },
+        {
+          "x": 48.201626,
+          "y": 96.035005
+        },
+        {
+          "x": 51.558442,
+          "y": 90.343296
+        },
+        {
+          "x": 55,
+          "y": 85.135601
+        },
+        {
+          "x": 58.441558,
+          "y": 80.54015
+        },
+        {
+          "x": 61.798374,
+          "y": 76.670098
+        },
+        {
+          "x": 64.987791,
+          "y": 73.62074
+        },
+        {
+          "x": 67.931276,
+          "y": 71.467159
+        },
+        {
+          "x": 70.556349,
+          "y": 70.262384
+        },
+        {
+          "x": 72.798374,
+          "y": 70.036082
+        },
+        {
+          "x": 74.602144,
+          "y": 70.793824
+        },
+        {
+          "x": 75.923243,
+          "y": 72.516952
+        },
+        {
+          "x": 76.729143,
+          "y": 75.163037
+        }
+      ],
+      "xLabel": "CPU",
+      "yLabel": "Latency",
+      "title": "Phase portrait"
+    }
+  },
+  {
+    "name": "TraceFold",
+    "slug": "trace-fold",
+    "dataShape": "{ label, start, duration, depth, parent?, critical? }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "Span[]",
+        "required": true
+      },
+      {
+        "name": "emphasis",
+        "type": "\"critical\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "request",
+          "start": 0,
+          "duration": 214,
+          "depth": 0
+        },
+        {
+          "label": "db.query",
+          "start": 10,
+          "duration": 86,
+          "depth": 1,
+          "parent": 0
+        },
+        {
+          "label": "auth",
+          "start": 0,
+          "duration": 8,
+          "depth": 1,
+          "parent": 0
+        },
+        {
+          "label": "render",
+          "start": 96,
+          "duration": 60,
+          "depth": 1,
+          "parent": 0
+        },
+        {
+          "label": "serialize",
+          "start": 156,
+          "duration": 40,
+          "depth": 1,
+          "parent": 0
+        },
+        {
+          "label": "index-scan",
+          "start": 12,
+          "duration": 70,
+          "depth": 2,
+          "parent": 1
+        },
+        {
+          "label": "decode",
+          "start": 82,
+          "duration": 12,
+          "depth": 2,
+          "parent": 1
+        },
+        {
+          "label": "log",
+          "start": 200,
+          "duration": 14,
+          "depth": 1,
+          "parent": 0
+        },
+        {
+          "label": "gc",
+          "start": 90,
+          "duration": 5,
+          "depth": 2,
+          "parent": 1
+        }
+      ],
+      "title": "Request trace"
+    }
+  },
+  {
+    "name": "TapeGauge",
+    "slug": "tape-gauge",
+    "dataShape": "value: number, rate?: number, zones?: { from, to, tone }[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "rate",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "zones",
+        "type": "{ from, to, tone }[]",
+        "required": false
+      },
+      {
+        "name": "span",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "rateTiers",
+        "type": "[number, number]",
+        "required": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"vertical\" | \"horizontal\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "per chart",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "value": 142,
+      "rate": 1,
+      "zones": [
+        {
+          "from": 100,
+          "to": 130,
+          "tone": "pos"
+        },
+        {
+          "from": 130,
+          "to": 150,
+          "tone": "warn"
+        },
+        {
+          "from": 150,
+          "to": 200,
+          "tone": "neg"
+        }
+      ],
+      "span": 60,
+      "title": "Airspeed"
+    }
+  },
+  {
+    "name": "StationGlyph",
+    "slug": "station-glyph",
+    "dataShape": "cloud, wind{ direction, magnitude }, temp, dewpoint, pressure, station",
+    "svg": true,
+    "props": [
+      {
+        "name": "cloud",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "wind",
+        "type": "{ direction, magnitude }",
+        "required": false
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "temp",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "dewpoint",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "pressure",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "station",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "station": "KSFO",
+      "cloud": 0.75,
+      "wind": {
+        "direction": 225,
+        "magnitude": 15
+      },
+      "temp": 16,
+      "dewpoint": 9,
+      "pressure": 1013
+    }
+  },
+  {
+    "name": "CohortTriangle",
+    "slug": "cohort-triangle",
+    "dataShape": "{ label, values }[], retention per age (ragged rows)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ label, values }[]",
+        "required": true
+      },
+      {
+        "name": "cell",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "gap",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "labels",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "highlight",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "label": "Jan",
+          "values": [
+            1,
+            0.62,
+            0.48,
+            0.41,
+            0.38,
+            0.37
+          ]
+        },
+        {
+          "label": "Feb",
+          "values": [
+            1,
+            0.58,
+            0.44,
+            0.38,
+            0.35
+          ]
+        },
+        {
+          "label": "Mar",
+          "values": [
+            1,
+            0.47,
+            0.36,
+            0.31
+          ]
+        },
+        {
+          "label": "Apr",
+          "values": [
+            1,
+            0.55,
+            0.42
+          ]
+        },
+        {
+          "label": "May",
+          "values": [
+            1,
+            0.52
+          ]
+        }
+      ],
+      "unit": "month",
+      "title": "Monthly retention"
+    }
+  },
+  {
+    "name": "StreakSpark",
+    "slug": "streak-spark",
+    "dataShape": "(boolean | number | null)[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "(boolean | number | null)[]",
+        "required": true
+      },
+      {
+        "name": "threshold",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"current\" | \"both\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "title": "Deploy streak"
+    }
+  },
+  {
+    "name": "GradeProfile",
+    "slug": "grade-profile",
+    "dataShape": "{ d, elev }[], distance + elevation in the same unit",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ d: number; elev: number }[]",
+        "required": true
+      },
+      {
+        "name": "bins",
+        "type": "[number, number, number]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"max\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "d": 0,
+          "elev": 800
+        },
+        {
+          "d": 100,
+          "elev": 809
+        },
+        {
+          "d": 250,
+          "elev": 812
+        },
+        {
+          "d": 350,
+          "elev": 817
+        },
+        {
+          "d": 500,
+          "elev": 835
+        },
+        {
+          "d": 700,
+          "elev": 833
+        },
+        {
+          "d": 900,
+          "elev": 865
+        }
+      ],
+      "title": "Queen stage"
+    }
+  },
+  {
+    "name": "WinProbWorm",
+    "slug": "win-prob-worm",
+    "dataShape": "number[]",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "sides",
+        "type": "[string, string]",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "markSwing",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        50,
+        48,
+        45,
+        52,
+        60,
+        58,
+        42,
+        38,
+        55,
+        68,
+        82,
+        90,
+        88,
+        94,
+        98
+      ],
+      "sides": [
+        "home",
+        "away"
+      ],
+      "title": "Win probability"
+    }
+  },
+  {
+    "name": "QueueDepth",
+    "slug": "queue-depth",
+    "dataShape": "number[], backlog depth per period (≥ 0)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "capacity",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        42,
+        55,
+        70,
+        88,
+        96,
+        120,
+        150,
+        182,
+        214
+      ],
+      "capacity": 100,
+      "title": "Support queue"
+    }
+  },
+  {
+    "name": "SpreadBand",
+    "slug": "spread-band",
+    "dataShape": "data: { a, b }[], a = subject, b = reference (null in either = gap in both)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ a: number | null; b: number | null }[]",
+        "required": true
+      },
+      {
+        "name": "seriesLabels",
+        "type": "[string, string]",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"gap\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "domain",
+        "type": "[min, max]",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "a": 8,
+          "b": 12
+        },
+        {
+          "a": 9,
+          "b": 12
+        },
+        {
+          "a": 11,
+          "b": 13
+        },
+        {
+          "a": 12,
+          "b": 13
+        },
+        {
+          "a": 14,
+          "b": 13
+        },
+        {
+          "a": 15,
+          "b": 14
+        },
+        {
+          "a": 17,
+          "b": 14
+        },
+        {
+          "a": 18,
+          "b": 14
+        },
+        {
+          "a": 20,
+          "b": 15
+        },
+        {
+          "a": 21,
+          "b": 15
+        },
+        {
+          "a": 23,
+          "b": 16
+        },
+        {
+          "a": 24,
+          "b": 16
+        }
+      ],
+      "seriesLabels": [
+        "Organic",
+        "Paid"
+      ],
+      "title": "Organic vs paid"
+    }
+  },
+  {
+    "name": "BiasStrip",
+    "slug": "bias-strip",
+    "dataShape": "{ a, b }[] (paired measurements)",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "{ a; b }[]",
+        "required": true
+      },
+      {
+        "name": "limits",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"bias\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "r",
+        "type": "number",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        {
+          "a": 1.8,
+          "b": 0
+        },
+        {
+          "a": 3.4,
+          "b": 1
+        },
+        {
+          "a": 3.5,
+          "b": 2
+        },
+        {
+          "a": 5.9,
+          "b": 3
+        },
+        {
+          "a": 6.1,
+          "b": 4
+        },
+        {
+          "a": 6.2,
+          "b": 5
+        },
+        {
+          "a": 8.6,
+          "b": 6
+        },
+        {
+          "a": 10,
+          "b": 7
+        },
+        {
+          "a": 9.9,
+          "b": 8
+        },
+        {
+          "a": 11.3,
+          "b": 9
+        },
+        {
+          "a": 16.5,
+          "b": 10
+        },
+        {
+          "a": 13,
+          "b": 11
+        },
+        {
+          "a": 13.7,
+          "b": 12
+        },
+        {
+          "a": 15.8,
+          "b": 13
+        },
+        {
+          "a": 16.2,
+          "b": 14
+        },
+        {
+          "a": 13.5,
+          "b": 15
+        },
+        {
+          "a": 18.5,
+          "b": 16
+        },
+        {
+          "a": 18.6,
+          "b": 17
+        },
+        {
+          "a": 20.7,
+          "b": 18
+        },
+        {
+          "a": 21,
+          "b": 19
+        }
+      ],
+      "title": "Device vs reference"
+    }
+  },
+  {
+    "name": "PercentileTrace",
+    "slug": "percentile-trace",
+    "dataShape": "number[], percentile ranks 0–100, one per reading",
+    "svg": true,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true
+      },
+      {
+        "name": "showBands",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "positive",
+        "type": "\"up\" | \"down\"",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "\"last\" | \"none\"",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "height",
+        "type": "number | string",
+        "required": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "format",
+        "type": "Intl.NumberFormatOptions | (n) => string",
+        "required": false
+      },
+      {
+        "name": "locale",
+        "type": "string | string[]",
+        "required": false
+      },
+      {
+        "name": "strings",
+        "type": "SummaryStrings",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "summary",
+        "type": "string | false",
+        "required": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "unknown",
+        "required": false
+      }
+    ],
+    "sample": {
+      "data": [
+        40,
+        46,
+        52,
+        58,
+        63,
+        68,
+        72,
+        76,
+        79,
+        81
+      ],
+      "title": "Standing"
+    }
+  }
+] as const satisfies readonly ChartDefinition[];
