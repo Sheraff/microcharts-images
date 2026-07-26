@@ -10,6 +10,7 @@ import { renderChart } from "./render";
 type AppEnv = { Bindings: Env };
 
 const app = new Hono<AppEnv>();
+const ALLOWED_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 const querySizeLimit: MiddlewareHandler<AppEnv> = async (context, next) => {
   const search = new URL(context.req.url).search;
   if (new TextEncoder().encode(search).byteLength > MAX_QUERY_BYTES) {
@@ -22,8 +23,17 @@ const querySizeLimit: MiddlewareHandler<AppEnv> = async (context, next) => {
 };
 
 app.use("*", cors({ origin: "*", allowMethods: ["GET", "HEAD", "OPTIONS"] }));
+app.use("*", async (context, next) => {
+  if (!ALLOWED_METHODS.has(context.req.method)) {
+    return problemResponse(
+      context.req.raw,
+      new HttpError(405, "Only GET, HEAD, and OPTIONS are supported."),
+    );
+  }
+  await next();
+});
 app.options("*", (context) => context.body(null, 204));
-app.on(["GET", "HEAD"], "/", (context) => informationalResponse(context.req.raw));
+app.on(["GET", "HEAD"], "/", (context) => homepageResponse(context.req.raw));
 app.on(["GET", "HEAD"], "/catalog.json", (context) => catalogResponse(context.req.raw));
 
 for (const chart of charts) {
@@ -70,18 +80,8 @@ for (const chart of charts) {
   );
 }
 
-app.on(["GET", "HEAD"], "*", (context) => {
-  const identifier = unknownIdentifier(context.req.path);
-  const chartName = identifier.toLowerCase().endsWith(".svg") ? identifier.slice(0, -4) : identifier;
-  const status = chartName.includes(".") ? 406 : 404;
-  const detail = status === 406 ? "Only SVG output is currently supported." : `Unknown chart "${chartName}".`;
-  return problemResponse(context.req.raw, new HttpError(status, detail));
-});
-app.all("*", (context) =>
-  problemResponse(
-    context.req.raw,
-    new HttpError(405, "Only GET, HEAD, and OPTIONS are supported."),
-  ),
+app.notFound((context) =>
+  problemResponse(context.req.raw, new HttpError(404, "No chart or service route matches this URL.")),
 );
 
 app.onError((error, context) => {
@@ -98,14 +98,6 @@ function validationDetail(issue: { message: string; path?: readonly unknown[] } 
       ? (segment as { key: PropertyKey }).key
       : segment;
   return key === undefined ? issue.message : `Invalid prop "${String(key)}": ${issue.message}`;
-}
-
-function unknownIdentifier(pathname: string): string {
-  try {
-    return decodeURIComponent(pathname.slice(1));
-  } catch {
-    throw new HttpError(400, "The chart path is not valid URL encoding.");
-  }
 }
 
 function imageHeaders(slug: string, svg: string, etag: string): Headers {
@@ -137,19 +129,52 @@ function etagMatches(header: string | undefined, etag: string): boolean {
   return header.trim() === "*" || header.split(",").some((value) => normalize(value) === etag);
 }
 
-function informationalResponse(request: Request): Response {
-  return jsonResponse(
-    request,
-    {
-      name: "Microcharts Images",
-      description: "Render @microcharts/react components as standalone SVG images.",
-      version: LIBRARY_VERSION,
-      example: "/HeatCell?value=42&domain=0,100&title=Load",
-      catalog: "/catalog.json",
-      supportedCharts: charts.filter((chart) => chart.svg).length,
+function homepageResponse(request: Request): Response {
+  const examples = [
+    ["Heat cell", "/HeatCell?value=42&domain=0,100&title=Load"],
+    ["Sparkline", "/Sparkline?data=3,5,4,8,7,10&fill=true&title=Revenue"],
+    ["Progress", "/Progress?value=68&max=100&label=percent&title=Upload"],
+    ["Trend arrow", "/TrendArrow?value=-0.08&showValue=true&title=Latency"],
+    [
+      "Micro donut",
+      "/MicroDonut?data=%5B%7B%22label%22%3A%22Used%22%2C%22value%22%3A72%7D%2C%7B%22label%22%3A%22Free%22%2C%22value%22%3A28%7D%5D&title=Storage",
+    ],
+  ] as const;
+  const cards = examples
+    .map(([name, path]) => {
+      const escapedPath = escapeHtml(path);
+      return `<figure><a href="${escapedPath}"><img src="${escapedPath}" alt="${name} example"></a><figcaption><strong>${name}</strong><code>${escapedPath}</code></figcaption></figure>`;
+    })
+    .join("");
+  const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Microcharts Images</title>
+<style>
+body{max-width:70rem;margin:3rem auto;padding:0 1.25rem;font:16px/1.5 system-ui,sans-serif;color:#1a1917;background:#faf9f6}h1{margin-bottom:.25rem;font-size:clamp(2rem,7vw,4rem);letter-spacing:-.04em}header p{max-width:42rem;margin-top:0;color:#555}a{color:inherit}.examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin:2.5rem 0}figure{margin:0;padding:1rem;border:1px solid #d8d5cf;border-radius:.35rem;background:white}figure a{display:grid;place-items:center;min-height:8rem}img{display:block;width:100%;height:7rem;object-fit:contain}figcaption{display:grid;gap:.4rem;margin-top:1rem}code{overflow-wrap:anywhere;font:12px/1.4 ui-monospace,monospace;color:#555}footer{padding-top:1rem;border-top:1px solid #d8d5cf;color:#555}
+</style>
+</head>
+<body>
+<header><h1>Microcharts Images</h1><p>Turn an <a href="https://microcharts.dev">@microcharts/react</a> component and URL query parameters into a standalone SVG. Use the image URL anywhere that accepts an <code>&lt;img&gt;</code>, Markdown image, or Open Graph image.</p></header>
+<main><section class="examples" aria-label="Examples">${cards}</section></main>
+<footer>${charts.filter((chart) => chart.svg).length} SVG charts in @microcharts/react ${LIBRARY_VERSION}. Browse every route and prop in <a href="/catalog.json">catalog.json</a>.</footer>
+</body>
+</html>`;
+  return new Response(request.method === "HEAD" ? null : html, {
+    headers: {
+      "Cache-Control": "public, max-age=3600",
+      "Content-Security-Policy": "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'",
+      "Content-Type": "text/html; charset=utf-8",
+      "X-Content-Type-Options": "nosniff",
     },
-    "public, max-age=3600",
-  );
+  });
+}
+
+function escapeHtml(value: string): string {
+  return value.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
 }
 
 function catalogResponse(request: Request): Response {

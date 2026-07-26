@@ -1,5 +1,5 @@
-import { CHARTS } from "./catalog.generated";
-import type { ChartDefinition, ChartProp } from "./types";
+import { CHARTS, VALUE_SHAPES } from "./catalog.generated";
+import type { ChartDefinition, ChartProp, ValueShape } from "./types";
 
 const UNSUPPORTED_PROPS = new Set([
   "animate",
@@ -18,11 +18,17 @@ const UNSUPPORTED_PROPS = new Set([
 ]);
 
 export const charts = CHARTS as readonly ChartDefinition[];
+const valueShapes: Readonly<Record<string, ValueShape>> = VALUE_SHAPES;
 
 export function isSupportedProp(prop: ChartProp): boolean {
   if (UNSUPPORTED_PROPS.has(prop.name) || prop.interactive) return false;
-  const alternatives = splitAlternatives(prop.type);
-  return !alternatives.every(isFunctionType);
+  return propShape(prop).kind !== "never";
+}
+
+export function propShape(prop: ChartProp): ValueShape {
+  const shape = valueShapes[prop.type];
+  if (!shape) throw new Error(`No generated value shape for ${prop.type}.`);
+  return shape;
 }
 
 export function publicPropType(prop: ChartProp): string {
@@ -35,30 +41,3 @@ export function chartPaths(chart: ChartDefinition): string[] {
     `/${name}.svg`,
   ]);
 }
-
-function isFunctionType(type: string): boolean {
-  return type.includes("=>") || type.trim() === "fn";
-}
-
-function splitAlternatives(type: string): string[] {
-  return splitTopLevel(type, new Set(["|"]));
-}
-
-function splitTopLevel(source: string, separators: ReadonlySet<string>): string[] {
-  const parts: string[] = [];
-  let depth = 0;
-  let start = 0;
-  for (let index = 0; index < source.length; index++) {
-    const character = source[index];
-    if ("([{<".includes(character)) depth++;
-    if (")]}>".includes(character)) depth--;
-    if (separators.has(character) && depth === 0) {
-      parts.push(source.slice(start, index).trim());
-      start = index + 1;
-    }
-  }
-  parts.push(source.slice(start).trim());
-  return parts.filter(Boolean);
-}
-
-export { isFunctionType, splitAlternatives, splitTopLevel };

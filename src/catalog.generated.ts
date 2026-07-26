@@ -1,6 +1,2988 @@
-import type { ChartDefinition } from "./types";
+import type { ChartDefinition, ValueShape } from "./types";
 
 export const LIBRARY_VERSION = "0.10.0";
+export const VALUE_SHAPES = {
+  "\"above\" | \"below\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "above"
+      },
+      {
+        "kind": "literal",
+        "value": "below"
+      }
+    ]
+  },
+  "\"absolute\" | \"rate\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "absolute"
+      },
+      {
+        "kind": "literal",
+        "value": "rate"
+      }
+    ]
+  },
+  "\"accuracy\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "accuracy"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"area\" | \"bars\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "area"
+      },
+      {
+        "kind": "literal",
+        "value": "bars"
+      }
+    ]
+  },
+  "\"arrow\" | \"triangle\" | \"chevron\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "arrow"
+      },
+      {
+        "kind": "literal",
+        "value": "triangle"
+      },
+      {
+        "kind": "literal",
+        "value": "chevron"
+      }
+    ]
+  },
+  "\"auto\" | \"minmax\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "auto"
+      },
+      {
+        "kind": "literal",
+        "value": "minmax"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"auto\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "auto"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"auto\" | number[]": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "auto"
+      },
+      {
+        "kind": "array",
+        "item": {
+          "kind": "number"
+        }
+      }
+    ]
+  },
+  "\"bar\" | \"winloss\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "bar"
+      },
+      {
+        "kind": "literal",
+        "value": "winloss"
+      }
+    ]
+  },
+  "\"barb\" | \"arrow\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "barb"
+      },
+      {
+        "kind": "literal",
+        "value": "arrow"
+      }
+    ]
+  },
+  "\"bars\" | \"envelope\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "bars"
+      },
+      {
+        "kind": "literal",
+        "value": "envelope"
+      }
+    ]
+  },
+  "\"bars\" | \"heat\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "bars"
+      },
+      {
+        "kind": "literal",
+        "value": "heat"
+      }
+    ]
+  },
+  "\"bias\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "bias"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"bin\" | \"clip\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "bin"
+      },
+      {
+        "kind": "literal",
+        "value": "clip"
+      }
+    ]
+  },
+  "\"binary\" | \"intensity\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "binary"
+      },
+      {
+        "kind": "literal",
+        "value": "intensity"
+      }
+    ]
+  },
+  "\"candle\" | \"bars\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "candle"
+      },
+      {
+        "kind": "literal",
+        "value": "bars"
+      }
+    ]
+  },
+  "\"center\" | \"baseline\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "center"
+      },
+      {
+        "kind": "literal",
+        "value": "baseline"
+      }
+    ]
+  },
+  "\"changes\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "changes"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"clip\" | \"round\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "clip"
+      },
+      {
+        "kind": "literal",
+        "value": "round"
+      }
+    ]
+  },
+  "\"count\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "count"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"critical\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "critical"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"current\" | \"both\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "current"
+      },
+      {
+        "kind": "literal",
+        "value": "both"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"data\" | \"asc\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "data"
+      },
+      {
+        "kind": "literal",
+        "value": "asc"
+      }
+    ]
+  },
+  "\"data\" | \"desc\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "data"
+      },
+      {
+        "kind": "literal",
+        "value": "desc"
+      }
+    ]
+  },
+  "\"data\" | \"desc\" | \"asc\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "data"
+      },
+      {
+        "kind": "literal",
+        "value": "desc"
+      },
+      {
+        "kind": "literal",
+        "value": "asc"
+      }
+    ]
+  },
+  "\"data\" | \"net\" | \"magnitude\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "data"
+      },
+      {
+        "kind": "literal",
+        "value": "net"
+      },
+      {
+        "kind": "literal",
+        "value": "magnitude"
+      }
+    ]
+  },
+  "\"day\" | \"week\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "day"
+      },
+      {
+        "kind": "literal",
+        "value": "week"
+      }
+    ]
+  },
+  "\"delta\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "delta"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"diagonal\" | \"errors\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "diagonal"
+      },
+      {
+        "kind": "literal",
+        "value": "errors"
+      }
+    ]
+  },
+  "\"dot\" | \"arc\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "dot"
+      },
+      {
+        "kind": "literal",
+        "value": "arc"
+      }
+    ]
+  },
+  "\"dot\" | \"square\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "dot"
+      },
+      {
+        "kind": "literal",
+        "value": "square"
+      }
+    ]
+  },
+  "\"dots\" | \"bars\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "dots"
+      },
+      {
+        "kind": "literal",
+        "value": "bars"
+      }
+    ]
+  },
+  "\"down\" | \"up\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "down"
+      },
+      {
+        "kind": "literal",
+        "value": "up"
+      }
+    ]
+  },
+  "\"end\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "end"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"ends\" | \"last\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "ends"
+      },
+      {
+        "kind": "literal",
+        "value": "last"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"ends\" | \"net\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "ends"
+      },
+      {
+        "kind": "literal",
+        "value": "net"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"eta\" | \"percent\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "eta"
+      },
+      {
+        "kind": "literal",
+        "value": "percent"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"fill\" | \"drain\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "fill"
+      },
+      {
+        "kind": "literal",
+        "value": "drain"
+      }
+    ]
+  },
+  "\"flagged\" | \"all\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "flagged"
+      },
+      {
+        "kind": "literal",
+        "value": "all"
+      }
+    ]
+  },
+  "\"gap\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "gap"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"grid\" | \"strip\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "grid"
+      },
+      {
+        "kind": "literal",
+        "value": "strip"
+      }
+    ]
+  },
+  "\"grouped\" | \"overlay\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "grouped"
+      },
+      {
+        "kind": "literal",
+        "value": "overlay"
+      }
+    ]
+  },
+  "\"horizontal\" | \"vertical\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "horizontal"
+      },
+      {
+        "kind": "literal",
+        "value": "vertical"
+      }
+    ]
+  },
+  "\"in\" | \"all\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "in"
+      },
+      {
+        "kind": "literal",
+        "value": "all"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"intensity\" | \"barcode\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "intensity"
+      },
+      {
+        "kind": "literal",
+        "value": "barcode"
+      }
+    ]
+  },
+  "\"landing\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "landing"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"last\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "last"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"last\" | \"none\" | number": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "last"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "number"
+      }
+    ]
+  },
+  "\"left\" | \"right\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "left"
+      },
+      {
+        "kind": "literal",
+        "value": "right"
+      }
+    ]
+  },
+  "\"length\" | \"opacity\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "length"
+      },
+      {
+        "kind": "literal",
+        "value": "opacity"
+      }
+    ]
+  },
+  "\"linear\" | \"log\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "linear"
+      },
+      {
+        "kind": "literal",
+        "value": "log"
+      }
+    ]
+  },
+  "\"linear\" | \"smooth\" | \"step\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "linear"
+      },
+      {
+        "kind": "literal",
+        "value": "smooth"
+      },
+      {
+        "kind": "literal",
+        "value": "step"
+      }
+    ]
+  },
+  "\"linear\" | \"step\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "linear"
+      },
+      {
+        "kind": "literal",
+        "value": "step"
+      }
+    ]
+  },
+  "\"max\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "max"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"mean\" | \"median\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "mean"
+      },
+      {
+        "kind": "literal",
+        "value": "median"
+      }
+    ]
+  },
+  "\"median\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "median"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"minmax\" | \"tukey\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "minmax"
+      },
+      {
+        "kind": "literal",
+        "value": "tukey"
+      }
+    ]
+  },
+  "\"mirror\" | \"offset\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "mirror"
+      },
+      {
+        "kind": "literal",
+        "value": "offset"
+      }
+    ]
+  },
+  "\"mirror\" | \"overlay\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "mirror"
+      },
+      {
+        "kind": "literal",
+        "value": "overlay"
+      }
+    ]
+  },
+  "\"nearest-median\" | \"median\" | number": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "nearest-median"
+      },
+      {
+        "kind": "literal",
+        "value": "median"
+      },
+      {
+        "kind": "number"
+      }
+    ]
+  },
+  "\"none\" | \"count\" | \"percent\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "count"
+      },
+      {
+        "kind": "literal",
+        "value": "percent"
+      }
+    ]
+  },
+  "\"none\" | \"delta\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "delta"
+      }
+    ]
+  },
+  "\"none\" | \"last\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "last"
+      }
+    ]
+  },
+  "\"none\" | \"last\" | \"minmax\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "last"
+      },
+      {
+        "kind": "literal",
+        "value": "minmax"
+      }
+    ]
+  },
+  "\"none\" | \"max\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "max"
+      }
+    ]
+  },
+  "\"none\" | \"percent\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "percent"
+      }
+    ]
+  },
+  "\"none\" | \"percent\" | \"value\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "percent"
+      },
+      {
+        "kind": "literal",
+        "value": "value"
+      }
+    ]
+  },
+  "\"none\" | \"remaining\" | \"elapsed\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "remaining"
+      },
+      {
+        "kind": "literal",
+        "value": "elapsed"
+      }
+    ]
+  },
+  "\"none\" | \"spans\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "spans"
+      }
+    ]
+  },
+  "\"none\" | \"total\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "total"
+      }
+    ]
+  },
+  "\"none\" | \"value\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "value"
+      }
+    ]
+  },
+  "\"none\" | \"value\" | \"label\" | \"both\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "value"
+      },
+      {
+        "kind": "literal",
+        "value": "label"
+      },
+      {
+        "kind": "literal",
+        "value": "both"
+      }
+    ]
+  },
+  "\"none\" | \"value\" | \"target\" | \"both\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "value"
+      },
+      {
+        "kind": "literal",
+        "value": "target"
+      },
+      {
+        "kind": "literal",
+        "value": "both"
+      }
+    ]
+  },
+  "\"none\" | \"we\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "none"
+      },
+      {
+        "kind": "literal",
+        "value": "we"
+      }
+    ]
+  },
+  "\"numeral\" | \"clamp\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "numeral"
+      },
+      {
+        "kind": "literal",
+        "value": "clamp"
+      }
+    ]
+  },
+  "\"out\" | \"all\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "out"
+      },
+      {
+        "kind": "literal",
+        "value": "all"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"outline\" | \"blank\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "outline"
+      },
+      {
+        "kind": "literal",
+        "value": "blank"
+      }
+    ]
+  },
+  "\"p5p95\" | \"minmax\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "p5p95"
+      },
+      {
+        "kind": "literal",
+        "value": "minmax"
+      }
+    ]
+  },
+  "\"percent\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "percent"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"percent\" | \"value\" | \"fraction\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "percent"
+      },
+      {
+        "kind": "literal",
+        "value": "value"
+      },
+      {
+        "kind": "literal",
+        "value": "fraction"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"poc\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "poc"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"progress\" | \"cycle\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "progress"
+      },
+      {
+        "kind": "literal",
+        "value": "cycle"
+      }
+    ]
+  },
+  "\"ps\" | \"values\" | \"both\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "ps"
+      },
+      {
+        "kind": "literal",
+        "value": "values"
+      },
+      {
+        "kind": "literal",
+        "value": "both"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"ratio\" | \"difference\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "ratio"
+      },
+      {
+        "kind": "literal",
+        "value": "difference"
+      }
+    ]
+  },
+  "\"ratio\" | \"percent\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "ratio"
+      },
+      {
+        "kind": "literal",
+        "value": "percent"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"remaining\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "remaining"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"row\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "row"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"ruled\" | \"drawn\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "ruled"
+      },
+      {
+        "kind": "literal",
+        "value": "drawn"
+      }
+    ]
+  },
+  "\"shift\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "shift"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"sigma\" | \"percentile\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "sigma"
+      },
+      {
+        "kind": "literal",
+        "value": "percentile"
+      }
+    ]
+  },
+  "\"split\" | \"omit\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "split"
+      },
+      {
+        "kind": "literal",
+        "value": "omit"
+      }
+    ]
+  },
+  "\"spread\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "spread"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"square\" | \"round\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "square"
+      },
+      {
+        "kind": "literal",
+        "value": "round"
+      }
+    ]
+  },
+  "\"square\" | \"round\" | \"dot\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "square"
+      },
+      {
+        "kind": "literal",
+        "value": "round"
+      },
+      {
+        "kind": "literal",
+        "value": "dot"
+      }
+    ]
+  },
+  "\"stacked\" | \"ridge\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "stacked"
+      },
+      {
+        "kind": "literal",
+        "value": "ridge"
+      }
+    ]
+  },
+  "\"staff\" | \"ledger\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "staff"
+      },
+      {
+        "kind": "literal",
+        "value": "ledger"
+      }
+    ]
+  },
+  "\"step\" | \"smooth\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "step"
+      },
+      {
+        "kind": "literal",
+        "value": "smooth"
+      }
+    ]
+  },
+  "\"steps\" | \"lanes\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "steps"
+      },
+      {
+        "kind": "literal",
+        "value": "lanes"
+      }
+    ]
+  },
+  "\"stroke\" | \"fill\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "stroke"
+      },
+      {
+        "kind": "literal",
+        "value": "fill"
+      }
+    ]
+  },
+  "\"tick\" | \"dot\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "tick"
+      },
+      {
+        "kind": "literal",
+        "value": "dot"
+      }
+    ]
+  },
+  "\"tips\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "tips"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"totals\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "totals"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"up\" | \"down\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "up"
+      },
+      {
+        "kind": "literal",
+        "value": "down"
+      }
+    ]
+  },
+  "\"value\" | \"both\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "value"
+      },
+      {
+        "kind": "literal",
+        "value": "both"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"value\" | \"digit\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "value"
+      },
+      {
+        "kind": "literal",
+        "value": "digit"
+      }
+    ]
+  },
+  "\"value\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "value"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"value\" | \"percentile\" | \"none\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "value"
+      },
+      {
+        "kind": "literal",
+        "value": "percentile"
+      },
+      {
+        "kind": "literal",
+        "value": "none"
+      }
+    ]
+  },
+  "\"vertical\" | \"horizontal\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": "vertical"
+      },
+      {
+        "kind": "literal",
+        "value": "horizontal"
+      }
+    ]
+  },
+  "(boolean | number | null)[]": {
+    "kind": "array",
+    "item": {
+      "kind": "union",
+      "options": [
+        {
+          "kind": "boolean"
+        },
+        {
+          "kind": "number"
+        },
+        {
+          "kind": "null"
+        }
+      ]
+    }
+  },
+  "(index, n) => string": {
+    "kind": "never"
+  },
+  "(number | null)[]": {
+    "kind": "array",
+    "item": {
+      "kind": "union",
+      "options": [
+        {
+          "kind": "number"
+        },
+        {
+          "kind": "null"
+        }
+      ]
+    }
+  },
+  "(t: number) => string": {
+    "kind": "never"
+  },
+  "(unit) => ReactNode": {
+    "kind": "never"
+  },
+  "(x: number) => string": {
+    "kind": "never"
+  },
+  "0 | 1": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": 0
+      },
+      {
+        "kind": "literal",
+        "value": 1
+      }
+    ]
+  },
+  "10 | 20 | 100": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": 10
+      },
+      {
+        "kind": "literal",
+        "value": 20
+      },
+      {
+        "kind": "literal",
+        "value": 100
+      }
+    ]
+  },
+  "2 | 3": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": 2
+      },
+      {
+        "kind": "literal",
+        "value": 3
+      }
+    ]
+  },
+  "3 | 5": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "literal",
+        "value": 3
+      },
+      {
+        "kind": "literal",
+        "value": 5
+      }
+    ]
+  },
+  "CSSProperties": {
+    "kind": "unknown"
+  },
+  "Intl.NumberFormatOptions | (n) => string": {
+    "kind": "record",
+    "value": {
+      "kind": "unknown"
+    }
+  },
+  "Intl.NumberFormatOptions | fn": {
+    "kind": "record",
+    "value": {
+      "kind": "unknown"
+    }
+  },
+  "RawPair[] | BinnedRow[]": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "array",
+        "item": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "kind": "array",
+        "item": {
+          "kind": "unknown"
+        }
+      }
+    ]
+  },
+  "Record<string, { glyph; token; label }>": {
+    "kind": "record",
+    "value": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "glyph",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "token",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "SeriesStrings": {
+    "kind": "unknown"
+  },
+  "Span[]": {
+    "kind": "array",
+    "item": {
+      "kind": "unknown"
+    }
+  },
+  "SummaryStrings": {
+    "kind": "unknown"
+  },
+  "TimeInRangeDatum": {
+    "kind": "unknown"
+  },
+  "[TL, TR, BL, BR]": {
+    "kind": "tuple",
+    "items": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "number"
+      }
+    ]
+  },
+  "[min, max]": {
+    "kind": "tuple",
+    "items": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "number"
+      }
+    ]
+  },
+  "[number, number, number]": {
+    "kind": "tuple",
+    "items": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "number"
+      }
+    ]
+  },
+  "[number, number]": {
+    "kind": "tuple",
+    "items": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "number"
+      }
+    ]
+  },
+  "[number, number][]": {
+    "kind": "array",
+    "item": {
+      "kind": "tuple",
+      "items": [
+        {
+          "kind": "number"
+        },
+        {
+          "kind": "number"
+        }
+      ]
+    }
+  },
+  "[start, end]": {
+    "kind": "tuple",
+    "items": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "number"
+      }
+    ]
+  },
+  "[string, string]": {
+    "kind": "tuple",
+    "items": [
+      {
+        "kind": "string"
+      },
+      {
+        "kind": "string"
+      }
+    ]
+  },
+  "[{label,value},{label,value}]": {
+    "kind": "tuple",
+    "items": [
+      {
+        "kind": "object",
+        "fields": [
+          {
+            "name": "label",
+            "optional": false,
+            "value": {
+              "kind": "unknown"
+            }
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "value": {
+              "kind": "unknown"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "object",
+        "fields": [
+          {
+            "name": "label",
+            "optional": false,
+            "value": {
+              "kind": "unknown"
+            }
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "value": {
+              "kind": "unknown"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "boolean": {
+    "kind": "boolean"
+  },
+  "number": {
+    "kind": "number"
+  },
+  "number | \"auto\"": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "literal",
+        "value": "auto"
+      }
+    ]
+  },
+  "number | Date": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "string"
+      }
+    ]
+  },
+  "number | false": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "literal",
+        "value": false
+      }
+    ]
+  },
+  "number | number[]": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "array",
+        "item": {
+          "kind": "number"
+        }
+      }
+    ]
+  },
+  "number | string": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "string"
+      }
+    ]
+  },
+  "number[]": {
+    "kind": "array",
+    "item": {
+      "kind": "number"
+    }
+  },
+  "number[][]": {
+    "kind": "array",
+    "item": {
+      "kind": "array",
+      "item": {
+        "kind": "number"
+      }
+    }
+  },
+  "per chart": {
+    "kind": "unknown"
+  },
+  "readonly [number, number]": {
+    "kind": "tuple",
+    "items": [
+      {
+        "kind": "number"
+      },
+      {
+        "kind": "number"
+      }
+    ]
+  },
+  "string": {
+    "kind": "string"
+  },
+  "string | Date": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "string"
+      },
+      {
+        "kind": "string"
+      }
+    ]
+  },
+  "string | false": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "string"
+      },
+      {
+        "kind": "literal",
+        "value": false
+      }
+    ]
+  },
+  "string | string[]": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "string"
+      },
+      {
+        "kind": "array",
+        "item": {
+          "kind": "string"
+        }
+      }
+    ]
+  },
+  "string[]": {
+    "kind": "array",
+    "item": {
+      "kind": "string"
+    }
+  },
+  "unknown": {
+    "kind": "unknown"
+  },
+  "{ a: number | null; b: number | null }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "a",
+          "optional": false,
+          "value": {
+            "kind": "union",
+            "options": [
+              {
+                "kind": "number"
+              },
+              {
+                "kind": "null"
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "optional": false,
+          "value": {
+            "kind": "union",
+            "options": [
+              {
+                "kind": "number"
+              },
+              {
+                "kind": "null"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "{ a: number[]; b: number[] }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "a",
+        "optional": false,
+        "value": {
+          "kind": "array",
+          "item": {
+            "kind": "number"
+          }
+        }
+      },
+      {
+        "name": "b",
+        "optional": false,
+        "value": {
+          "kind": "array",
+          "item": {
+            "kind": "number"
+          }
+        }
+      }
+    ]
+  },
+  "{ a; b }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "a",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "b",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ before: number[]; after: number[] }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "before",
+        "optional": false,
+        "value": {
+          "kind": "array",
+          "item": {
+            "kind": "number"
+          }
+        }
+      },
+      {
+        "name": "after",
+        "optional": false,
+        "value": {
+          "kind": "array",
+          "item": {
+            "kind": "number"
+          }
+        }
+      }
+    ]
+  },
+  "{ content, window, marks?, known? }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "content",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "window",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "marks",
+        "optional": true,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "known",
+        "optional": true,
+        "value": {
+          "kind": "unknown"
+        }
+      }
+    ]
+  },
+  "{ d: number; elev: number }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "d",
+          "optional": false,
+          "value": {
+            "kind": "number"
+          }
+        },
+        {
+          "name": "elev",
+          "optional": false,
+          "value": {
+            "kind": "number"
+          }
+        }
+      ]
+    }
+  },
+  "{ date; value }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "date",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ demand, supply }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "demand",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "supply",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      }
+    ]
+  },
+  "{ direction, magnitude }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "direction",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "magnitude",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      }
+    ]
+  },
+  "{ from, to, tone }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "from",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "to",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "tone",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ in; out }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "in",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "out",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ key; added; removed }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "key",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "added",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "removed",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label, events }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "events",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label, score, weight? }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "score",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "weight",
+          "optional": true,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label, value }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label, value, lit? }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "lit",
+          "optional": true,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label, value?, children? }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label, values }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "values",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label; from; to }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "from",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "to",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label; value }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label; value; ref }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "ref",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label; values }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "values",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ label?; from; to }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "label",
+          "optional": true,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "from",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "to",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ labels, counts }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "labels",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "counts",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      }
+    ]
+  },
+  "{ level, weight }[] | number[]": {
+    "kind": "union",
+    "options": [
+      {
+        "kind": "array",
+        "item": {
+          "kind": "object",
+          "fields": [
+            {
+              "name": "level",
+              "optional": false,
+              "value": {
+                "kind": "unknown"
+              }
+            },
+            {
+              "name": "weight",
+              "optional": false,
+              "value": {
+                "kind": "unknown"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "array",
+        "item": {
+          "kind": "number"
+        }
+      }
+    ]
+  },
+  "{ mid: number[]; p80: [lo,hi][]; p50?: [lo,hi][] }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "mid",
+        "optional": false,
+        "value": {
+          "kind": "array",
+          "item": {
+            "kind": "number"
+          }
+        }
+      },
+      {
+        "name": "p80",
+        "optional": false,
+        "value": {
+          "kind": "array",
+          "item": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "number"
+              },
+              {
+                "kind": "number"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "p50",
+        "optional": true,
+        "value": {
+          "kind": "array",
+          "item": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "number"
+              },
+              {
+                "kind": "number"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "{ min; q1; median; q3; max }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "min",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "q1",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "median",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "q3",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "max",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      }
+    ]
+  },
+  "{ open; high; low; close }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "open",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "high",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "low",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "close",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ plan: number[]; actual: number[] }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "plan",
+        "optional": false,
+        "value": {
+          "kind": "array",
+          "item": {
+            "kind": "number"
+          }
+        }
+      },
+      {
+        "name": "actual",
+        "optional": false,
+        "value": {
+          "kind": "array",
+          "item": {
+            "kind": "number"
+          }
+        }
+      }
+    ]
+  },
+  "{ rate; volume }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "rate",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "volume",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ start; end?; label?; kind? }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "start",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "end",
+          "optional": true,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "kind",
+          "optional": true,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ t, state }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "t",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "state",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ t, value }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "t",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ token, confidence }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "token",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "confidence",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ x, y }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "x",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "y",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  },
+  "{ x: number; y?: number; m?: number }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "x",
+          "optional": false,
+          "value": {
+            "kind": "number"
+          }
+        },
+        {
+          "name": "y",
+          "optional": true,
+          "value": {
+            "kind": "number"
+          }
+        },
+        {
+          "name": "m",
+          "optional": true,
+          "value": {
+            "kind": "number"
+          }
+        }
+      ]
+    }
+  },
+  "{ x; y }": {
+    "kind": "object",
+    "fields": [
+      {
+        "name": "x",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      },
+      {
+        "name": "y",
+        "optional": false,
+        "value": {
+          "kind": "unknown"
+        }
+      }
+    ]
+  },
+  "{ x; y }[]": {
+    "kind": "array",
+    "item": {
+      "kind": "object",
+      "fields": [
+        {
+          "name": "x",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        },
+        {
+          "name": "y",
+          "optional": false,
+          "value": {
+            "kind": "unknown"
+          }
+        }
+      ]
+    }
+  }
+} as const satisfies Readonly<Record<string, ValueShape>>;
 export const CHARTS = [
   {
     "name": "Sparkline",

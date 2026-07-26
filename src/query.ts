@@ -1,6 +1,6 @@
 import * as v from "valibot";
-import { isFunctionType, isSupportedProp, splitAlternatives, splitTopLevel } from "./charts";
-import type { ChartDefinition, ChartProp } from "./types";
+import { isSupportedProp, propShape } from "./charts";
+import type { ChartDefinition, ChartProp, ValueShape } from "./types";
 
 export const MAX_QUERY_BYTES = 15_000;
 
@@ -24,7 +24,7 @@ const cssColor = v.pipe(
   text,
   v.check(isSafeColor, "Colors cannot contain external URLs or unsupported CSS."),
 );
-const typeSchemaCache = new Map<string, v.GenericSchema>();
+const valueSchemaCache = new Map<string, v.GenericSchema>();
 
 export function createQuerySchema(
   chart: ChartDefinition,
@@ -32,11 +32,12 @@ export function createQuerySchema(
   const entries: v.ObjectEntries = {};
 
   for (const prop of chart.props.filter(isSupportedProp)) {
+    const shape = propShape(prop);
     const decoded = v.pipe(
       v.string(`Prop "${prop.name}" is required and must be provided once.`),
       v.rawTransform<string, unknown>((context) => {
         try {
-          return decodeValue(context.dataset.value, prop);
+          return decodeValue(context.dataset.value, prop.name, shape);
         } catch (error) {
           context.addIssue({
             message: error instanceof Error ? error.message : `Prop "${prop.name}" is invalid.`,
@@ -44,7 +45,7 @@ export function createQuerySchema(
           return context.NEVER;
         }
       }),
-      schemaForProp(prop),
+      schemaForProp(prop, shape),
     );
     entries[prop.name] = prop.required ? decoded : v.optional(decoded);
   }
@@ -58,7 +59,7 @@ export function createQuerySchema(
   ) as v.GenericSchema<QueryInput, ChartProps>;
 }
 
-function schemaForProp(prop: ChartProp): v.GenericSchema {
+function schemaForProp(prop: ChartProp, shape: ValueShape): v.GenericSchema {
   if (prop.name === "width" || prop.name === "height") {
     return v.pipe(
       finiteNumber,
@@ -68,115 +69,76 @@ function schemaForProp(prop: ChartProp): v.GenericSchema {
   }
   if (prop.name === "color") return cssColor;
   if (prop.name === "colors") return v.array(cssColor);
-  return schemaFromType(prop.type);
-}
-
-function schemaFromType(type: string): v.GenericSchema {
-  type = type.trim();
-  const cached = typeSchemaCache.get(type);
+  const cached = valueSchemaCache.get(prop.type);
   if (cached) return cached;
-
-  const alternatives = splitAlternatives(type);
-  let schema: v.GenericSchema;
-  if (alternatives.length > 1) {
-    schema = v.union(
-      alternatives.map(schemaFromSingleType) as [
-        v.GenericSchema,
-        v.GenericSchema,
-        ...v.GenericSchema[],
-      ],
-    );
-  } else {
-    schema = schemaFromSingleType(type);
-  }
-  typeSchemaCache.set(type, schema);
+  const schema = schemaFromShape(shape);
+  valueSchemaCache.set(prop.type, schema);
   return schema;
 }
 
-function schemaFromSingleType(type: string): v.GenericSchema {
-  type = type.trim();
-  if (type.startsWith("readonly ")) return schemaFromType(type.slice("readonly ".length));
-  if (!type || type === "unknown" || type.includes("per chart")) return v.unknown();
-  if (isFunctionType(type)) return v.never("Function props are not supported.");
-  if (type.endsWith("[]")) return v.array(schemaFromType(type.slice(0, -2)));
-  if (type.startsWith("Array<") && type.endsWith(">")) {
-    return v.array(schemaFromType(type.slice("Array<".length, -1)));
-  }
-  if (type.startsWith("[") && type.endsWith("]")) {
-    return v.strictTuple(
-      splitTopLevel(type.slice(1, -1), new Set([","])).map(schemaFromType) as [
-        v.GenericSchema,
-        ...v.GenericSchema[],
-      ],
-    );
-  }
-  if (type.startsWith("(") && type.endsWith(")")) {
-    return schemaFromType(type.slice(1, -1));
-  }
-  if (type.startsWith("{") && type.endsWith("}")) {
-    return objectSchema(type.slice(1, -1));
-  }
-  if (type.startsWith("Record<") && type.endsWith(">")) {
-    const parameters = splitTopLevel(type.slice("Record<".length, -1), new Set([","]));
-    return v.record(text, parameters[1] ? schemaFromType(parameters[1]) : v.unknown());
-  }
-  if (type.startsWith("Intl.")) return v.record(text, v.unknown());
-  if (type === "number") return finiteNumber;
-  if (type === "string" || type === "Date") return text;
-  if (type === "boolean") return v.boolean();
-  if (type === "null") return v.null_();
-  if (type === "true") return v.literal(true);
-  if (type === "false") return v.literal(false);
-  if (["min", "max", "lo", "hi", "start", "end", "TL", "TR", "BL", "BR"].includes(type)) {
-    return finiteNumber;
-  }
-  if (/^-?\d+(?:\.\d+)?$/.test(type)) return v.literal(Number(type));
-  if (/^".*"$/.test(type)) {
-    try {
-      return v.literal(JSON.parse(type) as string);
-    } catch {
-      return v.never();
+function schemaFromShape(shape: ValueShape): v.GenericSchema {
+  switch (shape.kind) {
+    case "number":
+      return finiteNumber;
+    case "string":
+      return text;
+    case "boolean":
+      return v.boolean();
+    case "null":
+      return v.null_();
+    case "literal":
+      return v.literal(shape.value);
+    case "array":
+      return v.array(schemaFromShape(shape.item));
+    case "tuple":
+      return v.strictTuple(
+        shape.items.map(schemaFromShape) as [v.GenericSchema, ...v.GenericSchema[]],
+      );
+    case "object": {
+      const entries: v.ObjectEntries = {};
+      for (const field of shape.fields) {
+        const schema = schemaFromShape(field.value);
+        entries[field.name] = field.optional ? v.optional(schema) : schema;
+      }
+      return v.strictObject(entries);
     }
+    case "record":
+      return v.record(text, schemaFromShape(shape.value));
+    case "union":
+      return v.union(
+        shape.options.map(schemaFromShape) as [
+          v.GenericSchema,
+          v.GenericSchema,
+          ...v.GenericSchema[],
+        ],
+      );
+    case "never":
+      return v.never("Function props are not supported.");
+    case "unknown":
+      return v.unknown();
   }
-  return v.unknown();
 }
 
-function objectSchema(fieldsSource: string): v.GenericSchema {
-  const entries: v.ObjectEntries = {};
-  for (const field of splitTopLevel(fieldsSource, new Set([",", ";"]))) {
-    const match = /^([A-Za-z_$][\w$]*)(\?)?(?:\s*:\s*(.+))?$/.exec(field.trim());
-    if (!match) continue;
-    const [, name, optional, nestedType] = match;
-    const schema = nestedType ? schemaFromType(nestedType) : v.unknown();
-    entries[name] = optional ? v.optional(schema) : schema;
-  }
-  return v.strictObject(entries);
-}
-
-function decodeValue(raw: string, prop: ChartProp): unknown {
-  const type = prop.type.trim();
+function decodeValue(raw: string, propName: string, shape: ValueShape): unknown {
   const trimmed = raw.trimStart();
-  const arrayExpected = splitAlternatives(type).every((alternative) =>
-    isArrayType(alternative.trim()),
-  );
-
-  if (arrayExpected && !trimmed.startsWith("[")) {
-    if (type.includes("{") || !raw.includes(",")) {
-      throw new Error(`Prop "${prop.name}" must be a JSON array.`);
+  if (expectsArray(shape) && !trimmed.startsWith("[")) {
+    if (containsObject(shape) || !raw.includes(",")) {
+      throw new Error(`Prop "${propName}" must be a JSON array.`);
     }
     return raw.split(",").map((part) => parsePrimitive(part.trim()));
   }
-
   if (trimmed.startsWith("[") || trimmed.startsWith("{") || trimmed.startsWith('"')) {
     try {
       return JSON.parse(raw);
     } catch {
-      throw new Error(`Prop "${prop.name}" contains invalid JSON.`);
+      throw new Error(`Prop "${propName}" contains invalid JSON.`);
     }
   }
-  if (allowsBoolean(type) && (raw === "true" || raw === "false")) return raw === "true";
-  if (type.includes("null") && raw === "null") return null;
-  if (allowsNumber(type) && isJsonNumber(raw)) return Number(raw);
+  if (accepts(shape, "boolean") && (raw === "true" || raw === "false")) {
+    return raw === "true";
+  }
+  if (accepts(shape, "null") && raw === "null") return null;
+  if (accepts(shape, "number") && isJsonNumber(raw)) return Number(raw);
   return raw;
 }
 
@@ -188,16 +150,22 @@ function parsePrimitive(raw: string): unknown {
   return raw;
 }
 
-function isArrayType(type: string): boolean {
-  return type.startsWith("[") || type.endsWith("[]") || type.startsWith("Array<");
+function expectsArray(shape: ValueShape): boolean {
+  if (shape.kind === "union") return shape.options.every(expectsArray);
+  return shape.kind === "array" || shape.kind === "tuple";
 }
 
-function allowsBoolean(type: string): boolean {
-  return /\bboolean\b|(?:^|\|)\s*(?:true|false)\s*(?:\||$)/.test(type);
+function containsObject(shape: ValueShape): boolean {
+  if (shape.kind === "union") return shape.options.some(containsObject);
+  if (shape.kind === "array") return containsObject(shape.item);
+  if (shape.kind === "tuple") return shape.items.some(containsObject);
+  return shape.kind === "object" || shape.kind === "record";
 }
 
-function allowsNumber(type: string): boolean {
-  return /\bnumber\b|(?:^|\|)\s*-?\d+(?:\.\d+)?\s*(?:\||$)/.test(type);
+function accepts(shape: ValueShape, kind: "number" | "boolean" | "null"): boolean {
+  if (shape.kind === "union") return shape.options.some((option) => accepts(option, kind));
+  if (shape.kind === kind) return true;
+  return shape.kind === "literal" && kind !== "null" && typeof shape.value === kind;
 }
 
 function isJsonNumber(value: string): boolean {

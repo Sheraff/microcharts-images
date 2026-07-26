@@ -87,7 +87,7 @@ describe("SVG API", () => {
     ["XML control characters", "/HeatCell?value=1&title=%00", 400],
     ["unsafe colors", "/HeatCell?value=1&color=url(https%3A%2F%2Fexample.com)", 400],
     ["HTML-rooted charts", "/Delta?value=0.1", 406],
-    ["unsupported formats", "/HeatCell.png?value=1", 406],
+    ["unsupported formats", "/HeatCell.png?value=1", 404],
     ["unknown charts", "/NotAChart?value=1", 404],
   ])("rejects %s", async (_case, path, status) => {
     const response = await request(path, 5);
@@ -134,10 +134,23 @@ describe("SVG API", () => {
 describe("discovery endpoints", () => {
   it("describes the service", async () => {
     const response = await request("/", 7);
-    const body = (await response.json()) as Record<string, unknown>;
+    const body = await response.text();
     expect(response.status).toBe(200);
-    expect(body.version).toBe(LIBRARY_VERSION);
-    expect(body.supportedCharts).toBe(104);
+    expect(response.headers.get("content-type")).toBe("text/html; charset=utf-8");
+    expect(body).toContain("<h1>Microcharts Images</h1>");
+    expect(body).toContain("104 SVG charts");
+    expect(body).toContain(LIBRARY_VERSION);
+    expect(body).toContain("/HeatCell?value=42&amp;domain=0,100&amp;title=Load");
+    expect(body).toContain('href="/catalog.json"');
+
+    const examplePaths = [...body.matchAll(/<img src="([^"]+)"/g)].map((match) =>
+      match[1].replaceAll("&amp;", "&"),
+    );
+    expect(examplePaths).toHaveLength(5);
+    const examples = await Promise.all(
+      examplePaths.map((path, index) => request(path, 200 + index)),
+    );
+    expect(examples.every((example) => example.status === 200)).toBe(true);
   });
 
   it("publishes the catalog", async () => {

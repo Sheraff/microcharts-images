@@ -2,7 +2,14 @@ import { readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { ChartDefinition, ChartProp } from "../src/types.ts";
+import type { ChartDefinition, ValueShape } from "../src/types.ts";
+
+interface SnapshotProp {
+  name: string;
+  type: string;
+  required: boolean;
+  interactive?: boolean;
+}
 
 interface CatalogChart {
   name: string;
@@ -10,12 +17,12 @@ interface CatalogChart {
   status: "stable";
   staticImport: string;
   dataShape: string;
-  props: ChartProp[];
+  props: SnapshotProp[];
   sample?: Record<string, unknown>;
 }
 
 interface CatalogSnapshot {
-  sharedProps: ChartProp[];
+  sharedProps: SnapshotProp[];
   charts: CatalogChart[];
 }
 
@@ -67,6 +74,94 @@ async function propertiesFromDeclaration(
   return [...inherited, ...own];
 }
 
+function valueShape(source: string): ValueShape {
+  source = source.trim();
+  const alternatives = splitTopLevel(source, new Set(["|"]));
+  if (alternatives.length > 1) {
+    const options = alternatives.map(valueShape).filter((option) => option.kind !== "never");
+    if (options.length === 0) return { kind: "never" };
+    if (options.length === 1) return options[0];
+    return { kind: "union", options };
+  }
+  if (source.startsWith("readonly ")) return valueShape(source.slice("readonly ".length));
+  if (!source || source === "unknown" || source.includes("per chart")) return { kind: "unknown" };
+  if (source.includes("=>") || source === "fn") return { kind: "never" };
+  if (source.endsWith("[]")) {
+    return { kind: "array", item: valueShape(source.slice(0, -2)) };
+  }
+  if (source.startsWith("Array<") && source.endsWith(">")) {
+    return { kind: "array", item: valueShape(source.slice("Array<".length, -1)) };
+  }
+  if (source.startsWith("[") && source.endsWith("]")) {
+    return {
+      kind: "tuple",
+      items: splitTopLevel(source.slice(1, -1), new Set([","])).map(valueShape),
+    };
+  }
+  if (source.startsWith("(") && source.endsWith(")")) {
+    return valueShape(source.slice(1, -1));
+  }
+  if (source.startsWith("{") && source.endsWith("}")) {
+    return {
+      kind: "object",
+      fields: splitTopLevel(source.slice(1, -1), new Set([",", ";"]))
+        .map((field) => {
+          const match = /^([A-Za-z_$][\w$]*)(\?)?(?:\s*:\s*(.+))?$/.exec(field.trim());
+          if (!match) return undefined;
+          const [, name, optional, nestedType] = match;
+          return {
+            name,
+            optional: optional === "?",
+            value: nestedType ? valueShape(nestedType) : { kind: "unknown" as const },
+          };
+        })
+        .filter((field) => field !== undefined),
+    };
+  }
+  if (source.startsWith("Record<") && source.endsWith(">")) {
+    const parameters = splitTopLevel(source.slice("Record<".length, -1), new Set([","]));
+    return { kind: "record", value: parameters[1] ? valueShape(parameters[1]) : { kind: "unknown" } };
+  }
+  if (source.startsWith("Intl.")) return { kind: "record", value: { kind: "unknown" } };
+  if (source === "number") return { kind: "number" };
+  if (source === "string" || source === "Date") return { kind: "string" };
+  if (source === "boolean") return { kind: "boolean" };
+  if (source === "null") return { kind: "null" };
+  if (source === "true") return { kind: "literal", value: true };
+  if (source === "false") return { kind: "literal", value: false };
+  if (["min", "max", "lo", "hi", "start", "end", "TL", "TR", "BL", "BR"].includes(source)) {
+    return { kind: "number" };
+  }
+  if (/^-?\d+(?:\.\d+)?$/.test(source)) {
+    return { kind: "literal", value: Number(source) };
+  }
+  if (/^".*"$/.test(source)) {
+    try {
+      return { kind: "literal", value: JSON.parse(source) as string };
+    } catch {
+      return { kind: "never" };
+    }
+  }
+  return { kind: "unknown" };
+}
+
+function splitTopLevel(source: string, separators: ReadonlySet<string>): string[] {
+  const parts: string[] = [];
+  let depth = 0;
+  let start = 0;
+  for (let index = 0; index < source.length; index++) {
+    const character = source[index];
+    if ("([{<".includes(character)) depth++;
+    if (")]}>".includes(character)) depth--;
+    if (separators.has(character) && depth === 0) {
+      parts.push(source.slice(start, index).trim());
+      start = index + 1;
+    }
+  }
+  parts.push(source.slice(start).trim());
+  return parts.filter(Boolean);
+}
+
 const definitions: ChartDefinition[] = [];
 for (const chart of stableCharts) {
   const declaredProps = await propertiesFromDeclaration(
@@ -95,6 +190,11 @@ for (const chart of stableCharts) {
 }
 
 const svgCharts = stableCharts.filter((chart) => !htmlCharts.has(chart.slug));
+const valueShapes = Object.fromEntries(
+  [...new Set(definitions.flatMap((chart) => chart.props.map((prop) => prop.type)))]
+    .sort()
+    .map((type) => [type, valueShape(type)]),
+);
 const registry = [
   ...svgCharts.map(
     (chart) => `import { ${chart.name} } from ${JSON.stringify(chart.staticImport)};`,
@@ -107,9 +207,10 @@ const registry = [
 ].join("\n");
 
 const metadata = [
-  'import type { ChartDefinition } from "./types";',
+  'import type { ChartDefinition, ValueShape } from "./types";',
   "",
   `export const LIBRARY_VERSION = ${JSON.stringify(reactPackage.version)};`,
+  `export const VALUE_SHAPES = ${JSON.stringify(valueShapes, null, 2)} as const satisfies Readonly<Record<string, ValueShape>>;`,
   `export const CHARTS = ${JSON.stringify(definitions, null, 2)} as const satisfies readonly ChartDefinition[];`,
   "",
 ].join("\n");
