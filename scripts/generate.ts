@@ -96,14 +96,13 @@ for (const chart of stableCharts) {
 
 const svgCharts = stableCharts.filter((chart) => !htmlCharts.has(chart.slug));
 const registry = [
-  'import type { ComponentType } from "react";',
   ...svgCharts.map(
     (chart) => `import { ${chart.name} } from ${JSON.stringify(chart.staticImport)};`,
   ),
   "",
   "export const COMPONENTS = {",
   ...svgCharts.map((chart) => `  ${JSON.stringify(chart.slug)}: ${chart.name},`),
-  `} as unknown as Record<string, ComponentType<Record<string, unknown>>>;`,
+  "};",
   "",
 ].join("\n");
 
@@ -115,11 +114,9 @@ const metadata = [
   "",
 ].join("\n");
 
-const styles = await readFile(join(reactDist, "styles.css"), "utf8");
 await Promise.all([
   writeFile(join(root, "src", "registry.generated.ts"), registry),
   writeFile(join(root, "src", "catalog.generated.ts"), metadata),
-  writeFile(join(root, "src", "styles.generated.css"), styles),
 ]);
 
 console.log(`Generated ${definitions.length} chart definitions (${svgCharts.length} SVG charts).`);

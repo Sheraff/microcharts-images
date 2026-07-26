@@ -1,4 +1,3 @@
-import type { ComponentType } from "react";
 import { Sparkline } from "@microcharts/react/sparkline";
 import { SparkBar } from "@microcharts/react/sparkbar";
 import { Bullet } from "@microcharts/react/bullet";
@@ -209,4 +208,4 @@ export const COMPONENTS = {
   "spread-band": SpreadBand,
   "bias-strip": BiasStrip,
   "percentile-trace": PercentileTrace,
-} as unknown as Record<string, ComponentType<Record<string, unknown>>>;
+};

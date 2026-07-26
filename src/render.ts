@@ -1,7 +1,7 @@
-import { createElement } from "react";
+import STYLES from "@microcharts/react/styles.css" with { type: "text" };
+import { createElement, type ElementType } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { COMPONENTS } from "./registry.generated";
-import STYLES from "./styles.generated.css" with { type: "text" };
 import { HttpError } from "./http-error";
 import type { ChartDefinition } from "./types";
 
@@ -18,10 +18,10 @@ export function renderChart(
   chart: ChartDefinition,
   props: Record<string, unknown>,
 ): RenderResult {
-  const component = COMPONENTS[chart.slug];
-  if (!component) {
+  if (!isComponentSlug(chart.slug)) {
     throw new HttpError(406, `${chart.name} has an HTML root and is not available as SVG.`);
   }
+  const component: ElementType = COMPONENTS[chart.slug];
 
   let markup: string;
   try {
@@ -62,6 +62,10 @@ export function renderChart(
   }
 
   return { svg: markup, ...size };
+}
+
+function isComponentSlug(slug: string): slug is keyof typeof COMPONENTS {
+  return Object.hasOwn(COMPONENTS, slug);
 }
 
 function extractSize(rootTag: string): { width: number; height: number } {

@@ -1,12 +1,12 @@
 import { DOMParser } from "@xmldom/xmldom";
-import { SELF } from "cloudflare:test";
+import { exports } from "cloudflare:workers";
 import { describe, expect, it } from "vitest";
 import { CHARTS, LIBRARY_VERSION } from "../src/catalog.generated";
 
 const BASE_URL = "https://images.example.test";
 
 function request(path: string, index = 1, init?: RequestInit): Promise<Response> {
-  return SELF.fetch(`${BASE_URL}${path}`, {
+  return exports.default.fetch(`${BASE_URL}${path}`, {
     ...init,
     headers: {
       "cf-connecting-ip": `192.0.2.${index}`,
