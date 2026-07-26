@@ -38,7 +38,10 @@ export function renderChart(
     markup = markup.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
   }
   const rootEnd = markup.indexOf(">") + 1;
-  const styles = STYLES.replaceAll("]]>", "]]]]><![CDATA[>");
+  const styles = `:root{color-scheme:light dark}${STYLES}`.replaceAll(
+    "]]>",
+    "]]]]><![CDATA[>",
+  );
   markup = `${markup.slice(0, rootEnd)}<style><![CDATA[${styles}]]></style>${markup.slice(rootEnd)}`;
 
   const bytes = new TextEncoder().encode(markup).byteLength;

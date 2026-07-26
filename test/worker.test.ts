@@ -37,6 +37,8 @@ describe("SVG API", () => {
     expect(svg).toMatch(/^<svg\b/);
     expect(svg).toContain('xmlns="http://www.w3.org/2000/svg"');
     expect(svg).toContain("<style>");
+    expect(svg).toContain(":root{color-scheme:light dark}");
+    expect(svg).toContain("@media(prefers-color-scheme:dark)");
     expect(svg).toContain('syntax: "<number>"');
     expect(svg).toContain("<title>Load</title>");
     expect(() =>
@@ -140,13 +142,15 @@ describe("discovery endpoints", () => {
     expect(body).toContain("<h1>Microcharts Images</h1>");
     expect(body).toContain("104 SVG charts");
     expect(body).toContain(LIBRARY_VERSION);
-    expect(body).toContain("/HeatCell?value=42&amp;domain=0,100&amp;title=Load");
+    expect(body).toContain(":root{color-scheme:light dark");
+    expect(body).toContain("@media(prefers-color-scheme:dark)");
+    expect(body).toContain("/HeatCell?value=42&amp;domain=%5B0%2C100%5D&amp;title=Load");
     expect(body).toContain('href="/catalog.json"');
 
     const examplePaths = [...body.matchAll(/<img src="([^"]+)"/g)].map((match) =>
       match[1].replaceAll("&amp;", "&"),
     );
-    expect(examplePaths).toHaveLength(5);
+    expect(examplePaths).toHaveLength(12);
     const examples = await Promise.all(
       examplePaths.map((path, index) => request(path, 200 + index)),
     );

@@ -11,6 +11,25 @@ type AppEnv = { Bindings: Env };
 
 const app = new Hono<AppEnv>();
 const ALLOWED_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
+const HOMEPAGE_CHARTS = [
+  "sparkline",
+  "bullet",
+  "activity-grid",
+  "heat-cell",
+  "progress",
+  "rug-strip",
+  "micro-donut",
+  "waterfall",
+  "calendar-strip",
+  "moon-phase",
+  "city-skyline",
+  "constellation",
+] as const;
+const HOMEPAGE_EXAMPLES = HOMEPAGE_CHARTS.map((slug) => {
+  const chart = charts.find((candidate) => candidate.slug === slug);
+  if (!chart?.sample) throw new Error(`Homepage chart ${slug} has no catalog sample.`);
+  return [chart.name, samplePath(chart.name, chart.sample)] as const;
+});
 const querySizeLimit: MiddlewareHandler<AppEnv> = async (context, next) => {
   const search = new URL(context.req.url).search;
   if (new TextEncoder().encode(search).byteLength > MAX_QUERY_BYTES) {
@@ -130,17 +149,7 @@ function etagMatches(header: string | undefined, etag: string): boolean {
 }
 
 function homepageResponse(request: Request): Response {
-  const examples = [
-    ["Heat cell", "/HeatCell?value=42&domain=0,100&title=Load"],
-    ["Sparkline", "/Sparkline?data=3,5,4,8,7,10&fill=true&title=Revenue"],
-    ["Progress", "/Progress?value=68&max=100&label=percent&title=Upload"],
-    ["Trend arrow", "/TrendArrow?value=-0.08&showValue=true&title=Latency"],
-    [
-      "Micro donut",
-      "/MicroDonut?data=%5B%7B%22label%22%3A%22Used%22%2C%22value%22%3A72%7D%2C%7B%22label%22%3A%22Free%22%2C%22value%22%3A28%7D%5D&title=Storage",
-    ],
-  ] as const;
-  const cards = examples
+  const cards = HOMEPAGE_EXAMPLES
     .map(([name, path]) => {
       const escapedPath = escapeHtml(path);
       return `<figure><a href="${escapedPath}"><img src="${escapedPath}" alt="${name} example"></a><figcaption><strong>${name}</strong><code>${escapedPath}</code></figcaption></figure>`;
@@ -154,7 +163,7 @@ function homepageResponse(request: Request): Response {
 <link rel="icon" href="data:,">
 <title>Microcharts Images</title>
 <style>
-body{max-width:70rem;margin:3rem auto;padding:0 1.25rem;font:16px/1.5 system-ui,sans-serif;color:#1a1917;background:#faf9f6}h1{margin-bottom:.25rem;font-size:clamp(2rem,7vw,4rem);letter-spacing:-.04em}header p{max-width:42rem;margin-top:0;color:#555}a{color:inherit}.examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin:2.5rem 0}figure{margin:0;padding:1rem;border:1px solid #d8d5cf;border-radius:.35rem;background:white}figure a{display:grid;place-items:center;min-height:8rem}img{display:block;width:100%;height:7rem;object-fit:contain}figcaption{display:grid;gap:.4rem;margin-top:1rem}code{overflow-wrap:anywhere;font:12px/1.4 ui-monospace,monospace;color:#555}footer{padding-top:1rem;border-top:1px solid #d8d5cf;color:#555}
+:root{color-scheme:light dark;--page:#faf9f6;--panel:#fff;--ink:#1a1917;--muted:#555;--edge:#d8d5cf}@media(prefers-color-scheme:dark){:root{--page:#171715;--panel:#22211f;--ink:#eae9e6;--muted:#aaa7a1;--edge:#45423d}}body{max-width:70rem;margin:3rem auto;padding:0 1.25rem;font:16px/1.5 system-ui,sans-serif;color:var(--ink);background:var(--page)}h1{margin-bottom:.25rem;font-size:clamp(2rem,7vw,4rem);letter-spacing:-.04em}header p{max-width:42rem;margin-top:0;color:var(--muted)}a{color:inherit}.examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin:2.5rem 0}figure{margin:0;padding:1rem;border:1px solid var(--edge);border-radius:.35rem;background:var(--panel)}figure a{display:grid;place-items:center;min-height:8rem}img{display:block;width:100%;height:7rem;object-fit:contain}figcaption{display:grid;gap:.4rem;margin-top:1rem}code{overflow-wrap:anywhere;font:12px/1.4 ui-monospace,monospace;color:var(--muted)}footer{padding-top:1rem;border-top:1px solid var(--edge);color:var(--muted)}
 </style>
 </head>
 <body>
@@ -171,6 +180,15 @@ body{max-width:70rem;margin:3rem auto;padding:0 1.25rem;font:16px/1.5 system-ui,
       "X-Content-Type-Options": "nosniff",
     },
   });
+}
+
+function samplePath(name: string, sample: Readonly<Record<string, unknown>>): string {
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(sample)) {
+    if (value === undefined) continue;
+    query.set(key, typeof value === "string" ? value : JSON.stringify(value));
+  }
+  return `/${name}?${query}`;
 }
 
 function escapeHtml(value: string): string {
