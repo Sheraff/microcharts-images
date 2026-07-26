@@ -2,12 +2,35 @@ import { readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import type { ChartDefinition, ChartProp } from "../src/types.ts";
+
+interface CatalogChart {
+  name: string;
+  slug: string;
+  status: "stable";
+  staticImport: string;
+  dataShape: string;
+  props: ChartProp[];
+  sample?: Record<string, unknown>;
+}
+
+interface CatalogSnapshot {
+  sharedProps: ChartProp[];
+  charts: CatalogChart[];
+}
+
+interface DeclaredProp {
+  name: string;
+  optional: boolean;
+}
 
 const require = createRequire(import.meta.url);
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const catalog = JSON.parse(await readFile(join(root, "scripts", "catalog.snapshot.json"), "utf8"));
+const catalog = JSON.parse(
+  await readFile(join(root, "scripts", "catalog.snapshot.json"), "utf8"),
+) as CatalogSnapshot;
 const reactPackagePath = require.resolve("@microcharts/react/package.json");
-const reactPackage = JSON.parse(await readFile(reactPackagePath, "utf8"));
+const reactPackage = JSON.parse(await readFile(reactPackagePath, "utf8")) as { version: string };
 const reactDist = join(dirname(reactPackagePath), "dist");
 const htmlCharts = new Set(["delta", "token-confidence"]);
 const requiredOverrides = new Map([["calendar-strip", new Set(["end"])]]);
@@ -15,7 +38,10 @@ const requiredOverrides = new Map([["calendar-strip", new Set(["end"])]]);
 const stableCharts = catalog.charts.filter((chart) => chart.status === "stable");
 const sharedProps = new Map(catalog.sharedProps.map((prop) => [prop.name, prop]));
 
-async function propertiesFromDeclaration(path, interfaceName) {
+async function propertiesFromDeclaration(
+  path: string,
+  interfaceName: string,
+): Promise<DeclaredProp[]> {
   const source = await readFile(path, "utf8");
   const start = source.indexOf(`interface ${interfaceName}`);
   if (start === -1) {
@@ -41,7 +67,7 @@ async function propertiesFromDeclaration(path, interfaceName) {
   return [...inherited, ...own];
 }
 
-const definitions = [];
+const definitions: ChartDefinition[] = [];
 for (const chart of stableCharts) {
   const declaredProps = await propertiesFromDeclaration(
     join(reactDist, "charts", chart.slug, "index.d.ts"),
@@ -90,12 +116,10 @@ const metadata = [
 ].join("\n");
 
 const styles = await readFile(join(reactDist, "styles.css"), "utf8");
-const styleModule = `export const STYLES = ${JSON.stringify(styles)};\n`;
-
 await Promise.all([
   writeFile(join(root, "src", "registry.generated.ts"), registry),
   writeFile(join(root, "src", "catalog.generated.ts"), metadata),
-  writeFile(join(root, "src", "styles.generated.ts"), styleModule),
+  writeFile(join(root, "src", "styles.generated.css"), styles),
 ]);
 
 console.log(`Generated ${definitions.length} chart definitions (${svgCharts.length} SVG charts).`);

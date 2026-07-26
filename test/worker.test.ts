@@ -1,3 +1,4 @@
+import { DOMParser } from "@xmldom/xmldom";
 import { SELF } from "cloudflare:test";
 import { describe, expect, it } from "vitest";
 import { CHARTS, LIBRARY_VERSION } from "../src/catalog.generated";
@@ -36,7 +37,15 @@ describe("SVG API", () => {
     expect(svg).toMatch(/^<svg\b/);
     expect(svg).toContain('xmlns="http://www.w3.org/2000/svg"');
     expect(svg).toContain("<style>");
+    expect(svg).toContain('syntax: "<number>"');
     expect(svg).toContain("<title>Load</title>");
+    expect(() =>
+      new DOMParser({
+        onError: (level, message) => {
+          throw new Error(`${level}: ${message}`);
+        },
+      }).parseFromString(svg, "image/svg+xml"),
+    ).not.toThrow();
   });
 
   it("accepts slugs and an explicit .svg extension", async () => {
@@ -91,7 +100,7 @@ describe("SVG API", () => {
     const response = await request("/Sparkline?data=1,2,3&style=%7B%7D", 6);
     expect(response.status).toBe(400);
     const problem = (await response.json()) as { detail: string };
-    expect(problem.detail).toContain('Prop "style" is not available');
+    expect(problem.detail).toContain('Invalid prop "style"');
   });
 
   it("rejects unsafe color arrays", async () => {

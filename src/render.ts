@@ -1,7 +1,7 @@
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { COMPONENTS } from "./registry.generated";
-import { STYLES } from "./styles.generated";
+import STYLES from "./styles.generated.css" with { type: "text" };
 import { HttpError } from "./http-error";
 import type { ChartDefinition } from "./types";
 
@@ -38,7 +38,8 @@ export function renderChart(
     markup = markup.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
   }
   const rootEnd = markup.indexOf(">") + 1;
-  markup = `${markup.slice(0, rootEnd)}<style>${STYLES}</style>${markup.slice(rootEnd)}`;
+  const styles = STYLES.replaceAll("]]>", "]]]]><![CDATA[>");
+  markup = `${markup.slice(0, rootEnd)}<style><![CDATA[${styles}]]></style>${markup.slice(rootEnd)}`;
 
   const bytes = new TextEncoder().encode(markup).byteLength;
   if (bytes > MAX_OUTPUT_BYTES) {
